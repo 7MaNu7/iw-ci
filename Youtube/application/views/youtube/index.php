@@ -8,15 +8,15 @@
 <p>Mira cuantos hay:</p>	
 <p><?php echo $cuantos; ?></p>
 
-<ul>
+<div>
 <?php 
 	foreach($videos as $video) { ?>
 
-			<li> <?php  echo($video->title); ?> </li>
+			<div> <?php  echo($video->title); ?> </div>
 	<?php }
 
 ?>
-</ul>
+</div>
 	
 </main>
 
