@@ -12,3 +12,26 @@
 	margin-right: auto;
 	margin-left: auto;
 }
+
+/* VIdeos */
+
+.videospopulares {
+	 margin-top: 25px;
+   margin-left: 30px;
+}
+
+.bloquevideoinicio {
+	width: 300px;
+	float: left;
+	margin-right: 30px;
+}
+
+.videoinicio {
+	width: "640";
+	height: "360";
+}
+
+h5 {
+	font-weight: bold;
+	margin-bottom: 10px;
+}

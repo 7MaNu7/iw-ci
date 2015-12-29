@@ -8,28 +8,20 @@
 <main class="container">
 <h2><?php echo $titulo; ?></h2>
 
-<p>Mira cuantos hay:</p>	
-<p><?php echo $cuantos; ?></p>
-
-<div>
-<?php 
-	foreach($videos as $video) { ?>
-
-		<div> <?php  echo($video->title); ?> </div>
-	
-		<?php  echo( substr($video->url,3,0) );?>
-		
-		<iframe width="640" height="360" 
-						src="https://www.youtube.com/embed/?feature=player_embedded" 
-						frameborder="0" allowfullscreen>
-		</iframe>
-	
-	
-	<?php }
-?>
+<div class="videospopulares">
+	<?php 
+		foreach($videos as $video) { ?>
+			
+			<div class="bloquevideoinicio">
+				<h5> <?php  echo($video->title); ?> </h5>
+				<iframe class="videoinicio"	
+								src="https://www.youtube.com/embed/<?php echo substr($video->url, 32, 30); ?>?feature=player_embedded"
+								frameborder="0" allowfullscreen>
+				</iframe>	
+			</div>
+		<?php }
+	?>
 </div>
-	
-	<iframe width="640" height="360" src="https://www.youtube.com/embed/EtLjq3Ocs6w?feature=player_embedded" frameborder="0" allowfullscreen></iframe>
 
 </main>
 
