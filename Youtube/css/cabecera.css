@@ -4,7 +4,6 @@ body {
 }
 
 ul {
-	height: 50px;
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
@@ -12,22 +11,7 @@ ul {
 	background-color: white;
 }
 
-li {
-		float: left;
-}
-
-li a {
-		display: block;
-		color: black;
-		text-align: center;
-		padding: 14px 16px;
-		text-decoration: none;
-}
-
 /* Change the link color to #111 (black) on hover */
-li a:hover {
-		background-color: #4CAF50;
-}
 
 .active {
 		background-color: #4CAF50;
@@ -36,8 +20,8 @@ li a:hover {
 .iconocab {
 	  padding: 0px;
     margin: 0px;
-    margin-left: 20px;
-    margin-top: 2px;
+    margin-left: 135px;
+    margin-top: -1px;
     font-size: 30px;
 }
 
@@ -46,8 +30,83 @@ li a:hover {
 .searchcab {
 	width: 600px;
 	margin-left: 350px;
-	margin-top: 7px;
+	margin-top: 8px;
 }
 
 
+/* Hamburguer y su menu */
 
+.hamburger {
+		color: #B8B8B8;
+    margin-left: 30px;
+    margin-top: 4px;
+    background: none;
+    position: absolute;
+    top: 0;
+    line-height: 45px;
+    padding: 0px 15px 0px 15px;
+    border: 0;
+    font-size: 1.4em;
+    font-weight: bold;
+    cursor: pointer;
+    outline: none;
+    z-index: 10000000000000;
+}
+
+.menu {
+	z-index:1000000; 
+	font-size:0.8em; 
+	width:100%; 
+	background:#131313;  
+	position:absolute; 
+	text-align:center;
+	width: 200px;
+}
+
+.menu ul {
+	margin: 0; 
+	padding: 0; 
+	padding: 15px !important;
+	list-style-type: none; 
+	list-style-image: none;
+	border-top: 1px solid #D8D7D7;
+	box-shadow: 5px 10px 15px 5px rgba(0,0,0,.1);
+}
+
+.menu li {	
+	display: block;
+	height: 35px;
+	padding-top: 8px !Important;
+	padding-bottom: 15px !important;
+	color: #222;
+	font-size: 13px;
+}
+
+.menu li:hover{
+	background-color: #636363;
+	color: white;
+}
+
+.menu ul li a { 
+	text-decoration:none;  
+}
+
+.menu ul li a:hover { 
+	text-decoration:none;
+	color: white !important;
+}
+
+.menu a{
+	text-decoration:none;
+}
+
+.menu a:hover{
+	text-decoration:none;
+}
+
+.glyphicon-home{
+  color:white; 
+  font-size:1.5em; 
+  margin-top:5px; 
+  margin:0 auto;
+}

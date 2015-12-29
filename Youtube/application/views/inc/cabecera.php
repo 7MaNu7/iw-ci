@@ -5,6 +5,9 @@
 	
 	<!-- Bootstrap -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<!-- JQUEY -->
+	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+	<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<!-- CSS -->
@@ -16,24 +19,36 @@
 	
 <body>
 	
-	<ul>
-		<li class="iconocab"> Youtube </li>
-		
-		<div class="input-group editaretiqueta searchcab">
-			<input type="text" id="modif-tag" class="form-control" name="" placeholder="">
-			<span class="input-group-btn boton-input">
-				<a title="Modificar etiqueta" href="#" onclick='' class="btn btn-default" role="button">
-					<span class="glyphicon glyphicon-search"></span>
-				</a>
-			</span>
-		</div>
-		
-		
-		<!--<form class="navbar-form navbar-left search-term" role="search">
-			<div class="form-group">
-				<input type="text" class="form-control" placeholder="Search">
+	<nav class="navbar navbar-default">
+    <div class="navbar-header">			
+			<!-- Icono hamburger menu -->
+			<div>
+				<button class="hamburger">&#9776;</button>
 			</div>
-			<button type="submit" class="btn btn-default">Submit</button>
-		</form>-->
-		
-	</ul>
+			<!-- Resto barra -->
+			<ul>
+				<!-- Nombre web -->
+				<a class="navbar-brand" href="#"><li class="iconocab"> Youtube </li></a>
+				<!-- Search -->
+				<div class="input-group searchcab">
+					<input type="text"class="form-control" name="" placeholder="Buscar...">
+					<span class="input-group-btn boton-input">
+						<a href="#" onclick='' class="btn btn-default" role="button">
+							<span class="glyphicon glyphicon-search"></span>
+						</a>
+					</span>
+				</div>				
+			</ul>
+			<!-- Menú que se abre con hamburger -->			
+			<div class="menu">
+				<ul>
+					<li>Página principal</li>
+					<li>Iniciar sesión</li>
+					<li>Mi canal</li>
+					<li>Subir video</li>
+				</ul>
+			</div>
+    </div>   
+</nav>
+	
+<script src="http://localhost/IW-CI/Youtube/js/cabecera.js"></script>
