@@ -17,15 +17,20 @@
 
 		<div> <?php  echo($video->title); ?> </div>
 	
-		<?php  echo($video->url); ?>	
-	
-		<iframe width="370" height="270" data="<?php  echo($video->url);?>" frameborder="0" allowfullscreen> 
+		<?php  echo( substr($video->url,3,0) );?>
+		
+		<iframe width="640" height="360" 
+						src="https://www.youtube.com/embed/?feature=player_embedded" 
+						frameborder="0" allowfullscreen>
 		</iframe>
+	
 	
 	<?php }
 ?>
 </div>
 	
+	<iframe width="640" height="360" src="https://www.youtube.com/embed/EtLjq3Ocs6w?feature=player_embedded" frameborder="0" allowfullscreen></iframe>
+
 </main>
 
 <?php 
