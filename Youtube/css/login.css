@@ -1,3 +1,9 @@
+.container {
+	min-height: 500px;
+}
+
+/* Formulario login */
+
 .divcamposlogin {
 	width: 500px;
 	margin-left: 250px;
@@ -9,12 +15,16 @@
 	margin-bottom: 15px;
 }
 
-.container {
-	min-height: 500px;
-}
-
 .botonlogin {
 	width: 100%;
 	border-radius: 3px;
 	margin-top: 10px;
+}
+
+/* Mensajes de error */
+
+.errorlogin {
+	width: 500px;
+	margin-left: 250px;
+	margin-top: 15px;
 }

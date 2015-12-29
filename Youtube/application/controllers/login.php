@@ -15,7 +15,6 @@ class Login extends CI_Controller {
 		$data['usuarios']=$this->Login_m->get_all();
 		$data['cuantos']=$this->Login_m->count_all();
 		$this->load->view('youtube/login', $data);
-		$data['existeusuario']=$this->Login_m->get_one($_GET['email'], $_GET['password']);
 	}
 	
 }
