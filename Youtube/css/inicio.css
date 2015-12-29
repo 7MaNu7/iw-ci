@@ -3,6 +3,10 @@
     width: 1270px;
 }
 
+.navbar-header {
+    float: inherit !important;
+}
+
 .container {
 	background-color: white;
 	padding-right: 30px;
