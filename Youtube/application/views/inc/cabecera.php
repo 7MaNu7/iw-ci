@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<title>Youtube</title>
 	<meta charset="utf-8">
 	
 	<!-- Bootstrap -->
@@ -11,9 +12,9 @@
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<!-- CSS -->
-	<link type="text/css" rel="stylesheet" href="http://localhost/IW-CI/Youtube/css/cabecera.css" />
+	<link type="text/css" rel="stylesheet" href="../css/cabecera.css" />
+	<link type="text/css" rel="stylesheet" href="../css/inicio.css" />
 	
-	<title>Youtube</title>
 </head>
 	
 	
@@ -51,4 +52,5 @@
     </div>   
 </nav>
 	
-<script src="http://localhost/IW-CI/Youtube/js/cabecera.js"></script>
+<!-- JS -->
+<script src="../js/cabecera.js"></script>
