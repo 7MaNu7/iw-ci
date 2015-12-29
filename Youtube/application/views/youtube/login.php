@@ -2,9 +2,6 @@
 	$this->load->view('inc/cabecera');
 ?>
 
-<!-- CSS -->
-<link type="text/css" rel="stylesheet" href="../css/login.css" />
-
 <main class="container">
 	<h2><?php echo $titulo; ?></h2>
 	
@@ -39,8 +36,10 @@
 			$response = "Debes completar todos los campos"; 
 		else if($existeusuario==false && $camposvacios==false) 
 			$response = "El usuario introducido no existe"; 
-		
+		/* Mostramos mensajes informando y si es correcto redireccionamos y guardamos sesión */
 		if($response=="" || $response==null) {
+			$_SESSION["email"] = $uemail; 
+			$_SESSION["password"] = $upass;
 			echo '<div class="alert alert-success errorlogin">Inicio de sesión correcto</div>';
 			echo '<script>setTimeout(function(){window.location="inicio"}, 3000);</script>';
 		} else {
@@ -48,7 +47,6 @@
 		}
 	}
 	?>
-
 </main>
 
 <?php 
