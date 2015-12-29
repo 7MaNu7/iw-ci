@@ -13,7 +13,7 @@ class Inicio extends CI_Controller {
 	//Por defecto, si no ay index error
 	public function index()
 	{
-		$data['titulo']="Listado de videos";
+		$data['titulo']="Vídeos más populares";
 		$data['cuantos']=$this->Inicio_m->count_all();
 		$data['videos']=$this->Inicio_m->get_all();
 		$this->load->view('youtube/index', $data);

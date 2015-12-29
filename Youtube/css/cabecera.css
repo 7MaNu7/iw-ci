@@ -3,7 +3,7 @@ body {
 	background-color: #F1F1F1;
 }
 
-ul {
+.navbar-header ul {
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
