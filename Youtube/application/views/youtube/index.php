@@ -4,17 +4,17 @@
 ?>
 
 <main class="container">
-	<h2><?php echo $titulo; ?></h2>
+	<h2><?=$titulo?></h2>
 
 	<div class="videospopulares">
 		<?php
 			foreach($videos as $video) { ?>
 
 				<div class="bloquevideoinicio">
-					<a href="<? echo site_url('/video/watch/' . $video->id); ?>">
+					<a href="<?=site_url('/video/watch/' . $video->id)?>">
 						<h5> <?=$video->title?></h5>
 						<img src="http://img.youtube.com/vi/<?php echo substr($video->url, 32, 30); ?>/0.jpg" alt="" class="videoinicio"/>
-					</a> 
+					</a>
 				</div>
 			<?php }
 		?>
