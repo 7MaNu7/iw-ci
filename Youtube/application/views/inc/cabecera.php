@@ -15,6 +15,7 @@
 	<link type="text/css" rel="stylesheet" href="../css/cabecera.css" />
 	<link type="text/css" rel="stylesheet" href="../css/inicio.css" />
 	<link type="text/css" rel="stylesheet" href="../css/login.css" />
+	<link type="text/css" rel="stylesheet" href="../css/subirvideo.css" />
 	
 </head>
 	
