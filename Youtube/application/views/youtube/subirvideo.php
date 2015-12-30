@@ -27,8 +27,8 @@
 				'placeholder'	=> 'Ej: https://www.youtube.com/watch?v=p87gfVHMms'
 			);
 			$description = array(
-				'name'        => 'url',
-				'id'          => 'url',
+				'name'        => 'description',
+				'id'          => 'description',
 				'value'       => '',
 				'class'				=> 'form-control formsubirvideotextarea',
 			);
@@ -87,7 +87,7 @@
 			<div class="row formsubirvideodosinputs">
 				<div class="col-md-6 inputpeque">
 					<label class="">Idiomas:</label>
-					<select name="languages" class="form-control" multiple>
+					<select name="languages[]" class="form-control" multiple>
 					<?php	
 					foreach($languages as $language)
 						echo '<option value="' .  $language->id . '">' . $language->name . '</option>';
@@ -96,7 +96,7 @@
 				</div>
 				<div class="col-md-6 inputpeque">
 					<label class="">Calidades del video:</label>
-					<select name="quality" class="form-control" multiple>
+					<select name="qualities[]" class="form-control" multiple>
 					<?php
 					foreach($qualities as $quality)
 						echo '<option value="' .  $quality->id . '">' . $quality->name . '</option>';
@@ -106,12 +106,14 @@
 			</div>
 
 			<label class="">Etiquetas:</label>
-			
+			<textarea name="etiquetas" id="etiquetas"
+								placeholder="Etiquetas (p. ej: Albert Einstein, gatitos, comedia)"
+								class="form-control formsubirvideotextareasmall"></textarea>
 		</div>
 	</form>
 	
 	<div class="alert alert-danger mensajesSubirVideo" id="mensajeSubirVideo"><?php echo validation_errors();?></div>
-
+	
 	<script type="text/javascript">
 		var diverrores = document.getElementById('mensajeSubirVideo').innerHTML;
 		if(diverrores=="") {
