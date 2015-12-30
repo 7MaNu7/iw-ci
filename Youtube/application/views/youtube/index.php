@@ -1,20 +1,20 @@
-<?php 
+<?php
 	$this->load->view('inc/cabecera');
+	$this->load->helper('url');
 ?>
 
 <main class="container">
-	<h2><?php echo $titulo; ?></h2>
+	<h2><?=$titulo?></h2>
 
 	<div class="videospopulares">
-		<?php 
+		<?php
 			foreach($videos as $video) { ?>
 
 				<div class="bloquevideoinicio">
-					<h5> <?php  echo($video->title); ?> </h5>
-					<iframe class="videoinicio"	
-									src="https://www.youtube.com/embed/<?php echo substr($video->url, 32, 30); ?>?feature=player_embedded"
-									frameborder="0" allowfullscreen>
-					</iframe>	
+					<a href="<?=site_url('/video/watch/' . $video->id)?>">
+						<h5> <?=$video->title?></h5>
+						<img src="http://img.youtube.com/vi/<?php echo substr($video->url, 32, 30); ?>/0.jpg" alt="" class="videoinicio"/>
+					</a>
 				</div>
 			<?php }
 		?>
@@ -22,6 +22,6 @@
 
 </main>
 
-<?php 
+<?php
 	$this->load->view('inc/pie.php');
 ?>

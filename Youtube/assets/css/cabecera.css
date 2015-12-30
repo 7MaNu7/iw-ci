@@ -54,26 +54,26 @@ body {
 }
 
 .menu {
-	z-index:1000000; 
-	font-size:0.8em; 
-	width:100%; 
-	background:#131313;  
-	position:absolute; 
+	z-index:1000000;
+	font-size:0.8em;
+	width:100%;
+	background:#131313;
+	position:absolute;
 	text-align:center;
 	width: 200px;
 }
 
 .menu ul {
-	margin: 0; 
-	padding: 0; 
+	margin: 0;
+	padding: 0;
 	padding: 15px !important;
-	list-style-type: none; 
+	list-style-type: none;
 	list-style-image: none;
 	border-top: 1px solid #D8D7D7;
 	box-shadow: 5px 10px 15px 5px rgba(0,0,0,.1);
 }
 
-.menu li {	
+.menu li {
 	display: block;
 	height: 35px;
 	padding-top: 8px !Important;
@@ -87,13 +87,13 @@ body {
 	color: white;
 }
 
-.menu ul li a { 
-	text-decoration:none;  
-}
-
-.menu ul li a:hover { 
+.menu ul li a {
 	text-decoration:none;
-	color: white !important;
+	color: #222;
+}
+.menu ul li:hover a {
+	text-decoration:none;
+	color: white;
 }
 
 .menu a{
@@ -105,8 +105,8 @@ body {
 }
 
 .glyphicon-home{
-  color:white; 
-  font-size:1.5em; 
-  margin-top:5px; 
+  color:white;
+  font-size:1.5em;
+  margin-top:5px;
   margin:0 auto;
 }

@@ -1,0 +1,64 @@
+section {
+    background-color: white;
+}
+.video{
+    width: 100%;
+    height: 400px;
+    background-color: #696969;
+}
+
+.info {
+    height: 100px;
+}
+.right {
+    text-align: right;
+}
+
+.margin-bottom {
+    margin-bottom: 15px;
+}
+
+.margin-top {
+    margin-top: 15px;
+}
+
+.video-thumb {
+    height: 60px;
+    background-color: #696969;
+}
+
+.video-thumb-info {
+    padding-left: 20px;
+}
+
+.video-thumb-title {
+    font-weight: 900;
+}
+
+.video-thumb-user {
+    color: darkgrey;
+    font-style: italic;
+}
+
+.video-thumb-views {
+    font-weight: 200;
+    color: #696969;
+}
+
+.divider {
+    width: 90%
+}
+
+.date {
+    color: #cecece;
+}
+
+.video-title {
+    margin-bottom: 0;
+}
+
+.imagen {
+    background-color: blue;
+    width: 90px;
+    height: 90px;
+}

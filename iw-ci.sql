@@ -8,9 +8,9 @@ Como crear usuario: click en nombre tabla/privilegios/Agregar usuario/
 	servidor: Local
 	nombre y password usuario = iw (los demás campos como vienen por defecto)
 	dejar seleccionado: Otorgar todos los privilegios para la base de datos "iw-youtube"
-	
+
 	oooo
-	
+
 	utilizar este script justo debajo:
 */
 
@@ -196,10 +196,10 @@ INSERT INTO `iw-youtube`.`quality` (`id`, `name`) VALUES ('3', '360');
 INSERT INTO `iw-youtube`.`quality` (`id`, `name`) VALUES ('4', '480');
 INSERT INTO `iw-youtube`.`quality` (`id`, `name`) VALUES ('5', '1080');
 
-INSERT INTO `iw-youtube`.`user` (`id`, `email`, `password`, `userName`, `verified`) VALUES ('1', 'pepe@gm.com', 'Pepe', 'pepeIW', 'TRUE');
-INSERT INTO `iw-youtube`.`user` (`id`, `email`, `password`, `userName`, `verified`) VALUES ('2', 'ana@gm.com', 'Ana', 'anaLaz', 'TRUE');
-INSERT INTO `iw-youtube`.`user` (`id`, `email`, `password`, `userName`, `verified`) VALUES ('3', 'bob@gm.com', 'Bob', 'bobTomas', 'TRUE');
-INSERT INTO `iw-youtube`.`user` (`id`, `email`, `password`, `userName`, `verified`) VALUES ('4', 'maria@gm.com', 'Maria', 'mariaYotuber', 'TRUE');
+INSERT INTO `iw-youtube`.`user` (`id`, `email`, `password`, `userName`, `verified`) VALUES ('1', 'pepe@gm.com', 'Pepe', 'pepeIW', TRUE);
+INSERT INTO `iw-youtube`.`user` (`id`, `email`, `password`, `userName`, `verified`) VALUES ('2', 'ana@gm.com', 'Ana', 'anaLaz', TRUE);
+INSERT INTO `iw-youtube`.`user` (`id`, `email`, `password`, `userName`, `verified`) VALUES ('3', 'bob@gm.com', 'Bob', 'bobTomas', TRUE);
+INSERT INTO `iw-youtube`.`user` (`id`, `email`, `password`, `userName`, `verified`) VALUES ('4', 'maria@gm.com', 'Maria', 'mariaYotuber', TRUE);
 
 INSERT INTO `iw-youtube`.`videovisibility` (`id`, `name`) VALUES ('1', 'Public');
 INSERT INTO `iw-youtube`.`videovisibility` (`id`, `name`) VALUES ('2', 'Private');
@@ -207,8 +207,7 @@ INSERT INTO `iw-youtube`.`videovisibility` (`id`, `name`) VALUES ('2', 'Private'
 
 /* INSERT VIDEOS */
 
-INSERT INTO `iw-youtube`.`video` (`id`, `url`, `title`, `description`, `visits`, `numLikes`, `numDislikes`, `numComments`, `video3D`, `insertionAllowed`, `ageRestrictions`, `notifications`, `duration`, `direct`, `user`, `license`, `category`, `visibility`, `language`) VALUES ('1', 'https://www.youtube.com/watch?v=XNSSdC_a85U', 'Videos graciosos', 'Las mejores recopilaciones de cámara oculta y caídas graciosas.
-Si estás buscando vídeos graciosos este es tu canal.', '0', '0', '0', '0', '0', '1', '0', '1', '60', '1', '1', '4', '3', '1', '1');
+INSERT INTO `iw-youtube`.`video` (`id`, `url`, `title`, `description`, `visits`, `numLikes`, `numDislikes`, `numComments`, `video3D`, `insertionAllowed`, `ageRestrictions`, `notifications`, `duration`, `direct`, `user`, `license`, `category`, `visibility`, `language`) VALUES ('1', 'https://www.youtube.com/watch?v=XNSSdC_a85U', 'Videos graciosos', 'Las mejores recopilaciones de cámara oculta y caídas graciosas.Si estás buscando vídeos graciosos este es tu canal.', '0', '0', '0', '0', '0', '1', '0', '1', '60', '1', '1', '4', '3', '1', '1');
 
 INSERT INTO `iw-youtube`.`video` (`id`, `url`, `title`, `description`, `visits`, `numLikes`, `numDislikes`, `numComments`, `video3D`, `insertionAllowed`, `ageRestrictions`, `notifications`, `duration`, `direct`, `user`, `license`, `category`, `visibility`, `language`) VALUES ('2', 'https://www.youtube.com/watch?v=MG-bJITxL1I', 'Video 2', 'Para más videos miren mi canal! Denle Like!!!', '0', '0', '0', '0', '0', '1', '0', '1', '60', '1', '1', '4', '2', '1', '1');
 
@@ -242,3 +241,15 @@ INSERT INTO `iw-youtube`.`video` (`id`, `url`, `title`, `description`, `visits`,
 INSERT INTO `iw-youtube`.`video` (`id`, `url`, `title`, `description`, `visits`, `numLikes`, `numDislikes`, `numComments`, `video3D`, `insertionAllowed`, `ageRestrictions`, `notifications`, `duration`, `direct`, `user`, `license`, `category`, `visibility`, `language`) VALUES ('16', 'https://www.youtube.com/watch?v=JFSs7rwmTEs', 'AuronPlay Record', 'Para más videos miren mi canal! Denle Like!!!', '0', '0', '0', '0', '0', '1', '0', '1', '60', '1', '3', '4', '2', '1', '1');
 
 INSERT INTO `iw-youtube`.`video` (`id`, `url`, `title`, `description`, `visits`, `numLikes`, `numDislikes`, `numComments`, `video3D`, `insertionAllowed`, `ageRestrictions`, `notifications`, `duration`, `direct`, `user`, `license`, `category`, `visibility`, `language`) VALUES ('17', 'https://www.youtube.com/watch?v=JFSs7rwmTEs', 'AuronPlay Record', 'Para más videos miren mi canal! Denle Like!!!', '0', '0', '0', '0', '0', '1', '0', '1', '60', '1', '4', '4', '2', '1', '1');
+
+INSERT INTO `Comment` (`id`, `comment`, `numLikes`, `numDislikes`, `likesBalance`, `date`, `user`, `video`) VALUES
+(NULL, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto nemo impedit, architecto sequi dignissimos laudantium, temporibus ad quidem ipsam! Aspernatur, tempora. Quam ad asperiores maxime voluptas culpa quod velit dolores.', '0', '0', '0', CURRENT_TIMESTAMP, '2', '1'),
+(NULL, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto nemo impedit, architecto sequi dignissimos laudantium, temporibus ad quidem ipsam! Aspernatur, tempora. Quam ad asperiores maxime voluptas culpa quod velit dolores.', '0', '0', '0', CURRENT_TIMESTAMP, '3', '1'),
+(NULL, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto nemo impedit, architecto sequi dignissimos laudantium, temporibus ad quidem ipsam! Aspernatur, tempora. Quam ad asperiores maxime voluptas culpa quod velit dolores.', '0', '0', '0', CURRENT_TIMESTAMP, '4', '2'),
+(NULL, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto nemo impedit, architecto sequi dignissimos laudantium, temporibus ad quidem ipsam! Aspernatur, tempora. Quam ad asperiores maxime voluptas culpa quod velit dolores.', '0', '0', '0', CURRENT_TIMESTAMP, '2', '3'),
+(NULL, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto nemo impedit, architecto sequi dignissimos laudantium, temporibus ad quidem ipsam! Aspernatur, tempora. Quam ad asperiores maxime voluptas culpa quod velit dolores.', '0', '0', '0', CURRENT_TIMESTAMP, '4', '4'),
+(NULL, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto nemo impedit, architecto sequi dignissimos laudantium, temporibus ad quidem ipsam! Aspernatur, tempora. Quam ad asperiores maxime voluptas culpa quod velit dolores.', '0', '0', '0', CURRENT_TIMESTAMP, '1', '5'),
+(NULL, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto nemo impedit, architecto sequi dignissimos laudantium, temporibus ad quidem ipsam! Aspernatur, tempora. Quam ad asperiores maxime voluptas culpa quod velit dolores.', '0', '0', '0', CURRENT_TIMESTAMP, '1', '6'),
+(NULL, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto nemo impedit, architecto sequi dignissimos laudantium, temporibus ad quidem ipsam! Aspernatur, tempora. Quam ad asperiores maxime voluptas culpa quod velit dolores.', '0', '0', '0', CURRENT_TIMESTAMP, '2', '8'),
+(NULL, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto nemo impedit, architecto sequi dignissimos laudantium, temporibus ad quidem ipsam! Aspernatur, tempora. Quam ad asperiores maxime voluptas culpa quod velit dolores.', '0', '0', '0', CURRENT_TIMESTAMP, '2', '9'),
+(NULL, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto nemo impedit, architecto sequi dignissimos laudantium, temporibus ad quidem ipsam! Aspernatur, tempora. Quam ad asperiores maxime voluptas culpa quod velit dolores.', '0', '0', '0', CURRENT_TIMESTAMP, '3', '3');
