@@ -31,13 +31,16 @@ class subirVideo extends CI_Controller {
 			//validamos que se introduzcan los campos requeridos con la función de ci required
 			$this->form_validation->set_message('required', 'Campo %s es obligatorio');
 			
-			if (!$this->form_validation->run())
+			session_start();
+			if (!$this->form_validation->run() || (!isset($_SESSION['email']) || !isset($_SESSION['password'])))
 			{
+				echo "Hola1";
 				//si no pasamos la validación volvemos al formulario mostrando los errores
 				$this->index();
 			}
 			//si pasamos la validación correctamente pasamos a hacer la inserción en la base de datos
 			else {
+				echo "Hola2";
 				$title = $this->input->post('title');	
 				$url = $this->input->post('url');		
 				$description = $this->input->post('description');							
@@ -45,23 +48,16 @@ class subirVideo extends CI_Controller {
 				$visibility = $this->input->post('visibility');
 				$license = $this->input->post('license');
 				$category = $this->input->post('category');
+				$language = $this->input->post('language');
 				
-				echo $title;
-				echo $url;
-				echo $description;
-				echo $visibility;
-				echo $license;
-				echo $category;
-				
-				$languages = $_POST['languages'];
-				for ($i=0;$i<count($languages);$i++) {     
-				echo "<br> mira2: " . $i . ": " . $languages[$i];    
-				} 
-				
-				$qualities = $_POST['qualities'];
-				for ($i=0;$i<count($qualities);$i++) {     
-				echo "<br> mira1: " . $i . ": " . $qualities[$i];    
-				} 
+				if($this->input->post('qualities')) {
+					$qualities = $_POST['qualities'];
+					for ($i=0;$i<count($qualities);$i++) {     
+					echo "<br> mira1: " . $i . ": " . $qualities[$i];    
+					} 
+				} else {
+					$qualities = "";
+				}
 				
 				$etiquetas = $_POST['etiquetas'];
 				$arrayetiquetas = split(",", $etiquetas, 100);
@@ -69,21 +65,34 @@ class subirVideo extends CI_Controller {
 				for ($i=0;$i<count($arrayetiquetas);$i++) {     
 				echo "<br> mira3: " . $i . ": " . $arrayetiquetas[$i];    
 				}
+				$user = $_SESSION["id"];
 				
 				
-				/*/conseguimos la hora de nuestro país, en mi caso españa
-				date_default_timezone_set("Europe/Madrid");
-	        	$fecha = date('Y-m-d');
-	         	$hora= date("H:i:s");
 				//ahora procesamos los datos hacía el modelo que debemos crear
-				$nueva_insercion = $this->comentarios_model->nuevo_comentario(
-					$nombre,
-					$email,
-					$asunto,
-					$mensaje,
-					$fecha,$hora
+				$nueva_video = $this->subirVideo_m->nuevo_video(
+					$user,
+					$title,
+					$url,
+					$description,
+					$visibility,
+					$license,
+					$category,
+					$language,
+					$qualities,
+					$arrayetiquetas
 				);
-				redirect(base_url("comentarios"), "refresh");*/
+				
+				
+				$tag = $this->subirVideo_m->get_tag_name($arrayetiquetas[0]);
+				if($tag->id="") {
+					$nueva_tag = $this->subirVideo_m->insert_tag($arrayetiquetas[0]);
+				}
+				
+				$tag = $this->subirVideo_m->get_tag_name($arrayetiquetas[0]);
+				$this->subirVideo_m->insert_videotag($nueva_video->id, $tag->id);
+				
+				//redirect(base_url("inicio"), "refresh");
+				header('Location: inicio');
 			}
 		}
   }

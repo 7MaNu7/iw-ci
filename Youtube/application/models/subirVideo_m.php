@@ -30,4 +30,43 @@ class subirVideo_m extends CI_Model {
 	function count_all() {
 		return $this->db->count_all("user");
 	}
+	
+	function get_tag_name($name) {
+		$this->db->select('id');
+		$this->db->where('name', $name);
+		return $this->db->get("tag")->result();
+	}
+	
+	function insert_tag($name) {
+		$data = array(
+			'name'	=> $name
+		);
+		$this->db->insert('tag',$data);
+	}
+	
+	function insert_videotag($iduser, $idtag) {
+		$data = array(
+			'video'	=> $iduser,
+			'tag'	=> $idtag
+		);
+		$this->db->insert('videotag',$data);
+	}
+	
+	function nuevo_video($user, $title, $url, $description, $visibility, $license, $category, $language, 
+											 $qualities, $arrayetiquetas) {
+		return $data = array(
+			'user'	=> $user,
+			'title' => $title,
+			'url' => $url,
+			'description' => $description,
+			'visibility' => $visibility,
+			'license' => $license,
+			'category' => $category,
+			'language' => $language
+		);
+		//aqui se realiza la inserción, si queremos devolver algo deberíamos usar delantre return
+		//y en el controlador despues de $nueva_insercion poner lo que queremos hacer, redirigir,
+		//envíar un email, en fin, lo que deseemos hacer
+		$this->db->insert('video',$data);
+	}
 }

@@ -87,7 +87,7 @@
 			<div class="row formsubirvideodosinputs">
 				<div class="col-md-6 inputpeque">
 					<label class="">Idiomas:</label>
-					<select name="languages[]" class="form-control" multiple>
+					<select name="language" class="form-control">
 					<?php	
 					foreach($languages as $language)
 						echo '<option value="' .  $language->id . '">' . $language->name . '</option>';
@@ -114,12 +114,24 @@
 	
 	<div class="alert alert-danger mensajesSubirVideo" id="mensajeSubirVideo"><?php echo validation_errors();?></div>
 	
+	<?php 
+	if(isset($_POST["submit"])){
+		echo "Hola";
+		session_start();
+		if (!isset($_SESSION['email']) || !isset($_SESSION['password'])) {
+			$response = "Debes iniciar sesión.";
+			echo '<div class="alert alert-danger mensajesSubirVideo">Error: '.$response.'</div>';			
+		}		
+	}
+	?>
+
 	<script type="text/javascript">
 		var diverrores = document.getElementById('mensajeSubirVideo').innerHTML;
 		if(diverrores=="") {
 			document.getElementById('mensajeSubirVideo').style.display = "none";
 		}
 	</script>
+
 	
 </main>
 
