@@ -63,6 +63,13 @@ class subirVideo extends CI_Controller {
 				echo "<br> mira1: " . $i . ": " . $qualities[$i];    
 				} 
 				
+				$etiquetas = $_POST['etiquetas'];
+				$arrayetiquetas = split(",", $etiquetas, 100);
+				
+				for ($i=0;$i<count($arrayetiquetas);$i++) {     
+				echo "<br> mira3: " . $i . ": " . $arrayetiquetas[$i];    
+				}
+				
 				
 				/*/conseguimos la hora de nuestro país, en mi caso españa
 				date_default_timezone_set("Europe/Madrid");
