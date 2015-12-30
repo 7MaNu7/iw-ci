@@ -15,8 +15,10 @@
 	<!--<link type="text/css" rel="stylesheet" href="../css/cabecera.css" />
 	<link type="text/css" rel="stylesheet" href="../css/inicio.css" />
 	<link type="text/css" rel="stylesheet" href="../css/video.css" />-->
-	<?php foreach($css_files as $file): ?>
-	<link type="text/css" rel="stylesheet" href="<?=explode("htdocs",FCPATH)[1] . $file?>" />
+	<?php
+	$this->load->helper('url');
+	foreach($css_files as $file): ?>
+	<link type="text/css" rel="stylesheet" href="<?=base_url($file)?>" />
 	<?php endforeach; ?>
 
 </head>
