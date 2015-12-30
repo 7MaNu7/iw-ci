@@ -35,7 +35,7 @@
 			<!-- Resto barra -->
 			<ul>
 				<!-- Nombre web -->
-				<a class="navbar-brand" href="#"><li class="iconocab"> You<span style="color:red;font-weight:600">tube</span> </li></a>
+				<a class="navbar-brand" href="<?=site_url('inicio')?>"><li class="iconocab"> You<span style="color:red;font-weight:600">Tube</span> </li></a>
 				<!-- Search -->
 				<div class="input-group searchcab">
 					<input type="text"class="form-control" name="" placeholder="Buscar...">
@@ -49,8 +49,8 @@
 			<!-- Menú que se abre con hamburger -->
 			<div class="menu">
 				<ul>
-					<li>Página principal</li>
-					<li>Iniciar sesión</li>
+					<li><a href="<?=site_url('inicio')?>">Página principal</a></li>
+					<li><a href="<?=site_url('login')?>">Iniciar sesión</a></li>
 					<li>Mi canal</li>
 					<li>Subir video</li>
 				</ul>
