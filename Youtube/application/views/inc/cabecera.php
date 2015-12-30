@@ -20,7 +20,6 @@
 	foreach($css_files as $file): ?>
 	<link type="text/css" rel="stylesheet" href="<?=base_url($file)?>" />
 	<?php endforeach; ?>
-
 </head>
 
 
