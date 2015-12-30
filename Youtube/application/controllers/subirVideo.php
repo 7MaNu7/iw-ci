@@ -15,6 +15,8 @@ class subirVideo extends CI_Controller {
 		$data['videovisibilidades']=$this->subirVideo_m->get_all_videovisibility();
 		$data['licenses']=$this->subirVideo_m->get_all_licenses();
 		$data['categories']=$this->subirVideo_m->get_all_categories();
+		$data['languages']=$this->subirVideo_m->get_all_languages();
+		$data['qualities']=$this->subirVideo_m->get_all_qualities();
 		$data['cuantos']=$this->subirVideo_m->count_all();
 		$this->load->view('youtube/subirvideo', $data);
 	}
