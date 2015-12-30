@@ -32,7 +32,7 @@ class subirVideo_m extends CI_Model {
 	}
 	
 	function get_tag_name($name) {
-		$this->db->select('id');
+		$this->db->select('id, name');
 		$this->db->where('name', $name);
 		return $this->db->get("tag")->result();
 	}
@@ -44,17 +44,25 @@ class subirVideo_m extends CI_Model {
 		$this->db->insert('tag',$data);
 	}
 	
-	function insert_videotag($iduser, $idtag) {
+	function insert_videotag($idvideo, $idtag) {
 		$data = array(
-			'video'	=> $iduser,
+			'video'	=> $idvideo,
 			'tag'	=> $idtag
 		);
 		$this->db->insert('videotag',$data);
 	}
 	
+	function insert_videoquality($idvideo, $idquality) {
+		$data = array(
+			'video'	=> $idvideo,
+			'quality'	=> $idquality
+		);
+		$this->db->insert('videoquality',$data);
+	}
+	
 	function nuevo_video($user, $title, $url, $description, $visibility, $license, $category, $language, 
 											 $qualities, $arrayetiquetas) {
-		return $data = array(
+		$data = array(
 			'user'	=> $user,
 			'title' => $title,
 			'url' => $url,
@@ -68,5 +76,9 @@ class subirVideo_m extends CI_Model {
 		//y en el controlador despues de $nueva_insercion poner lo que queremos hacer, redirigir,
 		//envíar un email, en fin, lo que deseemos hacer
 		$this->db->insert('video',$data);
+		
+		$insert_id = $this->db->insert_id();
+		return  $insert_id;
+		
 	}
 }

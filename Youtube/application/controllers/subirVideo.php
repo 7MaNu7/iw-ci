@@ -62,14 +62,11 @@ class subirVideo extends CI_Controller {
 				$etiquetas = $_POST['etiquetas'];
 				$arrayetiquetas = split(",", $etiquetas, 100);
 				
-				for ($i=0;$i<count($arrayetiquetas);$i++) {     
-				echo "<br> mira3: " . $i . ": " . $arrayetiquetas[$i];    
-				}
 				$user = $_SESSION["id"];
 				
 				
 				//ahora procesamos los datos hacía el modelo que debemos crear
-				$nueva_video = $this->subirVideo_m->nuevo_video(
+				$nuevo_video = $this->subirVideo_m->nuevo_video(
 					$user,
 					$title,
 					$url,
@@ -82,14 +79,27 @@ class subirVideo extends CI_Controller {
 					$arrayetiquetas
 				);
 				
-				
-				$tag = $this->subirVideo_m->get_tag_name($arrayetiquetas[0]);
-				if($tag->id="") {
-					$nueva_tag = $this->subirVideo_m->insert_tag($arrayetiquetas[0]);
+				/* Si la etiqueta no existe la creamos. Relacionamos la etiqueta con el video */
+				for ($i=0;$i<count($arrayetiquetas);$i++) {
+					$tags='';
+					$idtag='';
+					
+					$tags = $this->subirVideo_m->get_tag_name($arrayetiquetas[$i]);
+					foreach ($tags as $t) { $idtag = $t->id; }
+					
+					if(empty($idtag) || $idtag=='') {
+						$nueva_tag = $this->subirVideo_m->insert_tag($arrayetiquetas[$i]);
+					}
+					
+					$tags = $this->subirVideo_m->get_tag_name($arrayetiquetas[$i]);
+					foreach ($tags as $t) { $idtag = $t->id; }
+					$this->subirVideo_m->insert_videotag($nuevo_video, $idtag);
 				}
 				
-				$tag = $this->subirVideo_m->get_tag_name($arrayetiquetas[0]);
-				$this->subirVideo_m->insert_videotag($nueva_video->id, $tag->id);
+				/* Relacionamos las calidades seleccionadas con el video */
+				for ($i=0;$i<count($qualities);$i++) {
+					$this->subirVideo_m->insert_videoquality($nuevo_video, $qualities[$i]);
+				}
 				
 				//redirect(base_url("inicio"), "refresh");
 				header('Location: inicio');
