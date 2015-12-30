@@ -5,7 +5,7 @@
 <main class="container">
 	<h2><?php echo $titulo; ?></h2>
 	
-	<form method="post" accept-charset="utf-8" action="subirvideo" class="formulariosubirvideo"/>
+	<form method="post" accept-charset="utf-8" action="subirvideo/insertar_video" class="formulariosubirvideo"/>
 	
 	<?php
 	
@@ -69,14 +69,14 @@
 	?>
 	</form>
 	
-<font color="red" style="font-weight: bold; font-size: 14px; text-decoration: underline">
-	<?php echo validation_errors(); ?>
-</font>
+<div class="alert alert-danger mensajesSubirVideo" id="mensajeSubirVideo"><?php echo validation_errors();?></div>
 
-<font color="red" style="font-weight: bold; font-size: 14px; text-decoration: underline">
-	<?php echo $error ?>
-</font>
-
+<script type="text/javascript">
+	var diverrores = document.getElementById('mensajeSubirVideo').innerHTML;
+	if(diverrores=="") {
+		document.getElementById('mensajeSubirVideo').style.display = "none";
+	}
+</script>
 	
 </main>
 
