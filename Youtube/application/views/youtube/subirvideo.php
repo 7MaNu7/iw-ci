@@ -32,26 +32,28 @@
 				'id'          => 'description',
 				'value'       => '',
 				'class'				=> 'form-control formsubirvideotextarea',
+				'placeholder'	=> 'Ej: El mejor vídeo de risa que puedas ver. Muestra una serie situaciones graciosas con las que vas a disfrutar...'
 			);
 			$submit = array(
 					'name' => 'submit',
 					'id' => 'submit',
 					'value' => 'Subir video',
 					'title' => 'Subir video',
-					'class'	=>	'btn btn-primary'
+					'class'	=>	'btn btn-primary botonsubirvideo'
 			);
 			?>
 			
-			<label class="">Título:</label>
+			<label class=""><span class="campoobligatorio">(*) </span>Título:</label>
 			<?php echo form_input($title); echo '<br>'; ?>
 
-			<label class="">URL del video:</label>
+			<label class=""><span class="campoobligatorio">(*) </span>URL del video:</label>
 			<?php echo form_input($url); echo '<br>'; ?>
 
 			<label class="">Descripción del video:</label>
-			<?php echo form_textarea($description); echo '<br>';
+			<?php echo form_textarea($description); echo '<br>';?>
 			
-			echo form_submit($submit);?>
+			<p>(*): El campo es obligatorio.</p>
+			<?php echo form_submit($submit);?>
 		</div>
 
 		<div class="col-md-6">
@@ -120,19 +122,26 @@
 		//session_start();
 		if (!isset($_SESSION['email']) || !isset($_SESSION['password'])) {
 			$response = "Debes iniciar sesión.";
-			echo '<div class="alert alert-danger mensajesSubirVideo">Error: '.$response.'</div>';			
+			echo '<div class="alert alert-danger mensajesSubirVideo">Error: '.$response.'</div>';
 		}		
 	}
 	?>
 
 	<script type="text/javascript">
+		//Si hay errores en el formulario, el div en rojo se mostrará
 		var diverrores = document.getElementById('mensajeSubirVideo').innerHTML;
 		if(diverrores=="") {
 			document.getElementById('mensajeSubirVideo').style.display = "none";
 		}
+		//Si no hay título o URL dicho campo se pondrá en rojo
+		var mensajes = document.getElementById('mensajeSubirVideo').innerHTML;
+		if(mensajes.indexOf("El campo titulo") > -1)
+			document.getElementById('title').style.borderColor = "rgba(255, 0, 0, 0.51)";
+		if(mensajes.indexOf("El campo url") > -1)
+			document.getElementById('url').style.borderColor = "rgba(255, 0, 0, 0.51)";
+		
 	</script>
 
-	
 </main>
 
 <?php 

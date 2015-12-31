@@ -31,7 +31,7 @@ class subirVideo extends CI_Controller {
 			$this->form_validation->set_rules('url','url','trim|required|xss_clean');
 			
 			//validamos que se introduzcan los campos requeridos con la función de ci required
-			$this->form_validation->set_message('required', 'Campo %s es obligatorio');
+			$this->form_validation->set_message('required', 'El campo %s es obligatorio');
 			
 			session_start();
 			if (!$this->form_validation->run() || (!isset($_SESSION['email']) || !isset($_SESSION['password'])))

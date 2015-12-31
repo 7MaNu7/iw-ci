@@ -19,6 +19,7 @@
 
 .formsubirvideotextarea {
 	width: 500px;
+	height: 130px !important;
 }
 
 .formsubirvideotextareasmall {
@@ -33,10 +34,18 @@
 	margin-right: 5px;
 }
 
+.campoobligatorio {
+	color: red;
+}
+
+.botonsubirvideo {
+	margin-top: 7px;
+}
+
 /* Mensajes */
 
 .mensajesSubirVideo {
 	width: 500px;
   margin-left: 45px;
-  margin-top: 30px;
+  margin-top: 20px;
 }
