@@ -3,7 +3,7 @@
 	$this->load->helper('url');
 ?>
 
-<main class="container">
+<main class="container containerbusqueda">
 	<h2><?=$titulo?></h2>
 
 	<div class="videospopulares">
@@ -27,7 +27,17 @@
 			<?php }
 		?>
 	</div>
-
+	
+	<ul class="pagination">
+		<li><a href="#">&laquo;</a></li>
+		<li><a href="#">1</a></li>
+		<li><a href="#">2</a></li>
+		<li><a href="#">3</a></li>
+		<li><a href="#">4</a></li>
+		<li><a href="#">5</a></li>
+		<li><a href="#">&raquo;</a></li>
+	</ul>
+	
 </main>
 
 <?php
