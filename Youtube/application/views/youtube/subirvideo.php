@@ -138,8 +138,7 @@
 		if(mensajes.indexOf("El campo titulo") > -1)
 			document.getElementById('title').style.borderColor = "rgba(255, 0, 0, 0.51)";
 		if(mensajes.indexOf("El campo url") > -1)
-			document.getElementById('url').style.borderColor = "rgba(255, 0, 0, 0.51)";
-		
+			document.getElementById('url').style.borderColor = "rgba(255, 0, 0, 0.51)";	
 	</script>
 
 </main>

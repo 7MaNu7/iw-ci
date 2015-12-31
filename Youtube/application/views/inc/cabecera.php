@@ -12,9 +12,6 @@
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<!-- CSS -->
-	<!--<link type="text/css" rel="stylesheet" href="../css/cabecera.css" />
-	<link type="text/css" rel="stylesheet" href="../css/inicio.css" />
-	<link type="text/css" rel="stylesheet" href="../css/video.css" />-->
 	<?php
 	$this->load->helper('url');
 	foreach($css_files as $file): ?>
@@ -35,7 +32,11 @@
 			<!-- Resto barra -->
 			<ul>
 				<!-- Nombre web -->
-				<a class="navbar-brand" href="<?=site_url('inicio')?>"><li class="iconocab"> You<span style="color:red;font-weight:600">Tube</span> </li></a>
+				<a class="navbar-brand" href="<?=site_url('inicio')?>">
+					<li class="iconocab">
+					You<span style="color:red;font-weight:600">Tube</span>
+					</li>
+				</a>
 				<!-- Search -->
 				<div class="input-group searchcab">
 					<input type="text"class="form-control" name="" placeholder="Buscar...">
@@ -52,7 +53,7 @@
 					<li><a href="<?=site_url('inicio')?>">Página principal</a></li>
 					<li><a href="<?=site_url('login')?>">Iniciar sesión</a></li>
 					<li>Mi canal</li>
-					<li>Subir video</li>
+					<li><a href="<?=site_url('subirvideo')?>">Subir video</a></li>
 				</ul>
 			</div>
     </div>
