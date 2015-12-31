@@ -19,14 +19,17 @@
 	if(isset($_POST["submit"])){ 
 		$existeusuario=false;
 		$camposvacios=false;
+		$uid = "";
 		$response = "";
 		$uemail = $_POST['email'];
 		$upass = $_POST['password'];
 
 		/* Comprobamos si el usuario existe en la BD o si los campos están en vacio */
 		foreach ($usuarios as $usuario) {
-			if($usuario->email==$uemail && $usuario->password==$upass)
+			if($usuario->email==$uemail && $usuario->password==$upass) {
 				$existeusuario=true;
+				$uid = $usuario->id;
+			}
 			if($uemail=="" || $upass=="")
 				$camposvacios=true;
 		}
@@ -38,10 +41,20 @@
 			$response = "El usuario introducido no existe"; 
 		/* Mostramos mensajes informando y si es correcto redireccionamos y guardamos sesión */
 		if($response=="" || $response==null) {
+			if (session_status() == PHP_SESSION_NONE)
+				session_start();			
 			$_SESSION["email"] = $uemail; 
 			$_SESSION["password"] = $upass;
+			$_SESSION["id"] = $uid;
+			
 			echo '<div class="alert alert-success errorlogin">Inicio de sesión correcto</div>';
-			echo '<script>setTimeout(function(){window.location="inicio"}, 3000);</script>';
+			
+			$urlredireccion='inicio';
+			//Redireccionamos			
+			if(isset($_GET['redirect']))
+					$urlredireccion=$_GET['redirect'];
+			
+			echo '<script>setTimeout(function(){window.location="'.$urlredireccion.'"}, 2000);</script>';
 		} else {
 			echo '<div class="alert alert-danger errorlogin">Error: '.$response.'</div>';		
 		}
