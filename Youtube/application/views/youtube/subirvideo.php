@@ -5,7 +5,8 @@
 <main class="container">
 	<h2><?php echo $titulo; ?></h2>
 	
-	<form method="post" accept-charset="utf-8" action="subirvideo/insertar_video" class="row formulariosubirvideo"/>
+	<form method="post" accept-charset="utf-8" 
+				action="<?php echo base_url()?>index.php/subirvideo/insertar_video" class="row formulariosubirvideo"/>
 		<div class="col-md-6">
 			<?php	
 			$this->load->helper('form');
