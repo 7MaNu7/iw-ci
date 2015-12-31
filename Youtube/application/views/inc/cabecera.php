@@ -17,7 +17,6 @@
 	foreach($css_files as $file): ?>
 	<link type="text/css" rel="stylesheet" href="<?=base_url($file)?>" />
 	<?php endforeach; ?>
-
 </head>
 
 
@@ -47,28 +46,18 @@
 					</span>
 				</div>
 			</ul>
-			<!-- Menú que se abre con hamburger -->
+			
+			<!-- Menú que se abre con hamburger y Enlaces -->
 			<div class="menu">
 				<ul>
 					<li><a href="<?=site_url('inicio')?>">Página principal</a></li>
-					
-					<?php
-					session_start();
-					if (!isset($_SESSION['email']) || !isset($_SESSION['password'])) {
-						$urllogin = site_url('login');
-						$mensajelogeologout = 'Iniciar sesión';
-					}
-					else {
-						$urllogin = site_url('');
-						$mensajelogeologout = 'Cerrar sesión';
-						//AQUÍ CÓDIGO PARA CERRAR SESIÓN
-					}					
-					echo '<li><a href="'.$urllogin.'">'.$mensajelogeologout.'</a></li>';
-					?>
-					
 					<li>Mi canal</li>
 					
+					<!-- Subir video si no está logeado va a login -->
 					<?php
+					if (session_status() == PHP_SESSION_NONE)
+						session_start();		
+	
 					if (!isset($_SESSION['email']) || !isset($_SESSION['password']))
 						$urlsubirvideo = site_url('login?redirect=subirvideo');
 					else
@@ -77,6 +66,22 @@
 					echo '<li><a href="'.$urlsubirvideo.'">Subir video</a></li>';
 					?>
 					
+					<!-- Iniciar sesión o Cerrar sesión (elimina la sesión) -->
+					<?php
+					if (session_status() == PHP_SESSION_NONE)
+						session_start();
+					
+					if (!isset($_SESSION['email']) || !isset($_SESSION['password'])) {
+						$urllogin = site_url('login');
+						$mensajelogeologout = 'Iniciar sesión';
+					}
+					else {
+						$urllogin = site_url('logout');
+						$mensajelogeologout = 'Cerrar sesión';
+					}					
+					echo '<li><a id="loginlogout" href="'.$urllogin.'">'.$mensajelogeologout.'</a></li>';
+					?>
+								
 					
 				</ul>
 			</div>
