@@ -18,6 +18,6 @@ class Busqueda extends CI_Controller {
 		$data['videos']=$this->Busqueda_m->get_all();
 		$data['css_files'] = ["assets/css/busqueda.css", "assets/css/cabecera.css"];
 		$data['js_files'] = ["assets/js/cabecera.js"];
-		$this->load->view('youtube/index', $data);
+		$this->load->view('youtube/busqueda', $data);
 	}
 }
