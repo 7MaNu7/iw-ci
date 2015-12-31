@@ -41,12 +41,20 @@
 			$response = "El usuario introducido no existe"; 
 		/* Mostramos mensajes informando y si es correcto redireccionamos y guardamos sesión */
 		if($response=="" || $response==null) {
-			session_start();
+			if (session_status() == PHP_SESSION_NONE)
+				session_start();			
 			$_SESSION["email"] = $uemail; 
 			$_SESSION["password"] = $upass;
 			$_SESSION["id"] = $uid;
+			
 			echo '<div class="alert alert-success errorlogin">Inicio de sesión correcto</div>';
-			echo '<script>setTimeout(function(){window.location="inicio"}, 3000);</script>';
+			
+			$urlredireccion='inicio';
+			//Redireccionamos			
+			if(isset($_GET['redirect']))
+					$urlredireccion=$_GET['redirect'];
+			
+			echo '<script>setTimeout(function(){window.location="'.$urlredireccion.'"}, 2000);</script>';
 		} else {
 			echo '<div class="alert alert-danger errorlogin">Error: '.$response.'</div>';		
 		}

@@ -51,9 +51,33 @@
 			<div class="menu">
 				<ul>
 					<li><a href="<?=site_url('inicio')?>">Página principal</a></li>
-					<li><a href="<?=site_url('login')?>">Iniciar sesión</a></li>
+					
+					<?php
+					session_start();
+					if (!isset($_SESSION['email']) || !isset($_SESSION['password'])) {
+						$urllogin = site_url('login');
+						$mensajelogeologout = 'Iniciar sesión';
+					}
+					else {
+						$urllogin = site_url('');
+						$mensajelogeologout = 'Cerrar sesión';
+						//AQUÍ CÓDIGO PARA CERRAR SESIÓN
+					}					
+					echo '<li><a href="'.$urllogin.'">'.$mensajelogeologout.'</a></li>';
+					?>
+					
 					<li>Mi canal</li>
-					<li><a href="<?=site_url('subirvideo')?>">Subir video</a></li>
+					
+					<?php
+					if (!isset($_SESSION['email']) || !isset($_SESSION['password']))
+						$urlsubirvideo = site_url('login?redirect=subirvideo');
+					else
+						$urlsubirvideo = site_url('subirvideo');
+					
+					echo '<li><a href="'.$urlsubirvideo.'">Subir video</a></li>';
+					?>
+					
+					
 				</ul>
 			</div>
     </div>
