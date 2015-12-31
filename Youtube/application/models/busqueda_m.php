@@ -3,7 +3,7 @@
 class Busqueda_m extends CI_Model {
 	
 	function get_search_all() {
-		$this->db->select('video.id, title, url, description, duration, visits, user, userName');
+		$this->db->select('video.id, user.id, title, url, description, duration, visits, user, userName');
 		$this->db->from('video');
 		$this->db->join('user', 'user.id = video.user');
 		$this->db->order_by('visits');

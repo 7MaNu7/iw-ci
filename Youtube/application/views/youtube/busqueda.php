@@ -15,21 +15,25 @@
 					<a href="<?=site_url('/video/watch/' . $video->id)?>">
 						<div class="col-md-3">
 							<img src="http://img.youtube.com/vi/<?php echo substr($video->url, 32, 30); ?>/0.jpg" 
-								 	alt="" width="196" height="110" class="videoinicio"/>
-						</div>
-						<div class="col-md-6">
-							<h5><?=$video->title?></h5>
-							<p>de <?=$video->userName?></p>
-							<p><?=$video->visits?> reproducciones</p>
-							<?php
-								//Si la descripción es larga, la acortamos + ...
-								$description=$video->description;
-								if(strlen($description)>$tamdescription)
-									$description=substr($video->description, 0, $tamdescription).'...';
-							?>
-							<p><?=$description?></p>
+								 	href="" alt="" width="196" height="110" class="videoinicio"/>
 						</div>
 					</a>
+					<div class="col-md-6">
+						<a href="<?=site_url('/video/watch/' . $video->id)?>">
+							<h5><?=$video->title?></h5>
+						</a>
+						<a href="<?=site_url('canal/ver/' . $video->user)?>">
+							<p>de <?=$video->userName?></p>
+						</a>
+						<p><?=$video->visits?> reproducciones</p>
+						<?php
+							//Si la descripción es larga, la acortamos + ...
+							$description=$video->description;
+							if(strlen($description)>$tamdescription)
+								$description=substr($video->description, 0, $tamdescription).'...';
+						?>
+						<p><?=$description?></p>
+					</div>
 				</div>
 			<?php }
 		?>
