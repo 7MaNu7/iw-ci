@@ -17,10 +17,16 @@
 								 	alt="" width="196" height="110" class="videoinicio"/>
 						</div>
 						<div class="col-md-6">
-							<h5> <?=$video->title?></h5>
-							<p> de Pepe </p>
-							<p> 10897 reproducciones </p>
-							<p> John Mayer's official live video for 'Free Fallin' (Live At the Nokia Theatre)'. Click to listen to John Mayer on Spotify: </p>
+							<h5><?=$video->title?></h5>
+							<p>de <?=$video->userName?></p>
+							<p><?=$video->visits?> reproducciones</p>
+							<?php
+								//Si la descripción es larga, la acortamos + ...
+								$description=$video->description;
+								if(strlen($description)>$tamdescription)
+									$description=substr($video->description, 0, $tamdescription).'...';
+							?>
+							<p><?=$description?></p>
 						</div>
 					</a>
 				</div>
