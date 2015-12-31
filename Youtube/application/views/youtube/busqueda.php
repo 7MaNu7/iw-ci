@@ -4,7 +4,8 @@
 ?>
 
 <main class="container containerbusqueda">
-	<h2><?=$titulo?></h2>
+	
+	<div class="numresultados"><p><?=$cuantosvideos?> resultados</p></div>
 
 	<div class="videospopulares">
 		<?php
