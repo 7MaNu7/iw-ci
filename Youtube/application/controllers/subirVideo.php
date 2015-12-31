@@ -11,6 +11,8 @@ class subirVideo extends CI_Controller {
 	//Por defecto, si no ay index error
 	public function index()
 	{
+		$data['css_files'] = ["assets/css/cabecera.css", "assets/css/subirvideo.css"];
+		$data['js_files'] = ["assets/js/cabecera.js"];
 		$data['titulo']="Subir nuevo vídeo";
 		$data['videovisibilidades']=$this->subirVideo_m->get_all_videovisibility();
 		$data['licenses']=$this->subirVideo_m->get_all_licenses();
@@ -34,13 +36,11 @@ class subirVideo extends CI_Controller {
 			session_start();
 			if (!$this->form_validation->run() || (!isset($_SESSION['email']) || !isset($_SESSION['password'])))
 			{
-				echo "Hola1";
 				//si no pasamos la validación volvemos al formulario mostrando los errores
 				$this->index();
 			}
 			//si pasamos la validación correctamente pasamos a hacer la inserción en la base de datos
 			else {
-				echo "Hola2";
 				$title = $this->input->post('title');	
 				$url = $this->input->post('url');		
 				$description = $this->input->post('description');							
@@ -50,20 +50,21 @@ class subirVideo extends CI_Controller {
 				$category = $this->input->post('category');
 				$language = $this->input->post('language');
 				
-				if($this->input->post('qualities')) {
-					$qualities = $_POST['qualities'];
-					for ($i=0;$i<count($qualities);$i++) {     
-					echo "<br> mira1: " . $i . ": " . $qualities[$i];    
-					} 
-				} else {
-					$qualities = "";
+				$qualities = "";
+				if(!empty($this->input->post('qualities'))) {
+					if($this->input->post('qualities')) {
+						$qualities = $_POST['qualities'];
+					} else {
+						$qualities = "";
+					}
 				}
 				
+				/* Obtenemos array de etiquetas separadas por comas */
 				$etiquetas = $_POST['etiquetas'];
-				$arrayetiquetas = split(",", $etiquetas, 100);
+				$arrayetiquetas = explode(",", $etiquetas);
 				
-				$user = $_SESSION["id"];
-				
+				/* Obtenemos el id de los usuarios */
+				$user = $_SESSION["id"];				
 				
 				//ahora procesamos los datos hacía el modelo que debemos crear
 				$nuevo_video = $this->subirVideo_m->nuevo_video(
@@ -74,13 +75,12 @@ class subirVideo extends CI_Controller {
 					$visibility,
 					$license,
 					$category,
-					$language,
-					$qualities,
-					$arrayetiquetas
+					$language
 				);
 				
+				$tam = sizeof($arrayetiquetas);
 				/* Si la etiqueta no existe la creamos. Relacionamos la etiqueta con el video */
-				for ($i=0;$i<count($arrayetiquetas);$i++) {
+				for ($i=0;$i<$tam;$i++) {
 					$tags='';
 					$idtag='';
 					
@@ -97,12 +97,14 @@ class subirVideo extends CI_Controller {
 				}
 				
 				/* Relacionamos las calidades seleccionadas con el video */
-				for ($i=0;$i<count($qualities);$i++) {
-					$this->subirVideo_m->insert_videoquality($nuevo_video, $qualities[$i]);
+				if(!empty($this->input->post('qualities'))) {
+					for ($j=0;$j<count($qualities);$j++) {
+						$this->subirVideo_m->insert_videoquality($nuevo_video, $qualities[$j]);
+					}
 				}
 				
-				//redirect(base_url("inicio"), "refresh");
-				header('Location: inicio');
+				$this->load->helper('url');
+				redirect("inicio", 'refresh');
 			}
 		}
   }

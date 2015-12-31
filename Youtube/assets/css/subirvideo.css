@@ -1,3 +1,13 @@
+.container {
+	background-color: white;
+	padding-right: 30px;
+	padding-left: 30px;
+	padding-top: 0px;
+	padding-bottom: 30px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
 .formulariosubirvideo {
 	margin-top: 30px;
 	margin-left: 30px;

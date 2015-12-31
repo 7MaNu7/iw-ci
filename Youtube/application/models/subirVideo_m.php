@@ -60,8 +60,7 @@ class subirVideo_m extends CI_Model {
 		$this->db->insert('videoquality',$data);
 	}
 	
-	function nuevo_video($user, $title, $url, $description, $visibility, $license, $category, $language, 
-											 $qualities, $arrayetiquetas) {
+	function nuevo_video($user, $title, $url, $description, $visibility, $license, $category, $language) {
 		$data = array(
 			'user'	=> $user,
 			'title' => $title,
@@ -72,9 +71,8 @@ class subirVideo_m extends CI_Model {
 			'category' => $category,
 			'language' => $language
 		);
-		//aqui se realiza la inserción, si queremos devolver algo deberíamos usar delantre return
-		//y en el controlador despues de $nueva_insercion poner lo que queremos hacer, redirigir,
-		//envíar un email, en fin, lo que deseemos hacer
+		
+		//Lo insertamos en la BD
 		$this->db->insert('video',$data);
 		
 		$insert_id = $this->db->insert_id();

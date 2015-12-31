@@ -116,8 +116,7 @@
 	
 	<?php 
 	if(isset($_POST["submit"])){
-		echo "Hola";
-		session_start();
+		//session_start();
 		if (!isset($_SESSION['email']) || !isset($_SESSION['password'])) {
 			$response = "Debes iniciar sesión.";
 			echo '<div class="alert alert-danger mensajesSubirVideo">Error: '.$response.'</div>';			
