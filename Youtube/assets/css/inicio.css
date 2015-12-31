@@ -34,3 +34,12 @@
 	font-weight: bold;
 	margin-bottom: 10px;
 }
+
+.user {
+    margin-top: -10px;
+    color: #cecece;
+}
+
+.user a {
+    color: #b0acac;
+}
