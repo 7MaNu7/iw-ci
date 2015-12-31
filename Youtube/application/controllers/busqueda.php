@@ -15,9 +15,10 @@ class Busqueda extends CI_Controller {
 	{
 		$data['titulo']="Resultados de la búsqueda";
 		$data['tamdescription'] = 112;
-		$data['cuantos']=$this->Busqueda_m->count_all();
+		$data['videosporpagina']=20;
 		$data['videos']=$this->Busqueda_m->get_search_all();
-		$data['cuantosvideos']=$this->Busqueda_m->count_search_all();
+		$data['cuantosvideos']=$this->Busqueda_m->count_search_all();		
+		$data['cuantosvideospag']=$this->Busqueda_m->count_search_pag();		
 		$data['css_files'] = ["assets/css/busqueda.css", "assets/css/cabecera.css"];
 		$data['js_files'] = ["assets/js/cabecera.js"];
 		$this->load->view('youtube/busqueda', $data);
