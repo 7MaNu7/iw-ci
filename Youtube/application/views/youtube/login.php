@@ -42,7 +42,9 @@
 		/* Mostramos mensajes informando y si es correcto redireccionamos y guardamos sesión */
 		if($response=="" || $response==null) {
 			if (session_status() == PHP_SESSION_NONE)
-				session_start();			
+				session_start([
+						'cookie_lifetime' => 86400,
+				]);			
 			$_SESSION["email"] = $uemail; 
 			$_SESSION["password"] = $upass;
 			$_SESSION["id"] = $uid;

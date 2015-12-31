@@ -76,29 +76,12 @@
 						$mensajelogeologout = 'Iniciar sesión';
 					}
 					else {
-						$urllogin = site_url('');
+						$urllogin = site_url('logout');
 						$mensajelogeologout = 'Cerrar sesión';
 					}					
 					echo '<li><a id="loginlogout" href="'.$urllogin.'">'.$mensajelogeologout.'</a></li>';
 					?>
-					<script>
-						/* Para eliminar la sesión */
-						$("#loginlogout").click(function(){
-							if(document.getElementById('loginlogout').innerHTML=="Cerrar sesión") {
-								console.log("Entra2 ");
-								<?php
-								if (ini_get("session.use_cookies")) {
-									$params = session_get_cookie_params();
-									setcookie(session_name(), '', time() - 42000,
-										$params["path"], $params["domain"],
-										$params["secure"], $params["httponly"]
-									);
-								}
-								session_destroy();
-								?>
-							}
-						})
-					</script>				
+								
 					
 				</ul>
 			</div>
