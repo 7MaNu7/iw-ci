@@ -56,12 +56,13 @@
 /* Paginacion */
 
 .containerbusqueda ul {
-	margin-left: 200px;
 	margin-top: 40px;
 }
 
 .containerbusqueda li a {
+	border-radius: 8px;
 	margin-right: 10px;
-	border-color: #C6C6C6;
+	border: none;
+  border-bottom: 1px solid #C6C6C6;
 	color: #333;
 }
