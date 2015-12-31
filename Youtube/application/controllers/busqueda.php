@@ -14,6 +14,7 @@ class Busqueda extends CI_Controller {
 	public function index()
 	{
 		$data['titulo']="Resultados de la búsqueda";
+		$data['tamdescription'] = 112;
 		$data['cuantos']=$this->Busqueda_m->count_all();
 		$data['videos']=$this->Busqueda_m->get_all();
 		$data['css_files'] = ["assets/css/busqueda.css", "assets/css/cabecera.css"];
