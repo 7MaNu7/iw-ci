@@ -13,7 +13,7 @@
             <div class="col-sm-12">
                 <div class="col-sm-6">
                     <div class="row"><h2 class="video-title"><?=$video->title?></h2></div>
-                    <div class="row"><em class="date">Publicado el 29/12/2015</em></div>
+                    <div class="row"><em class="date">Publicado el 29/12/2015</em><span class="user"> By <a href="<?=site_url('canal/ver/' . $video->userid)?>"><?=$video->username?></a></span></div>
                 </div>
                 <div class="col-sm-6 right margin-top">
                     <div class="row"><?=$video->visits?> Visualizaciones</div>

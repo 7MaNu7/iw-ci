@@ -3,7 +3,7 @@
 class Video_m extends CI_Model {
 
 	function get($id) {
-		$query = $this->db->query('SELECT id, title, url, description, visits, numLikes likes, numDislikes dislikes, user FROM video WHERE id='. $id);
+		$query = $this->db->query('SELECT v.id, v.title, v.url, v.description, v.visits, v.numLikes likes, v.numDislikes dislikes, u.id userid, u.username FROM video v, user u WHERE v.user=u.id AND v.id='. $id);
 		return $query->row();
 	}
 
