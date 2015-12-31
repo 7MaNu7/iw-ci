@@ -39,14 +39,29 @@
 		?>
 	</div>
 	
+	
+	
 	<ul class="pagination">
-		<li><a href="#">&laquo;</a></li>
-		<li><a href="#">1</a></li>
-		<li><a href="#">2</a></li>
-		<li><a href="#">3</a></li>
-		<li><a href="#">4</a></li>
-		<li><a href="#">5</a></li>
-		<li><a href="#">&raquo;</a></li>
+		<?php
+		echo $cuantosvideospag." ".$videosporpagina." ".$cuantosvideospag/$videosporpagina;
+		$paginas = ($cuantosvideospag/$videosporpagina);
+		if($paginas<1) {?>
+			<!--<li><a href="#">1</a></li>-->
+		<?php
+		} else if(($paginas>1 && $paginas<2)  || $paginas==2) { ?>
+			<li><a href="#">&laquo;</a></li>
+			<li><a href="#">1</a></li>
+		<?php
+		} else { ?>
+			<li><a href="#">&laquo;</a></li>
+			<li><a href="#">1</a></li>
+			<li><a href="#">2</a></li>
+			<li><a href="#">3</a></li>
+			<li><a href="#">4</a></li>
+			<li><a href="#">5</a></li>
+			<li><a href="#">&raquo;</a></li>
+		<?php
+		} ?>
 	</ul>
 	
 </main>
