@@ -38,9 +38,9 @@
 				</a>
 				<!-- Search -->
 				<div class="input-group searchcab">
-					<input type="text"class="form-control" name="" placeholder="Buscar...">
+					<input type="text" class="form-control" id="inputsearchcab" name="" placeholder="Buscar...">
 					<span class="input-group-btn boton-input">
-						<a href="#" onclick='' class="btn btn-default" role="button">
+						<a href="#" onclick='' id="botonsearch" class="btn btn-default" role="button">
 							<span class="glyphicon glyphicon-search"></span>
 						</a>
 					</span>
