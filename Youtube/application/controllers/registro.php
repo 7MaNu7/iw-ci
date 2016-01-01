@@ -10,7 +10,18 @@ class registro extends CI_Controller {
     
     //Por defecto, si no ay index error
     public function index()
-    {
+    {      
+        if (session_status() == PHP_SESSION_NONE)
+            session_start();
+
+        //si no se ha llegado a definir la variable que nos indica el borrado de los input
+        //o si queremos que se borren (true) entonces mostramos form vacio
+        if((!isset($_SESSION['clean'])) || $_SESSION["clean"] == true)
+        {
+            unset($_SESSION["nombre"]); 
+            unset($_SESSION["email"]);
+        }
+
         $data['usuarios']=$this->registro_m->get_all();
         $data['cuantos']=$this->registro_m->count_all();
         $data['css_files'] = ["assets/css/cabecera.css", "assets/css/subirvideo.css"];
@@ -18,6 +29,7 @@ class registro extends CI_Controller {
         $data['titulo']="Registrarse";
         $this->load->view('youtube/registro', $data);
     }
+
 
     public function patronEmail($email)
     {
@@ -128,10 +140,23 @@ class registro extends CI_Controller {
             $this->form_validation->set_message('required', 'El campo %s es obligatorio');
             $this->form_validation->set_message('is_unique', 'El campo %s introducido ya esta registrado en YouTube');
 
+
+             if (session_status() == PHP_SESSION_NONE)
+                    session_start();
+
             if (!$this->form_validation->run())
             {
-                //si no pasamos la validación volvemos al formulario mostrando los errores
+                //Como hay error en el formulario no queremos limpiar los input (SALVO PASSWORD)
+                $_SESSION["nombre"] = $this->input->post('userName'); 
+                $_SESSION["email"] = $this->input->post('email');
+                $_SESSION["clean"] = false;
+
+                //si no pasamos la validación volvemos al formulario mostrando los errores y sin borrar inputs
                 $this->index();
+
+                //Para futuras navegaciones si que se borran los input
+                $_SESSION["clean"] = true;
+
             }
             //si pasamos la validación correctamente pasamos a hacer la inserción en la base de datos
             else {
