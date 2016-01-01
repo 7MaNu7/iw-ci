@@ -45,6 +45,21 @@ class registro extends CI_Controller {
             return TRUE;
         }
     }
+
+    public function repetirPass($password)
+    {
+        $repetirPassword = $this->input->post('repetirPassword'); 
+
+        if($password==$repetirPassword)
+        {
+            return TRUE;
+        }
+        else
+        {
+             $this->form_validation->set_message('repetirPass', 'El campo de repetir la password debe coincidir con el campo password');
+            return FALSE;
+        }
+    }
     
     public function insertar_usuario(){
 
@@ -54,17 +69,11 @@ class registro extends CI_Controller {
             //hacemos las comprobaciones que deseemos en nuestro formulario
             $this->form_validation->set_rules('userName','userName','trim|required|xss_clean|is_unique[user.userName]');
             //$this->form_validation->set_rules('email','email','trim|required|xss_clean|is_unique[user.email]');
-            $this->form_validation->set_rules('password','password','trim|required|xss_clean');
+            $this->form_validation->set_rules('password','password','trim|required|xss_clean|callback_repetirPass');
             $this->form_validation->set_rules('email','email','trim|required|xss_clean|is_unique[user.email]|callback_probando');
-/*
-            $usuarios = $this->registro_m->get_all();
-            foreach ($usuarios as $user) {
-                if($user.email=="caca")
-                {
+            $this->form_validation->set_rules('repetirPassword','repetirPassword','trim|required|xss_clean');
 
-                }
-            }
-*/
+
             //validamos que se introduzcan los campos requeridos con la función de ci required
             $this->form_validation->set_message('required', 'El campo %s es obligatorio');
             $this->form_validation->set_message('is_unique', 'El campo %s introducido ya esta registrado en YouTube');
