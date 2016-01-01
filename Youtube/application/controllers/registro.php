@@ -21,8 +21,23 @@ class registro extends CI_Controller {
 
     public function patronEmail($email)
     {
-
-        $fracciones = explode("@", $email);
+       //PATRON:
+       //empezar por caracter minus o mayus
+       //minimo 2 caracteres antes del @, despues del primero ya se admiten numeros, guiones, puntos y guiones bajos
+       //lo siguiente es el @
+       //minimo dos cletras despues del @, permitiendo por medio un punto mas, con 0-6 letras (Ejemplo @alu.ua.es tiene un punto mas)
+       //despues va el punto que si es obligatorio, y despues del punto de 2 a 6 letras
+       $pattern = "/^[a-zA-Z][a-zA-Z0-9._-]+@[a-zA-Z][a-zA-Z.]{0,6}[a-zA-Z]\.[a-zA-Z]{2,6}$/";
+       if(preg_match($pattern, $email)) {
+            return TRUE;
+       }
+       else
+       {
+            $this->form_validation->set_message('patronEmail', 'El campo %s debe seguir el formato correcto');
+            return FALSE;
+       }
+       
+       /* $fracciones = explode("@", $email);
                 
         if (sizeof($fracciones)!=2)
         {
@@ -43,7 +58,7 @@ class registro extends CI_Controller {
                 return FALSE; 
             }
             return TRUE;
-        }
+        }*/
     }
 
     public function patronPass($password)
