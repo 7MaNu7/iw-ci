@@ -14,7 +14,7 @@
 			$title = array(
 				'name'        => 'title',
 				'id'          => 'title',
-				'value'       => '',
+				'value'       => (isset($_SESSION['title']) ? $_SESSION['title'] : ''),
 				'maxlength'   => '255',
 				'class'				=> 'form-control',
 				'placeholder'	=> 'Ej: Recopilación de vídeos graciosos'
@@ -22,7 +22,7 @@
 			$url = array(
 				'name'        => 'url',
 				'id'          => 'url',
-				'value'       => '',
+				'value'       => (isset($_SESSION['url']) ? $_SESSION['url'] : ''),
 				'maxlength'   => '255',
 				'class'				=> 'form-control',
 				'placeholder'	=> 'Ej: https://www.youtube.com/watch?v=p87gfVHMms'
@@ -30,7 +30,7 @@
 			$description = array(
 				'name'        => 'description',
 				'id'          => 'description',
-				'value'       => '',
+				'value'       => (isset($_SESSION['description']) ? $_SESSION['description'] : ''),
 				'class'				=> 'form-control formsubirvideotextarea',
 				'placeholder'	=> 'Ej: El mejor vídeo de risa que puedas ver. Muestra una serie situaciones graciosas con las que vas a disfrutar...'
 			);
@@ -108,11 +108,26 @@
 				</div>
 			</div>
 
+			<?php
+
+				$etiquetas = array(
+				'name'       	 	=> 'etiquetas',
+				'id'          		=> 'etiquetas',
+				'value'       		=> (isset($_SESSION['etiquetas']) ? $_SESSION['etiquetas'] : ''),
+				'class'				=> 'form-control formsubirvideotextareasmall',
+				'placeholder'		=> 'Etiquetas (p. ej: Albert Einstein, gatitos, comedia)'
+			);
+
+			?>
+
+			<label class="">Etiquetas:</label>
+			<?php echo form_textarea($etiquetas); echo '<br>';?>
+<!--
 			<label class="">Etiquetas:</label>
 			<textarea name="etiquetas" id="etiquetas"
 								placeholder="Etiquetas (p. ej: Albert Einstein, gatitos, comedia)"
-								class="form-control formsubirvideotextareasmall"></textarea>
-		</div>
+								class="form-control formsubirvideotextareasmall" value="<?php (isset($_SESSION['etiquetas']) ? $_SESSION['etiquetas'] : '')?>"></textarea>
+		</div> -->
 	</form>
 	
 	<div class="alert alert-danger mensajesSubirVideo" id="mensajeSubirVideo"><?php echo validation_errors();?></div>
