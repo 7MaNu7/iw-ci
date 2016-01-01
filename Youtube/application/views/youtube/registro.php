@@ -46,16 +46,20 @@
 					'class'	=>	'btn btn-primary'
 			);
 
-		    echo '<label class="">Nick de usuario:</label>';
-		    echo form_input($userName); echo '<br>';
-		    echo '<label class="">Email:</label>';
-		    echo form_input($email); echo '<br>';
-		    echo '<label class="">Password:</label>';
-		    echo form_input($password); echo '<br>';  
-
-	        echo form_submit($submit);
-
 			?>
+
+		    <label class=""><span class="campoobligatorio">(*) </span>Nick de usuario:</label>
+		    <?php echo form_input($userName); echo '<br>'; ?>
+		    <label class=""><span class="campoobligatorio">(*) </span>Email:</label>
+		    <?php echo form_input($email); echo '<br>'; ?>
+		    <label class=""><span class="campoobligatorio">(*) </span>Password:</label>
+		    <?php echo form_input($password); echo '<br>'; ?>
+
+		    <p>(*): El campo es obligatorio.</p>
+
+	        <?php echo form_submit($submit); ?>
+
+
 
 	</form>
 
