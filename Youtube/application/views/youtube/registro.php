@@ -23,6 +23,7 @@
 			$email = array(
 				'name'        => 'email',
 				'id'          => 'email',
+				'type'		  => 'email',
 				'value'       => '',
 				'maxlength'   => '255',
 				'class'				=> 'form-control',
@@ -31,6 +32,7 @@
 			$password = array(
 				'name'        => 'password',
 				'id'          => 'password',
+				'type'		  => 'password',
 				'value'       => '',
 				'maxlength'   => '255',
 				'class'				=> 'form-control',
@@ -56,9 +58,28 @@
 			?>
 
 	</form>
+
+	<div class="alert alert-danger mensajesSubirVideo" id="mensajeSubirVideo"><?php echo validation_errors();?></div>
     
 </main>
 
 <?php 
     $this->load->view('inc/pie.php');
 ?>
+
+
+<script type="text/javascript">
+	//Si hay errores en el formulario, el div en rojo se mostrará
+	var diverrores = document.getElementById('mensajeSubirVideo').innerHTML;
+	if(diverrores=="") {
+		document.getElementById('mensajeSubirVideo').style.display = "none";
+	}
+	//Si no hay título o URL dicho campo se pondrá en rojo
+	var mensajes = document.getElementById('mensajeSubirVideo').innerHTML;
+	if(mensajes.indexOf("El campo email") > -1)
+		document.getElementById('email').style.borderColor = "rgba(255, 0, 0, 0.51)";
+	if(mensajes.indexOf("El campo userName") > -1)
+		document.getElementById('userName').style.borderColor = "rgba(255, 0, 0, 0.51)";	
+	if(mensajes.indexOf("El campo password") > -1)
+		document.getElementById('password').style.borderColor = "rgba(255, 0, 0, 0.51)";
+</script>
