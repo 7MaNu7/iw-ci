@@ -61,48 +61,115 @@
 			<div class="row formsubirvideodosinputs">
 				<div class="col-md-6 inputpeque">
 					<label class="">Visibilidad del video:</label>
+
 					<select name="visibility" class="form-control">
+
 					<?php
 					foreach($videovisibilidades as $visibilidad)
-						echo '<option value="' .  $visibilidad->id . '">' . $visibilidad->name . '</option>';
+					{
+						if($visibilidad->id == $_SESSION['visibility'])
+						{
+							echo '<option value="' .  $visibilidad->id . '" selected>' . $visibilidad->name . '</option>';
+						}
+						else
+						{
+							echo '<option value="' .  $visibilidad->id . '">' . $visibilidad->name . '</option>';
+						}	
+					}
 					?>
+
 					</select><br>	
 				</div>
 				<div class="col-md-6 inputpeque">
 					<label class="">Tipo de licencia:</label>
 					<select name="license" class="form-control">
+
 					<?php
 					foreach($licenses as $license)
-						echo '<option value="' .  $license->id . '">' . $license->name . '</option>';
+					{
+						if($license->id == $_SESSION['license'])
+						{
+							echo '<option value="' .  $license->id . '" selected>' . $license->name . '</option>';
+						}
+						else
+						{
+							echo '<option value="' .  $license->id . '">' . $license->name . '</option>';
+						}	
+					}
 					?>
+
 					</select><br>
 				</div>
 			</div>
 			
 			<label class="">Categoria:</label>
 			<select name="category" class="form-control formsubirvideoselect">
+
 			<?php
-			foreach($categories as $category)
-				echo '<option value="' .  $category->id . '">' . $category->name . '</option>';
+				foreach($categories as $category)
+				{
+					if($category->id == $_SESSION['category'])
+					{
+						echo '<option value="' .  $category->id . '" selected>' . $category->name . '</option>';
+					}
+					else
+					{
+						echo '<option value="' .  $category->id . '">' . $category->name . '</option>';
+					}	
+				}
 			?>
+
 			</select><br>
 
 			<div class="row formsubirvideodosinputs">
 				<div class="col-md-6 inputpeque">
 					<label class="">Idiomas:</label>
 					<select name="language" class="form-control">
-					<?php	
+
+					<?php
 					foreach($languages as $language)
-						echo '<option value="' .  $language->id . '">' . $language->name . '</option>';
+					{
+						if($language->id == $_SESSION['language'])
+						{
+							echo '<option value="' .  $language->id . '" selected>' . $language->name . '</option>';
+						}
+						else
+						{
+							echo '<option value="' .  $language->id . '">' . $language->name . '</option>';
+						}	
+					}
 					?>
+
 					</select><br>
 				</div>
 				<div class="col-md-6 inputpeque">
 					<label class="">Calidades del video:</label>
 					<select name="qualities[]" class="form-control" multiple>
+			
 					<?php
-					foreach($qualities as $quality)
-						echo '<option value="' .  $quality->id . '">' . $quality->name . '</option>';
+
+					$calidades = $_SESSION['qualities'];
+
+					foreach($qualities as $quality)		
+					{
+						$encontrado = false;
+						for($i=0; $i<sizeof($calidades); $i++)
+						{
+							if($quality->id==$calidades[$i])
+							{
+								$encontrado = true;
+							}
+						}
+
+						if($encontrado==true)
+						{
+							echo '<option value="' .  $quality->id . '" selected>' . $quality->name . '</option>';
+						}
+						else
+						{
+							echo '<option value="' .  $quality->id . '">' . $quality->name . '</option>';
+						}
+					}
 					?>
 					</select><br>
 				</div>
@@ -122,12 +189,7 @@
 
 			<label class="">Etiquetas:</label>
 			<?php echo form_textarea($etiquetas); echo '<br>';?>
-<!--
-			<label class="">Etiquetas:</label>
-			<textarea name="etiquetas" id="etiquetas"
-								placeholder="Etiquetas (p. ej: Albert Einstein, gatitos, comedia)"
-								class="form-control formsubirvideotextareasmall" value="<?php (isset($_SESSION['etiquetas']) ? $_SESSION['etiquetas'] : '')?>"></textarea>
-		</div> -->
+
 	</form>
 	
 	<div class="alert alert-danger mensajesSubirVideo" id="mensajeSubirVideo"><?php echo validation_errors();?></div>

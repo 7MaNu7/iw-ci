@@ -23,6 +23,11 @@ class subirVideo extends CI_Controller {
             unset($_SESSION["url"]);
             unset($_SESSION["description"]); 
             unset($_SESSION["etiquetas"]);
+            unset($_SESSION["visibility"]);
+            unset($_SESSION["license"]);
+            unset($_SESSION["category"]);
+            unset($_SESSION["language"]);
+            unset($_SESSION["qualities"]);
         }
 
 
@@ -59,6 +64,19 @@ class subirVideo extends CI_Controller {
                 $_SESSION["url"] = $this->input->post('url');
                 $_SESSION["description"] = $this->input->post('description'); 
                 $_SESSION["etiquetas"] = $_POST['etiquetas'];
+                $_SESSION["visibility"] = $this->input->post('visibility');
+                $_SESSION["license"] = $this->input->post('license');
+                $_SESSION["category"] = $this->input->post('category');
+                $_SESSION["language"] = $this->input->post('language');
+                $_SESSION["qualities"] = "";
+				if(!empty($this->input->post('qualities'))) {
+					if($this->input->post('qualities')) {
+						 $_SESSION["qualities"] = $_POST['qualities'];
+					} else {
+						 $_SESSION["qualities"] = "";
+					}
+				}
+
                 $_SESSION["clean"] = false;
 
                 //si no pasamos la validación volvemos al formulario mostrando los errores y sin borrar inputs
