@@ -36,7 +36,7 @@
 				'value'       => '',
 				'maxlength'   => '255',
 				'class'				=> 'form-control',
-				'placeholder'	=> 'Password con Mayusculas, minusculas y numeros. Ej: IW_esUnaAsignatura_10'
+				'placeholder'	=> 'Password de 8-16 caracteres con al menos una mayuscula, una minuscula y un numero. Ej: IWAsignaturaDe10'
 			);
 			$repetirPassword = array(
 				'name'        => 'repetirPassword',
