@@ -27,7 +27,7 @@
 				'value'       => '',
 				'maxlength'   => '255',
 				'class'				=> 'form-control',
-				'placeholder'	=> 'Ej: example@outlook.es'
+				'placeholder'	=> 'Ej: Usu_ario.prueBa-7@gmail.com'
 			);
 			$password = array(
 				'name'        => 'password',
