@@ -55,7 +55,7 @@ class registro extends CI_Controller {
             $this->form_validation->set_rules('userName','userName','trim|required|xss_clean|is_unique[user.userName]');
             //$this->form_validation->set_rules('email','email','trim|required|xss_clean|is_unique[user.email]');
             $this->form_validation->set_rules('password','password','trim|required|xss_clean');
-            $this->form_validation->set_rules('email','email','trim|required|xss_clean|callback_probando');
+            $this->form_validation->set_rules('email','email','trim|required|xss_clean|is_unique[user.email]|callback_probando');
 /*
             $usuarios = $this->registro_m->get_all();
             foreach ($usuarios as $user) {
@@ -67,6 +67,7 @@ class registro extends CI_Controller {
 */
             //validamos que se introduzcan los campos requeridos con la función de ci required
             $this->form_validation->set_message('required', 'El campo %s es obligatorio');
+            $this->form_validation->set_message('is_unique', 'El campo %s introducido ya esta registrado en YouTube');
 
             if (!$this->form_validation->run())
             {
