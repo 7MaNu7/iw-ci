@@ -8,9 +8,12 @@
 	<div class="numresultados"><p><?=$cuantosvideos?> resultados</p></div>
 
 	<div id='content' class="videospopulares">
+		
 		<?php
+		if($cuantosvideos==0)
+			echo 'No hay resultados en la busqueda.';
+		
 			foreach($videos as $video) { ?>
-
 				<div class="row bloquevideoinicio">
 					<a href="<?=site_url('/video/watch/' . $video->id)?>">
 						<div class="col-md-3">
@@ -43,10 +46,9 @@
 	<script src="http://c.fzilla.com/1291523190-jpaginate.js"></script>  
 	<script>  
 	$(document).ready(function(){  
-			$("#content").jPaginate({items: 20, next: "Siguiente", previous: "Anterior", paginaton_class: "myownclass"});                  
+			$("#content").jPaginate({items: 20, next: "Siguiente", previous: "Anterior", paginaton_class: "myownclass"});          
 	});  
 	</script>
-	
 	
 </main>
 
