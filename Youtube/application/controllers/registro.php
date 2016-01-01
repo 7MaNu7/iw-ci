@@ -19,14 +19,14 @@ class registro extends CI_Controller {
         $this->load->view('youtube/registro', $data);
     }
 
-    public function probando($email)
+    public function patronEmail($email)
     {
 
         $fracciones = explode("@", $email);
                 
         if (sizeof($fracciones)!=2)
         {
-            $this->form_validation->set_message('probando', 'El campo %s debe seguir el formato ***@***.***');
+            $this->form_validation->set_message('patronEmail', 'El campo %s debe seguir el formato ***@***.***');
             return FALSE;
         }
         else
@@ -34,17 +34,51 @@ class registro extends CI_Controller {
             $cadFinal = explode(".", $fracciones[1]);
             if(sizeof($cadFinal)!=2)
             {
-                $this->form_validation->set_message('probando', 'El campo %s debe seguir el formato ***@***.***');
+                $this->form_validation->set_message('patronEmail', 'El campo %s debe seguir el formato ***@***.***');
                 return FALSE;
             }
             else if(strlen($cadFinal[1])<2 || strlen($cadFinal[0])<2)
             {
-                $this->form_validation->set_message('probando', 'El campo %s debe tener minimo dos caracteres despues del "@" y del "."');
+                $this->form_validation->set_message('patronEmail', 'El campo %s debe tener minimo dos caracteres despues del "@" y del "."');
                 return FALSE; 
             }
             return TRUE;
         }
     }
+
+    public function patronPass($password)
+    {
+
+        if(strlen($password)<8 || strlen($password)>16)
+        {
+            $this->form_validation->set_message('patronPass', 'El campo %s debe tener entre 8 y 16 caracteres');
+            return FALSE;
+        }
+        else
+        {
+
+            // There is one upper and one lower
+            if(preg_match('/[A-Z]/', $password) && preg_match('/[a-z]/', $password)){
+                
+                if(preg_match('/[0-9]/', $password))
+                {
+                    return TRUE;
+                }
+                else
+                {
+                     $this->form_validation->set_message('patronPass', 'El campo %s debe contener al menos un numero');
+                     return FALSE;
+                }
+            }
+            else
+            {
+                 $this->form_validation->set_message('patronPass', 'El campo %s debe contener letras mayusculas y minusculas (al menos una)');
+                 return FALSE;
+            }
+            
+        }
+    }
+
 
     public function repetirPass($password)
     {
@@ -67,10 +101,10 @@ class registro extends CI_Controller {
         //si se ha pulsado el botón submit validamos el formulario con codeIgniter
         if($this->input->post('submit')) {
             //hacemos las comprobaciones que deseemos en nuestro formulario
-            $this->form_validation->set_rules('userName','userName','trim|required|xss_clean|is_unique[user.userName]');
+            $this->form_validation->set_rules('userName','userName','trim|required|is_unique[user.userName]');
             //$this->form_validation->set_rules('email','email','trim|required|xss_clean|is_unique[user.email]');
-            $this->form_validation->set_rules('password','password','trim|required|xss_clean|callback_repetirPass');
-            $this->form_validation->set_rules('email','email','trim|required|xss_clean|is_unique[user.email]|callback_probando');
+            $this->form_validation->set_rules('password','password','trim|required|callback_patronPass|callback_repetirPass|xss_clean');
+            $this->form_validation->set_rules('email','email','trim|required|is_unique[user.email]|callback_patronEmail');
             $this->form_validation->set_rules('repetirPassword','repetirPassword','trim|required|xss_clean');
 
 
