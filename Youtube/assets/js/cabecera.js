@@ -8,16 +8,12 @@ $( ".hamburger" ).click(function() {
 })
 
 function buscar() {
-	var URLactual = window.location;
-	var preURL = "";
-	var ultimo = String(URLactual).substr(String(URLactual).length - 10);
-	
-	if(ultimo=="/index.php")
-		preURL = "index.php/";
+	var URLactual = String(window.location);
+	var baseURL = URLactual.split('index.php')[0]+"index.php/";
 	
 	var buscado = $('#inputsearchcab').val();
 	if(buscado!="" || buscado==undefined)
-		window.location=preURL+"busqueda?search_query="+buscado;
+		window.location=baseURL+"busqueda?search_query="+buscado;
 }
 
 /* Para la búsqueda */
