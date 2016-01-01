@@ -57,24 +57,51 @@
 
 .containerbusqueda ul {
 	margin-top: 40px;
+	margin-left: 200px;
 }
 
-.containerbusqueda li a {
+.pagination {
+	list-style:none;
+	margin:0px;
+	padding:0px;
+}  
+
+.pagination li a { 
+  font: 13px Roboto,arial,sans-serif;
 	border-radius: 8px;
 	margin-right: 10px;
-	border: none;
-  border-bottom: 1px solid #C6C6C6;
+	display:block; 
+	padding:3px 5px;
+	text-decoration:none;
+	border-radius: 2px;
+	border: 1px solid #c6c6c6;
+	background-color:#f8f8f8;
+	color: #333; 
+}
+
+.pagination li a.active {
+	color: #000;
+	background-color: #fff;
+	background: #e9e9e9;
+	box-shadow: inset 0 1px 0 #ddd;
+} 
+
+.pagination li a.inactive {
+	background: #f8f8f8;
 	color: #333;
 }
 
+.pagination>li:first-child>a, .pagination>li:first-child>span {
+	margin-left: 0;
+	border-top-left-radius: 2px;
+	border-bottom-left-radius: 2px;
+	border-top-right-radius: 2px;
+	border-bottom-right-radius: 2px;
+}
 
-
-
-
-
-/*EXAMPL*/
-.pagination {list-style:none; margin:0px; padding:0px;}  
-.pagination li{float:left; margin:3px;}  
-.pagination li a{   display:block; padding:3px 5px; color:#fff; background-color:#44b0dd; text-decoration:none;}  
-.pagination li a.active {border:1px solid #000; color:#000; background-color:#fff;}  
-.pagination li a.inactive {background-color:#eee; color:#777; border:1px solid #ccc;}  
+.pagination>li:last-child>a, .pagination>li:last-child>span {
+	border-top-left-radius: 2px;
+	border-bottom-left-radius: 2px;
+	border-top-right-radius: 2px;
+	border-bottom-right-radius: 2px;
+}
