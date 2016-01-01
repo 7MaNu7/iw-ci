@@ -67,7 +67,7 @@
 }  
 
 .pagination li a { 
-  font: 13px Roboto,arial,sans-serif;
+  font: 12px Roboto,arial,sans-serif;
 	border-radius: 8px;
 	margin-right: 10px;
 	display:block; 
@@ -77,6 +77,11 @@
 	border: 1px solid #c6c6c6;
 	background-color:#f8f8f8;
 	color: #333; 
+	height: 25px;
+	line-height: 18px;
+	width: 25px;
+	text-align: center;
+  cursor: pointer;	
 }
 
 .pagination li a.active {
@@ -97,6 +102,9 @@
 	border-bottom-left-radius: 2px;
 	border-top-right-radius: 2px;
 	border-bottom-right-radius: 2px;
+	width: 70px !important;
+	text-align: center;
+  font-weight: 600;
 }
 
 .pagination>li:last-child>a, .pagination>li:last-child>span {
@@ -104,4 +112,7 @@
 	border-bottom-left-radius: 2px;
 	border-top-right-radius: 2px;
 	border-bottom-right-radius: 2px;
+	width: 70px !important;
+	text-align: center;
+	font-weight: 600;
 }

@@ -39,24 +39,11 @@
 		?>
 	</div>
 	
-	
-	
-	<!--<ul class="pager">
-		<?php
-		//echo $cuantosvideospag." ".$videosporpagina." ".$cuantosvideospag/$videosporpagina;
-		$paginas = ($cuantosvideospag/$videosporpagina);
-		if($paginas>1) {?>
-			<li><a href="#">Anterior</a></li>
-			<li><a href="#">Siguiente</a></li>
-		<?php
-		} ?>
-	</ul>-->
-	
 	<script src="http://c.fzilla.com/1286136086-jquery.js"></script>  
 	<script src="http://c.fzilla.com/1291523190-jpaginate.js"></script>  
 	<script>  
 	$(document).ready(function(){  
-			$("#content").jPaginate({items: 20, paginaton_class: "myownclass"});                  
+			$("#content").jPaginate({items: 20, next: "Siguiente", previous: "Anterior", paginaton_class: "myownclass"});                  
 	});  
 	</script> 
 	
