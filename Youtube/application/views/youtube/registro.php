@@ -74,6 +74,15 @@
 
 	</form>
 
+	<?php 
+
+		$urlredireccion='inicio';
+		//Redireccionamos			
+		if(isset($_SESSION["id"]))
+			echo '<script>window.location="'.$urlredireccion.'"</script>'; 
+
+	?>
+
 	<div class="alert alert-danger mensajesSubirVideo" id="mensajeRegistro"><?php echo validation_errors();?></div>
     
 </main>
@@ -105,5 +114,6 @@
 		document.getElementById('password').style.borderColor = "rgba(255, 0, 0, 0.51)";
 		document.getElementById('repetirPassword').style.borderColor = "rgba(255, 0, 0, 0.51)";
 	}
+
 	
 </script>
