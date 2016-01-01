@@ -36,7 +36,7 @@
 				'value'       => '',
 				'maxlength'   => '255',
 				'class'				=> 'form-control',
-				'placeholder'	=> 'Dificil de adivinar. Ej: N5eA_7n8B3i'
+				'placeholder'	=> 'Password con Mayusculas, minusculas y numeros. Ej: IW_esUnaAsignatura_10'
 			);
 			$repetirPassword = array(
 				'name'        => 'repetirPassword',
