@@ -34,7 +34,7 @@ class registro extends CI_Controller {
        else
        {
             $this->form_validation->set_message('patronEmail', 
-                'El campo %s debe seguir el formato correcto: Empieza por una letra. Puede contener "." "-" "_" y numeros. Minimo dos caracteres antes del "@", despues del "@" y despues del "." (maximo 6). Ejemplo: Ejemplo_7@gm.com');
+                'El campo %s debe seguir el formato correcto, aqui un ejemplo con caracteres permitidos: Aa1_-.@ejemplo.com');
             return FALSE;
        }
 
