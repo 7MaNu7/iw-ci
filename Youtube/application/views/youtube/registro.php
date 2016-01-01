@@ -15,7 +15,7 @@
 			$userName = array(
 				'name'        => 'userName',
 				'id'          => 'userName',
-				'value'       => '',
+				'value'       => (isset($_SESSION['nombre']) ? $_SESSION['nombre'] : ''),
 				'maxlength'   => '255',
 				'class'				=> 'form-control',
 				'placeholder'	=> 'Ej: AuronPlay'
@@ -24,7 +24,7 @@
 				'name'        => 'email',
 				'id'          => 'email',
 				'type'		  => 'email',
-				'value'       => '',
+				'value'       => (isset($_SESSION['email']) ? $_SESSION['email'] : ''),
 				'maxlength'   => '255',
 				'class'				=> 'form-control',
 				'placeholder'	=> 'Ej: Usu_ario.prueBa-7@gmail.com'
