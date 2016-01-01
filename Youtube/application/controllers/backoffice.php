@@ -1,56 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-/*class Backoffice extends CI_Controller {
-
-	//Incluir modelo para controller aquí o en tiempo de construccion si se usa mucho
-	function __construct() {
-		parent::__construct();
-		$this->load->database();
-		$this->load->library('grocery_CRUD');
-	}
-
-
-	//Por defecto, si no ay index error
-	public function index()
-	{		
-		$data['titulo'] = "Gestión/Back-office";
-		$data['css_files'] = ["assets/css/busqueda.css", "assets/css/cabecera.css"];
-		$data['js_files'] = ["assets/js/cabecera.js"];
-		$data['css_grocery_files'] = ["assets/grocery_crud/themes/datatables/css/datatables.css"];
-		
-		try {
-			$crud = new grocery_CRUD();
-			// Seleccionamos el tema
-			$crud->set_theme('datatables');
-			// Nombre de la tabla en nuestra BD
-			$crud->set_table('license');
-			// Nombre
-			$crud->set_subject('Licencias');
-			// Lenguaje
-			$crud->set_language('spanish');
-			// Campos que son obligatorios
-			$crud->required_fields(
-				'id',
-				'name'
-			);
-			// Campos que apareceran en la vista (por ej, tlf no aparecerá)
-			$crud->columns(
-				'id',
-				'name'
-			);
-			$output = $crud->render();
-			//$this->load->view('agenda/index', $output);
-			
-		} catch(Exception $e) {
-			show_error($e->getMessage().' --- '.$e->getTraceAsString());
-		}
-		
-		$data['output'] = $output;
-		$this->load->view('youtube/backoffice', $data);
-	}	
-}*/
-
-
 class Backoffice extends CI_Controller {
 
 	public function __construct()
@@ -74,14 +23,23 @@ class Backoffice extends CI_Controller {
 		$this->_backoffice_output($output);
 	}
 
-	public function index()
-	{
-		$this->_backoffice_output((object)array('output' => '' , 'js_files' => array() , 'css_files' => array()));
+	public function obtenerDatos() {
+		$my_css_files = [base_url()."assets/css/cabecera.css", base_url()."assets/css/backoffice.css"];
+		$my_js_files = [base_url()."assets/js/cabecera.js"];
+		$this->_backoffice_output((object)array('output' => '' ,
+																						'titulo' => 'Gestión/Back-office',
+																						'js_files' => $my_js_files ,
+																						'css_files' => $my_css_files));
 	}
-
+	
+	public function index()
+	{	
+		$this->obtenerDatos();
+	}
+	
 	// Configuramos la tabla licencias	
 	public function gestion_licencias()
-	{
+	{		
 		try{
 			$crud = new grocery_CRUD();
 
@@ -92,7 +50,7 @@ class Backoffice extends CI_Controller {
 			$crud->columns('id','name');
 
 			$output = $crud->render();
-			$this->_backoffice_output($output);
+			$this->_backoffice_output($output);			
 			
 		}catch(Exception $e){
 			show_error($e->getMessage().' --- '.$e->getTraceAsString());
