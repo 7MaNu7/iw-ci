@@ -14,7 +14,7 @@
 			$title = array(
 				'name'        => 'title',
 				'id'          => 'title',
-				'value'       => '',
+				'value'       => (isset($_SESSION['title']) ? $_SESSION['title'] : ''),
 				'maxlength'   => '255',
 				'class'				=> 'form-control',
 				'placeholder'	=> 'Ej: Recopilación de vídeos graciosos'
@@ -22,7 +22,7 @@
 			$url = array(
 				'name'        => 'url',
 				'id'          => 'url',
-				'value'       => '',
+				'value'       => (isset($_SESSION['url']) ? $_SESSION['url'] : ''),
 				'maxlength'   => '255',
 				'class'				=> 'form-control',
 				'placeholder'	=> 'Ej: https://www.youtube.com/watch?v=p87gfVHMms'
@@ -30,7 +30,7 @@
 			$description = array(
 				'name'        => 'description',
 				'id'          => 'description',
-				'value'       => '',
+				'value'       => (isset($_SESSION['description']) ? $_SESSION['description'] : ''),
 				'class'				=> 'form-control formsubirvideotextarea',
 				'placeholder'	=> 'Ej: El mejor vídeo de risa que puedas ver. Muestra una serie situaciones graciosas con las que vas a disfrutar...'
 			);
@@ -61,58 +61,135 @@
 			<div class="row formsubirvideodosinputs">
 				<div class="col-md-6 inputpeque">
 					<label class="">Visibilidad del video:</label>
+
 					<select name="visibility" class="form-control">
+
 					<?php
 					foreach($videovisibilidades as $visibilidad)
-						echo '<option value="' .  $visibilidad->id . '">' . $visibilidad->name . '</option>';
+					{
+						if($visibilidad->id == $_SESSION['visibility'])
+						{
+							echo '<option value="' .  $visibilidad->id . '" selected>' . $visibilidad->name . '</option>';
+						}
+						else
+						{
+							echo '<option value="' .  $visibilidad->id . '">' . $visibilidad->name . '</option>';
+						}	
+					}
 					?>
+
 					</select><br>	
 				</div>
 				<div class="col-md-6 inputpeque">
 					<label class="">Tipo de licencia:</label>
 					<select name="license" class="form-control">
+
 					<?php
 					foreach($licenses as $license)
-						echo '<option value="' .  $license->id . '">' . $license->name . '</option>';
+					{
+						if($license->id == $_SESSION['license'])
+						{
+							echo '<option value="' .  $license->id . '" selected>' . $license->name . '</option>';
+						}
+						else
+						{
+							echo '<option value="' .  $license->id . '">' . $license->name . '</option>';
+						}	
+					}
 					?>
+
 					</select><br>
 				</div>
 			</div>
 			
 			<label class="">Categoria:</label>
 			<select name="category" class="form-control formsubirvideoselect">
+
 			<?php
-			foreach($categories as $category)
-				echo '<option value="' .  $category->id . '">' . $category->name . '</option>';
+				foreach($categories as $category)
+				{
+					if($category->id == $_SESSION['category'])
+					{
+						echo '<option value="' .  $category->id . '" selected>' . $category->name . '</option>';
+					}
+					else
+					{
+						echo '<option value="' .  $category->id . '">' . $category->name . '</option>';
+					}	
+				}
 			?>
+
 			</select><br>
 
 			<div class="row formsubirvideodosinputs">
 				<div class="col-md-6 inputpeque">
 					<label class="">Idiomas:</label>
 					<select name="language" class="form-control">
-					<?php	
+
+					<?php
 					foreach($languages as $language)
-						echo '<option value="' .  $language->id . '">' . $language->name . '</option>';
+					{
+						if($language->id == $_SESSION['language'])
+						{
+							echo '<option value="' .  $language->id . '" selected>' . $language->name . '</option>';
+						}
+						else
+						{
+							echo '<option value="' .  $language->id . '">' . $language->name . '</option>';
+						}	
+					}
 					?>
+
 					</select><br>
 				</div>
 				<div class="col-md-6 inputpeque">
 					<label class="">Calidades del video:</label>
 					<select name="qualities[]" class="form-control" multiple>
+			
 					<?php
-					foreach($qualities as $quality)
-						echo '<option value="' .  $quality->id . '">' . $quality->name . '</option>';
+
+					$calidades = $_SESSION['qualities'];
+
+					foreach($qualities as $quality)		
+					{
+						$encontrado = false;
+						for($i=0; $i<sizeof($calidades); $i++)
+						{
+							if($quality->id==$calidades[$i])
+							{
+								$encontrado = true;
+							}
+						}
+
+						if($encontrado==true)
+						{
+							echo '<option value="' .  $quality->id . '" selected>' . $quality->name . '</option>';
+						}
+						else
+						{
+							echo '<option value="' .  $quality->id . '">' . $quality->name . '</option>';
+						}
+					}
 					?>
 					</select><br>
 				</div>
 			</div>
 
+			<?php
+
+				$etiquetas = array(
+				'name'       	 	=> 'etiquetas',
+				'id'          		=> 'etiquetas',
+				'value'       		=> (isset($_SESSION['etiquetas']) ? $_SESSION['etiquetas'] : ''),
+				'class'				=> 'form-control formsubirvideotextareasmall',
+				'placeholder'		=> 'Etiquetas (p. ej: Albert Einstein, gatitos, comedia)'
+			);
+
+			?>
+
 			<label class="">Etiquetas:</label>
-			<textarea name="etiquetas" id="etiquetas"
-								placeholder="Etiquetas (p. ej: Albert Einstein, gatitos, comedia)"
-								class="form-control formsubirvideotextareasmall"></textarea>
-		</div>
+			<?php echo form_textarea($etiquetas); echo '<br>';?>
+
 	</form>
 	
 	<div class="alert alert-danger mensajesSubirVideo" id="mensajeSubirVideo"><?php echo validation_errors();?></div>
