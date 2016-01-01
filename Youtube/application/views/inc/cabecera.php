@@ -45,6 +45,10 @@
 						</a>
 					</span>
 				</div>
+
+				<a class="registrarse" href="<?=site_url('registro')?>">
+					¿Aun no te has registrado?
+				</a>
 			</ul>
 			
 			<!-- Menú que se abre con hamburger y Enlaces -->
