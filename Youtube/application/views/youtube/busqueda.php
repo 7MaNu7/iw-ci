@@ -7,7 +7,7 @@
 	
 	<div class="numresultados"><p><?=$cuantosvideos?> resultados</p></div>
 
-	<div class="videospopulares">
+	<div id='content' class="videospopulares">
 		<?php
 			foreach($videos as $video) { ?>
 
@@ -41,7 +41,7 @@
 	
 	
 	
-	<ul class="pager">
+	<!--<ul class="pager">
 		<?php
 		//echo $cuantosvideospag." ".$videosporpagina." ".$cuantosvideospag/$videosporpagina;
 		$paginas = ($cuantosvideospag/$videosporpagina);
@@ -50,7 +50,21 @@
 			<li><a href="#">Siguiente</a></li>
 		<?php
 		} ?>
-	</ul>
+	</ul>-->
+	
+	<script src="http://c.fzilla.com/1286136086-jquery.js"></script>  
+	<script src="http://c.fzilla.com/1291523190-jpaginate.js"></script>  
+	<script>  
+	$(document).ready(function(){  
+			$("#content").jPaginate({items: 20, paginaton_class: "myownclass"});                  
+	});  
+	</script> 
+	
+	
+	
+	
+	
+	
 	
 </main>
 
