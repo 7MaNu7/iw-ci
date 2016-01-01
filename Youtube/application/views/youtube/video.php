@@ -44,15 +44,40 @@
 				<hr>
             </div>
 			<div class="row margin-bottom">
-				<form method="post" accept-charset="utf-8"
-					action="<?=site_url('/video/nuevo_comentario')?>">
+				<div class="col-md-12">
+					<div id="error"></div>
+				</div>
+				<form method="post" accept-charset="utf-8">
 					<input type="hidden" name="video" value="<?=$video->id?>">
-					<input type="hidden" name="user" value="<?=$_SESSION['id']?>">
+					<input type="hidden" name="user" value="<?php if( isset($_SESSION['id']) ){ echo $_SESSION['id']; }else {echo '0';} ?>">
 					<div class="col-md-10">
 						<textarea name="comment" rows="4" cols="40" class="form-control comment-box"></textarea>
 					</div>
 					<div class="col-md-2 margin-top"><button class="btn btn-primary margin-top">Enviar</button></div>
 				</form>
+				<script type="text/javascript">
+					$('form').submit(function(event){
+						event.preventDefault();
+						var formData = {
+				            'video'              : $('input[name=video]').val(),
+				            'user'             : $('input[name=user]').val(),
+				            'comment'    : $('textarea[name=comment]').val()
+				        };
+						console.log(formData);
+						if(formData.user == 0)
+						{
+							$('#error').html('<div class="alert alert-danger"><strong>Error!</strong> Debes iniciar sesión</div>')
+						}
+						else {
+							$.ajax({
+								url: '<?=site_url('/video/nuevo_comentario')?>',
+								type: 'POST',
+								data: formData
+							});
+							location.reload();
+						}
+					});
+				</script>
 				<hr>
 			</div>
 			<?php foreach($comentarios as $comentario) { ?>
