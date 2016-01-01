@@ -8,9 +8,16 @@ $( ".hamburger" ).click(function() {
 })
 
 function buscar() {
+	var URLactual = window.location;
+	var preURL = "";
+	var ind = String(URLactual).indexOf("inicio");
+	
+	if(!(ind>-1))
+		preURL = "index.php/";
+	
 	var buscado = $('#inputsearchcab').val();
 	if(buscado!="" || buscado==undefined)
-		window.location="busqueda?search_query="+buscado;
+		window.location=preURL+"busqueda?search_query="+buscado;
 }
 
 /* Para la búsqueda */
