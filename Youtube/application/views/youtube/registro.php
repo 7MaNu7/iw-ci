@@ -38,6 +38,15 @@
 				'class'				=> 'form-control',
 				'placeholder'	=> 'Dificil de adivinar. Ej: N5eA_7n8B3i'
 			);
+			$repetirPassword = array(
+				'name'        => 'repetirPassword',
+				'id'          => 'repetirPassword',
+				'type'		  => 'password',
+				'value'       => '',
+				'maxlength'   => '255',
+				'class'				=> 'form-control',
+				'placeholder'	=> 'Introduce la misma password aqui'
+			);
 			$submit = array(
 					'name' => 'submit',
 					'id' => 'submit',
@@ -54,6 +63,8 @@
 		    <?php echo form_input($email); echo '<br>'; ?>
 		    <label class=""><span class="campoobligatorio">(*) </span>Password:</label>
 		    <?php echo form_input($password); echo '<br>'; ?>
+		    <label class=""><span class="campoobligatorio">(*) </span>Repite la password:</label>
+		    <?php echo form_input($repetirPassword); echo '<br>'; ?>
 
 		    <p>(*): El campo es obligatorio.</p>
 
@@ -86,4 +97,13 @@
 		document.getElementById('userName').style.borderColor = "rgba(255, 0, 0, 0.51)";	
 	if(mensajes.indexOf("El campo password") > -1)
 		document.getElementById('password').style.borderColor = "rgba(255, 0, 0, 0.51)";
+	if(mensajes.indexOf("El campo repetirPassword") > -1)
+		document.getElementById('repetirPassword').style.borderColor = "rgba(255, 0, 0, 0.51)";
+	
+	if(mensajes.indexOf("El campo de repetir la password debe coincidir") > -1)
+	{
+		document.getElementById('password').style.borderColor = "rgba(255, 0, 0, 0.51)";
+		document.getElementById('repetirPassword').style.borderColor = "rgba(255, 0, 0, 0.51)";
+	}
+	
 </script>
