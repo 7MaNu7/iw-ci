@@ -37,7 +37,7 @@
             </div>
         </section>
     </div>
-    <class class="col-md-4">
+    <div class="col-md-4">
        <section class="profile center">
             <img src="http://lorempixel.com/100/100" alt="" class="imagen img-circle">
             <h4><?=$user->username?></h4>
@@ -46,7 +46,6 @@
                 <div class="btn btn-default">128.915 segidores</div>
             </div>
        </section>
-       <div class="row space"></div>
         <section class="col-md-12">
             <div class="row">
                 <div class="col-md-12">
@@ -68,7 +67,7 @@
             </div>
 			<?php } ?>
         </section>
-    </class>
+    </div>
 </main>
 
 <?php

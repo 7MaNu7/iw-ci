@@ -27,4 +27,14 @@ class Video extends CI_Controller {
 		$this->load->view('youtube/video', $data);
 
     }
+
+	public function nuevo_comentario()
+	{
+		$comment = $_POST['comment'];
+		$video = $_POST['video'];
+		$user = $_POST['user'];
+
+		$this->Video_m->new_comment($video, $user, $comment);
+		$this->watch($video);
+	}
 }
