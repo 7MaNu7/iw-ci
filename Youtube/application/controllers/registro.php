@@ -17,4 +17,17 @@ class registro extends CI_Controller {
         $this->load->view('youtube/registro', $data);
     }
     
+    public function insertar_usuario(){
+
+        $userName = $this->input->post('userName');   
+        $email = $this->input->post('email');       
+        $password = $this->input->post('password');   
+
+        //ahora procesamos los datos hacía el modelo que debemos crear
+        $nuevo_usuario = $this->registro_m->nueva_cuenta(
+            $userName,
+            $email,
+            $password
+        );
+    }
 }
