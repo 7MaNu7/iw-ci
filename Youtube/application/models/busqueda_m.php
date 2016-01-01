@@ -2,20 +2,35 @@
 
 class Busqueda_m extends CI_Model {
 	
+	//Para ver las consultas SQL: $this->output->enable_profiler(TRUE);
+	
 	/* Obtenemos todos los videos según la búsqueda */
-	function get_search_all() {
+	function get_search_all($buscado) {
 		$this->db->select('video.id, user.id, title, url, description, duration, visits, user, userName');
 		$this->db->from('video');
 		$this->db->join('user', 'user.id = video.user');
+		if($buscado!="") {
+			$this->db->like('description', $buscado);
+			$this->db->or_like('title', $buscado);
+			$this->db->or_like('userName', $buscado);	
+		}
 		$this->db->order_by('visits');
-		$this->db->limit(50, 0);
 		return $this->db->get()->result();
 	}
 	
 	/* Numero de items que aparecen en total */
-	function count_search_all() {
-		$this->db->select('id');
-		return $this->db->count_all("video");;
+	function count_search_all($buscado) {
+		$this->db->select('video.id, user.id, title, url, description, duration, visits, user, userName');
+		$this->db->from('video');
+		$this->db->join('user', 'user.id = video.user');
+		if($buscado!="") {
+			$this->db->like('description', $buscado);
+			$this->db->or_like('title', $buscado);
+			$this->db->or_like('userName', $buscado);	
+		}
+		$this->db->order_by('visits');
+		$query = $this->db->get();
+		return $query->num_rows();
 	}
 	
 	/* Si paginamos con peticiones por página */

@@ -13,11 +13,17 @@ class Busqueda extends CI_Controller {
 	//Por defecto, si no ay index error
 	public function index()
 	{
-		$data['titulo']="Resultados de la búsqueda";
-		$data['videos']=$this->Busqueda_m->get_search_all();
-		$data['cuantosvideos']=$this->Busqueda_m->count_search_all();
+		//Obtenemos que se quiere buscar
+		$buscado = "";
+		if(isset($_GET['search_query'])) {
+			$buscado = $_GET['search_query'];
+		}
 		
-		/* Si paginamos haciendo peticiones por cada pagina */
+		$data['titulo']="Resultados de la búsqueda";
+		$data['videos']=$this->Busqueda_m->get_search_all($buscado);
+		$data['cuantosvideos']=$this->Busqueda_m->count_search_all($buscado);
+		
+		// Si paginamos haciendo peticiones por cada pagina
 		$data['tamdescription'] = 112;
 		$data['videosporpagina']=20;
 		$data['cuantosvideospag']=$this->Busqueda_m->count_search_pag(0, 20);		
