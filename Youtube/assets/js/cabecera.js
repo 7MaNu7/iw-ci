@@ -10,9 +10,9 @@ $( ".hamburger" ).click(function() {
 function buscar() {
 	var URLactual = window.location;
 	var preURL = "";
-	var ind = String(URLactual).indexOf("inicio");
+	var ultimo = String(URLactual).substr(String(URLactual).length - 10);
 	
-	if(!(ind>-1))
+	if(ultimo=="/index.php")
 		preURL = "index.php/";
 	
 	var buscado = $('#inputsearchcab').val();
