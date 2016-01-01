@@ -29,8 +29,12 @@ a:hover
 </head>
 <body>
 	<div>
-		<a href='<?php echo site_url('backoffice/gestion_licencias')?>'>Licencias</a> 
-		
+		<a href='<?php echo site_url('backoffice/gestion_licencias')?>'>Licencias</a>
+		<a href='<?php echo site_url('backoffice/gestion_categorias')?>'>Categorias</a>
+		<a href='<?php echo site_url('backoffice/gestion_visibilidad')?>'>Visibilidad</a>
+		<a href='<?php echo site_url('backoffice/gestion_etiquetas')?>'>Etiquetas</a>
+		<a href='<?php echo site_url('backoffice/gestion_idiomas')?>'>Idiomas</a>
+		<a href='<?php echo site_url('backoffice/gestion_calidades')?>'>Calidades</a>		
 	</div>
 	<div style='height:20px;'></div>  
     <div>

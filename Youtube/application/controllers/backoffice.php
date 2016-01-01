@@ -63,7 +63,7 @@ class Backoffice extends CI_Controller {
 		$this->load->library('grocery_CRUD');
 	}
 
-	public function _example_output($output = null)
+	public function _backoffice_output($output = null)
 	{
 		$this->load->view('backoffice.php', $output);
 	}
@@ -71,14 +71,15 @@ class Backoffice extends CI_Controller {
 	public function licencias()
 	{
 		$output = $this->grocery_crud->render();
-		$this->_example_output($output);
+		$this->_backoffice_output($output);
 	}
 
 	public function index()
 	{
-		$this->_example_output((object)array('output' => '' , 'js_files' => array() , 'css_files' => array()));
+		$this->_backoffice_output((object)array('output' => '' , 'js_files' => array() , 'css_files' => array()));
 	}
 
+	// Configuramos la tabla licencias	
 	public function gestion_licencias()
 	{
 		try{
@@ -87,12 +88,112 @@ class Backoffice extends CI_Controller {
 			$crud->set_theme('datatables');
 			$crud->set_table('license');
 			$crud->set_subject('Licencias');
-			$crud->required_fields('id');
+			$crud->required_fields('id', 'name');
 			$crud->columns('id','name');
 
 			$output = $crud->render();
-			$this->_example_output($output);
+			$this->_backoffice_output($output);
+			
+		}catch(Exception $e){
+			show_error($e->getMessage().' --- '.$e->getTraceAsString());
+		}
+	}
+	
+	// Configuramos la tabla categorias	
+	public function gestion_categorias()
+	{
+		try{
+			$crud = new grocery_CRUD();
 
+			$crud->set_theme('datatables');
+			$crud->set_table('category');
+			$crud->set_subject('Categorias');
+			$crud->required_fields('id', 'name');
+			$crud->columns('id','name');
+
+			$output = $crud->render();
+			$this->_backoffice_output($output);
+			
+		}catch(Exception $e){
+			show_error($e->getMessage().' --- '.$e->getTraceAsString());
+		}
+	}
+	
+	// Configuramos la tabla visibilidad	
+	public function gestion_visibilidad()
+	{
+		try{
+			$crud = new grocery_CRUD();
+
+			$crud->set_theme('datatables');
+			$crud->set_table('videovisibility');
+			$crud->set_subject('Visibilidad');
+			$crud->required_fields('id', 'name');
+			$crud->columns('id','name');
+
+			$output = $crud->render();
+			$this->_backoffice_output($output);
+			
+		}catch(Exception $e){
+			show_error($e->getMessage().' --- '.$e->getTraceAsString());
+		}
+	}
+	
+	// Configuramos la tabla etiquetas	
+	public function gestion_etiquetas()
+	{
+		try{
+			$crud = new grocery_CRUD();
+
+			$crud->set_theme('datatables');
+			$crud->set_table('tag');
+			$crud->set_subject('Etiquetas');
+			$crud->required_fields('id', 'name');
+			$crud->columns('id','name');
+
+			$output = $crud->render();
+			$this->_backoffice_output($output);
+			
+		}catch(Exception $e){
+			show_error($e->getMessage().' --- '.$e->getTraceAsString());
+		}
+	}
+	
+	// Configuramos la tabla idiomas	
+	public function gestion_idiomas()
+	{
+		try{
+			$crud = new grocery_CRUD();
+
+			$crud->set_theme('datatables');
+			$crud->set_table('language');
+			$crud->set_subject('Idiomas');
+			$crud->required_fields('id', 'name');
+			$crud->columns('id','name');
+
+			$output = $crud->render();
+			$this->_backoffice_output($output);
+			
+		}catch(Exception $e){
+			show_error($e->getMessage().' --- '.$e->getTraceAsString());
+		}
+	}
+	
+	// Configuramos la tabla calidades	
+	public function gestion_calidades()
+	{
+		try{
+			$crud = new grocery_CRUD();
+
+			$crud->set_theme('datatables');
+			$crud->set_table('quality');
+			$crud->set_subject('Calidades');
+			$crud->required_fields('id', 'name');
+			$crud->columns('id','name');
+
+			$output = $crud->render();
+			$this->_backoffice_output($output);
+			
 		}catch(Exception $e){
 			show_error($e->getMessage().' --- '.$e->getTraceAsString());
 		}
