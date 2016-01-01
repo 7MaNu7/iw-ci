@@ -29,7 +29,7 @@ a:hover
 </head>
 <body>
 	<div>
-		<a href='<?php echo site_url('examples/offices_management')?>'>Offices</a> 
+		<a href='<?php echo site_url('backoffice/gestion_licencias')?>'>Licencias</a> 
 		
 	</div>
 	<div style='height:20px;'></div>  

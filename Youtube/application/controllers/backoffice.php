@@ -51,17 +51,6 @@
 }*/
 
 
-
-
-
-
-
-
-
-
-
-
-
 class Backoffice extends CI_Controller {
 
 	public function __construct()
@@ -76,10 +65,10 @@ class Backoffice extends CI_Controller {
 
 	public function _example_output($output = null)
 	{
-		$this->load->view('backofficev.php', $output);
+		$this->load->view('backoffice.php', $output);
 	}
 
-	public function offices()
+	public function licencias()
 	{
 		$output = $this->grocery_crud->render();
 		$this->_example_output($output);
@@ -90,14 +79,14 @@ class Backoffice extends CI_Controller {
 		$this->_example_output((object)array('output' => '' , 'js_files' => array() , 'css_files' => array()));
 	}
 
-	public function offices_management()
+	public function gestion_licencias()
 	{
 		try{
 			$crud = new grocery_CRUD();
 
 			$crud->set_theme('datatables');
 			$crud->set_table('license');
-			$crud->set_subject('Office');
+			$crud->set_subject('Licencias');
 			$crud->required_fields('id');
 			$crud->columns('id','name');
 
