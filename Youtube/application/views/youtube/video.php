@@ -43,6 +43,18 @@
                 <h4>Comentarios</h4>
 				<hr>
             </div>
+			<div class="row margin-bottom">
+				<form method="post" accept-charset="utf-8"
+					action="<?=site_url('/video/nuevo_comentario')?>">
+					<input type="hidden" name="video" value="<?=$video->id?>">
+					<input type="hidden" name="user" value="<?=$_SESSION['id']?>">
+					<div class="col-md-10">
+						<textarea name="comment" rows="4" cols="40" class="form-control comment-box"></textarea>
+					</div>
+					<div class="col-md-2 margin-top"><button class="btn btn-primary margin-top">Enviar</button></div>
+				</form>
+				<hr>
+			</div>
 			<?php foreach($comentarios as $comentario) { ?>
 	            <div class="row margin-bottom">
 	                <div class="col-sm-12">

@@ -76,3 +76,9 @@ section {
     width: 90px;
     height: 90px;
 }
+
+.comment-box {
+    resize: vertical;
+    margin-left: 10px;
+    margin-right: 10px;
+}
