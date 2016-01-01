@@ -14,11 +14,14 @@ class Busqueda extends CI_Controller {
 	public function index()
 	{
 		$data['titulo']="Resultados de la búsqueda";
+		$data['videos']=$this->Busqueda_m->get_search_all();
+		$data['cuantosvideos']=$this->Busqueda_m->count_search_all();
+		
+		/* Si paginamos haciendo peticiones por cada pagina */
 		$data['tamdescription'] = 112;
 		$data['videosporpagina']=20;
-		$data['videos']=$this->Busqueda_m->get_search_all();
-		$data['cuantosvideos']=$this->Busqueda_m->count_search_all();		
-		$data['cuantosvideospag']=$this->Busqueda_m->count_search_pag();		
+		$data['cuantosvideospag']=$this->Busqueda_m->count_search_pag(0, 20);		
+		
 		$data['css_files'] = ["assets/css/busqueda.css", "assets/css/cabecera.css"];
 		$data['js_files'] = ["assets/js/cabecera.js"];
 		$this->load->view('youtube/busqueda', $data);
