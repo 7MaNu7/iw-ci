@@ -7,10 +7,18 @@ $( ".hamburger" ).click(function() {
 	});
 })
 
-/* Para la búsqueda */
-$('#botonsearch').click(function() {
+function buscar() {
 	var buscado = $('#inputsearchcab').val();
-	console.log("mira:"+buscado+"YA");
 	if(buscado!="" || buscado==undefined)
 		window.location="busqueda?search_query="+buscado;
+}
+
+/* Para la búsqueda */
+$('#botonsearch').click(function() {
+	buscar();
 })
+
+$('#inputsearchcab').keypress(function(e) {
+	if (e.which == 13)
+		buscar();
+});

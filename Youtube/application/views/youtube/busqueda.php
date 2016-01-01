@@ -45,11 +45,7 @@
 	$(document).ready(function(){  
 			$("#content").jPaginate({items: 20, next: "Siguiente", previous: "Anterior", paginaton_class: "myownclass"});                  
 	});  
-	</script> 
-	
-	
-	
-	<!-- PROBANDO -->
+	</script>
 	
 	
 </main>
