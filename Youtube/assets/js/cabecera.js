@@ -10,5 +10,7 @@ $( ".hamburger" ).click(function() {
 /* Para la búsqueda */
 $('#botonsearch').click(function() {
 	var buscado = $('#inputsearchcab').val();
-	window.location="busqueda?search_query="+buscado;
+	console.log("mira:"+buscado+"YA");
+	if(buscado!="" || buscado==undefined)
+		window.location="busqueda?search_query="+buscado;
 })
