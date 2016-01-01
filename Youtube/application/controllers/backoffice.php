@@ -14,6 +14,11 @@ class Backoffice extends CI_Controller {
 
 	public function _backoffice_output($output = null)
 	{
+		$outputarray = json_decode(json_encode($output), true);
+		array_push($outputarray['css_files'], base_url()."assets/css/cabecera.css");
+		array_push($outputarray['css_files'], base_url()."assets/css/backoffice.css");
+		array_push($outputarray['js_files'], base_url()."assets/js/cabecera.js");
+		$output = json_decode(json_encode($outputarray));
 		$this->load->view('backoffice.php', $output);
 	}
 
