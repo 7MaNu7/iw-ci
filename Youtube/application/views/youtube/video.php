@@ -101,7 +101,7 @@
 			<?php } ?>
         </section>
     </div>
-	<div class="col-md-3">
+	<div class="col-md-4">
         <section class="col-md-12">
 			<div class="row">
         	    <div class="col-sm-12">
@@ -112,10 +112,18 @@
 			<?php foreach($related as $rel) { ?>
 		        <div class="row margin-bottom">
 		            <div class="col-sm-12">
-		                <div class="col-sm-4 video-thumb"></div>
+		                <div class="col-sm-4 video-thumb">
+		                	<a href="<?=site_url('/video/watch/' . $rel->id)?>">
+		                		<img src="http://img.youtube.com/vi/<?php echo substr($rel->url, 32, 30); ?>/0.jpg" alt="" class="videoinicio" style="width: 100%;"/>
+		                	</a>
+		                </div>
 		                <div class="col-sm-8 video-thumb-info">
-		                    <div class="row"><span class="video-thumb-title"><?=$rel->title?></span></div>
-		                    <div class="row"><span class="video-thumb-user"><?=$rel->user?></span></div>
+			                <a href="<?=site_url('/video/watch/' . $rel->id)?>">
+			                    <div class="row"><span class="video-thumb-title"><?=$rel->title?></span></div>
+		                    </a>
+		                    <a href="<?=site_url('canal/ver/' . $rel->user)?>">
+		                    	<div class="row"><span class="video-thumb-user"><?=$rel->userName?></span></div>
+		                    </a>
 		                    <div class="row"><span class="video-thumb-views"><?=$rel->visits?> Visualizaciones</span></div>
 		                </div>
 		            </div>
