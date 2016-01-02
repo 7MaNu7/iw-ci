@@ -102,6 +102,19 @@ CREATE TABLE `iw-youtube`.`Comment` (
     FOREIGN KEY (`video`) REFERENCES Video(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+CREATE TABLE `iw-youtube`.`ChannelComment` (
+    `id` SERIAL NOT NULL PRIMARY KEY,
+    `comment` text,
+    `numLikes` INT NOT NULL DEFAULT 0,
+    `numDislikes` INT NOT NULL DEFAULT 0,
+    `likesBalance` INT NOT NULL DEFAULT 0,
+    `date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `user` BIGINT UNSIGNED NOT NULL,
+    `channel` BIGINT UNSIGNED NOT NULL,
+    FOREIGN KEY (`user`) REFERENCES User(id),
+    FOREIGN KEY (`channel`) REFERENCES User(id)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 CREATE TABLE `iw-youtube`.`VideoTag` (
     `video` BIGINT UNSIGNED NOT NULL,
     `tag` BIGINT UNSIGNED NOT NULL,

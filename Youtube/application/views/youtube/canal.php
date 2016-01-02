@@ -23,18 +23,44 @@
         <section class="col-md-12">
             <div class="row">
                 <div class="col-md-12">
-                    <h4>Videos</h4>
-                    <hr>
+					<ul class="nav nav-tabs">
+					    <li class="active"><a data-toggle="tab" href="#videos">Videos</a></li>
+					    <li><a data-toggle="tab" href="#comentarios">Comentarios</a></li>
+				  	</ul>
                 </div>
             </div>
-            <div class="row">
-				<?php foreach ($videos as $video) { ?>
-                <div class="col-md-3">
-                    <h5><?=$video->title?></h5>
-                    <img src="http://img.youtube.com/vi/<?=substr($video->url, 32, 30);?>/0.jpg" alt="" class="videos-image"/>
-                </div>
-				<?php } ?>
+
+            <div class="tab-content margin-top">
+            	<div id="videos" class="row tab-pane fade in active">
+            					<?php foreach ($videos as $video) { ?>
+            	    <div class="col-md-3">
+            	        <h5><?=$video->title?></h5>
+            	        <img src="http://img.youtube.com/vi/<?=substr($video->url, 32, 30);?>/0.jpg" alt="" class="videos-image"/>
+            	    </div>
+            					<?php } ?>
+            	</div>
+				<div id="comentarios" class="row tab-pane fade">
+					<?php foreach($comentarios as $comentario) { ?>
+			            <div class="row margin-bottom">
+			                <div class="col-sm-12">
+			                    <div class="col-md-2"><img src="http://lorempixel.com/100/100" alt="" class="imagen img-circle"></div>
+			                    <div class="col-md-10">
+			                        <div class="row">
+			                            <div class="col-sm-6"><h4><?=$comentario->username?></h4></div>
+			                            <div class="col-sm-6 right"><em class="date"><?=$comentario->date?></em></div>
+			                        </div>
+			                        <div class="row">
+			                            <div class="col-sm-12">
+			                                <?=$comentario->comment?>
+			                            </div>
+			                        </div>
+			                    </div>
+			                </div>
+			            </div>
+					<?php } ?>
+	            </div>
             </div>
+
         </section>
     </div>
     <div class="col-md-4">
