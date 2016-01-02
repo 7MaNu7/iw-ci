@@ -48,18 +48,19 @@
 
 				<div class="registrarse">
 					<?php
+					if (session_status() == PHP_SESSION_NONE)
 						session_start();
 
 					if (!isset($_SESSION['email']) || !isset($_SESSION['password'])) { ?>
-					<a class="btn btn-youtube" href="<?=site_url('login')?>">
-						<i class="glyphicon glyphicon-log-in"></i> Iniciar sesión
-					</a>
-					<a class="btn btn-default" href="<?=site_url('registro')?>">
-						<i class="glyphicon glyphicon-pencil"></i> Registrarse
-					</a>
-					<?php } else { ?>
+						<a class="btn btn-youtube" href="<?=site_url('login')?>">
+							<i class="glyphicon glyphicon-log-in"></i><span> Iniciar sesión</span>
+						</a>
 						<a class="btn btn-default" href="<?=site_url('registro')?>">
-							<i class="glyphicon glyphicon-log-out"></i> Cerrar sesión
+							<i class="glyphicon glyphicon-pencil"></i><span> Registrarse</span>
+						</a>
+					<?php } else { ?>
+						<a class="btn btn-default" href="<?=site_url('logout')?>">
+							<i class="glyphicon glyphicon-log-out"></i><span> Cerrar sesión</span>
 						</a>
 					<?php } ?>
 				</div>
@@ -69,7 +70,14 @@
 			<div class="menu">
 				<ul>
 					<li><i class="glyphicon glyphicon-home"></i><a href="<?=site_url('inicio')?>">Página principal</a></li>
-					<li><i class="glyphicon glyphicon-user"></i><a href="<?=site_url('canal/ver/' . $_SESSION['id'])?>">Mi canal</li>
+					<?php
+
+					if (!isset($_SESSION['email']) || !isset($_SESSION['password']))
+						$urluser = site_url('login?redirect=inicio');
+					else
+						$urluser = site_url('canal/ver/' . $_SESSION['id']);
+					?>
+					<li><i class="glyphicon glyphicon-user"></i><a href="<?=$urluser?>">Mi canal</a></li>
 
 					<!-- Subir video si no está logeado va a login -->
 					<?php
@@ -78,11 +86,8 @@
 						$urlsubirvideo = site_url('login?redirect=subirvideo');
 					else
 						$urlsubirvideo = site_url('subirvideo');
-
-					echo '<li><a href="'.$urlsubirvideo.'"><i class="glyphicon glyphicon-upload"></i> Subir video</a></li>';
 					?>
-
-
+					<li><i class="glyphicon glyphicon-upload"></i><a href="<?=$urlsubirvideo?>">Subir video</a></li>
 				</ul>
 			</div>
     </div>
