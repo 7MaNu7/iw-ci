@@ -41,11 +41,10 @@ body {
 }
 .bg {
     position: fixed;
-    width: 100;
     text-align: center;
-    bottom: 0px;
+    top: 0;
     font-family: Clutchee;
-    font-size: 900px;
-    color: #efefef;
+    font-size: 800px;
+    color: white;
     z-index: -1;
 }
