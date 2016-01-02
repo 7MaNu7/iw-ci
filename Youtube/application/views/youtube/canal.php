@@ -40,10 +40,47 @@
             					<?php } ?>
             	</div>
 				<div id="comentarios" class="row tab-pane fade">
+					<div class="row margin-bottom">
+						<div class="col-md-12">
+							<div id="error"></div>
+						</div>
+						<form method="post" accept-charset="utf-8">
+							<input type="hidden" name="channel" value="<?=$user->id?>">
+							<input type="hidden" name="user" value="<?php if( isset($_SESSION['id']) ){ echo $_SESSION['id']; }else {echo '0';} ?>">
+							<div class="col-md-10">
+								<textarea name="comment" rows="4" cols="40" class="form-control comment-box"></textarea>
+							</div>
+							<div class="col-md-2 margin-top"><button class="btn btn-primary margin-top">Enviar</button></div>
+						</form>
+						<script type="text/javascript">
+							$('form').submit(function(event){
+								event.preventDefault();
+								var formData = {
+						            'channel'              : $('input[name=channel]').val(),
+						            'user'             : $('input[name=user]').val(),
+						            'comment'    : $('textarea[name=comment]').val()
+						        };
+								console.log(formData);
+								if(formData.user == 0)
+								{
+									$('#error').html('<div class="alert alert-danger"><strong>Error!</strong> Debes iniciar sesión</div>')
+								}
+								else {
+									$.ajax({
+										url: '<?=site_url('/canal/nuevo_comentario')?>',
+										type: 'POST',
+										data: formData
+									});
+									location.reload();
+								}
+							});
+						</script>
+						<hr>
+					</div>
 					<?php foreach($comentarios as $comentario) { ?>
 			            <div class="row margin-bottom">
 			                <div class="col-sm-12">
-			                    <div class="col-md-2"><img src="http://lorempixel.com/100/100" alt="" class="imagen img-circle"></div>
+			                    <div class="col-md-2"><img src="http://lorempixel.com/100/100" alt="" class="comment-image img-circle"></div>
 			                    <div class="col-md-10">
 			                        <div class="row">
 			                            <div class="col-sm-6"><h4><?=$comentario->username?></h4></div>

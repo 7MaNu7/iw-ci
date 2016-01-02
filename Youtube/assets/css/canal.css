@@ -121,3 +121,23 @@ section {
 .margin-top {
     margin-top: 15px;
 }
+
+.right {
+    text-align: right;
+}
+
+.date {
+    color: #cecece;
+}
+
+.comment-box {
+    resize: vertical;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.comment-image {
+    width: 90px;
+    height: 90px;
+    border: 1px solid #696969;
+}
