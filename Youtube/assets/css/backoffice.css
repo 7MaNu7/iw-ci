@@ -1,0 +1,68 @@
+@media (min-width: 1200px)
+.container {
+    width: 1270px;
+}
+
+.container {
+	background-color: white;
+	padding-right: 30px;
+	padding-left: 30px;
+	padding-top: 0px;
+	padding-bottom: 30px;
+	margin-right: auto;
+	margin-left: auto;
+	min-height: 500px;
+}
+
+
+/* Contenido general */
+
+body {
+	font-family: Arial;
+	font-size: 14px;
+}
+
+.backofficetexto {
+	margin-top: 30px;
+	margin-left: 5px;
+	margin-bottom: 25px;
+}
+
+.enlacesgrocery1 {
+	margin-top: 20px;
+	margin-left: 50px;
+	font-size: 30px;
+}
+
+.enlacesgrocery1 a {
+	 font-size: 20px;
+}
+
+.enlacesgrocery {
+	margin-top: 20px;
+	margin-left: 10px;
+}
+
+.enlacesgrocery a {
+	 font-size: 16px;
+}
+
+a {
+	color: #337ab7;
+	text-decoration: none;
+	margin-right: 20px;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+/* Para contenido grocery */
+
+.tablasgrocery {
+	margin-top: 20px;
+}
+
+.active {
+  background-color: white !important;
+}
