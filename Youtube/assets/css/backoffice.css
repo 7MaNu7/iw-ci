@@ -38,12 +38,12 @@ body {
 	 font-size: 20px;
 }
 
-.enlacesgrocery2 {
+.enlacesgrocery {
 	margin-top: 20px;
 	margin-left: 10px;
 }
 
-.enlacesgrocery2 a {
+.enlacesgrocery a {
 	 font-size: 16px;
 }
 
@@ -58,6 +58,11 @@ a:hover {
 }
 
 /* Para contenido grocery */
+
 .tablasgrocery {
 	margin-top: 20px;
+}
+
+.active {
+  background-color: white !important;
 }
