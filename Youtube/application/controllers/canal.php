@@ -23,6 +23,16 @@ class Canal extends CI_Controller {
 		$data['videos'] = $this->Usuario_m->get_videos($id);
 		$data['last_video'] = $data['videos'][0];
 		$data['related'] = [];
+		$data['comentarios'] = $this->Usuario_m->get_comments($id);
         $this->load->view('youtube/canal', $data);
     }
+
+	public function nuevo_comentario()
+	{
+		$comment = $_POST['comment'];
+		$channel = $_POST['channel'];
+		$user = $_POST['user'];
+
+		$this->Usuario_m->new_comment($channel, $user, $comment);
+	}
 }

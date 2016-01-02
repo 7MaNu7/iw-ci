@@ -73,17 +73,18 @@
 								url: '<?=site_url('/video/nuevo_comentario')?>',
 								type: 'POST',
 								data: formData
+							}).then(function () {
+								location.reload();
 							});
-							location.reload();
 						}
 					});
 				</script>
 				<hr>
 			</div>
-			<?php foreach($comentarios as $comentario) { ?>
+			<?php foreach($comentarios as $i => $comentario) { ?>
 	            <div class="row margin-bottom">
 	                <div class="col-sm-12">
-	                    <div class="col-md-2"><img src="http://lorempixel.com/100/100" alt="" class="imagen img-circle"></div>
+	                    <div class="col-md-2"><img src="http://lorempixel.com/100/100/people/<?=$i?>" alt="" class="imagen img-circle"></div>
 	                    <div class="col-md-10">
 	                        <div class="row">
 	                            <div class="col-sm-6"><h4><?=$comentario->username?></h4></div>

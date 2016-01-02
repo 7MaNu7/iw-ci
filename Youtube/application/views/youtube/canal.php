@@ -23,18 +23,82 @@
         <section class="col-md-12">
             <div class="row">
                 <div class="col-md-12">
-                    <h4>Videos</h4>
-                    <hr>
+					<ul class="nav nav-tabs">
+					    <li class="active"><a data-toggle="tab" href="#videos">Videos</a></li>
+					    <li><a data-toggle="tab" href="#comentarios">Comentarios</a></li>
+				  	</ul>
                 </div>
             </div>
-            <div class="row">
-				<?php foreach ($videos as $video) { ?>
-                <div class="col-md-3">
-                    <h5><?=$video->title?></h5>
-                    <img src="http://img.youtube.com/vi/<?=substr($video->url, 32, 30);?>/0.jpg" alt="" class="videos-image"/>
-                </div>
-				<?php } ?>
+
+            <div class="tab-content margin-top">
+            	<div id="videos" class="row tab-pane fade in active">
+            					<?php foreach ($videos as $video) { ?>
+            	    <div class="col-md-3">
+            	        <h5><?=$video->title?></h5>
+            	        <img src="http://img.youtube.com/vi/<?=substr($video->url, 32, 30);?>/0.jpg" alt="" class="videos-image"/>
+            	    </div>
+            					<?php } ?>
+            	</div>
+				<div id="comentarios" class="row tab-pane fade">
+					<div class="row margin-bottom">
+						<div class="col-md-12">
+							<div id="error"></div>
+						</div>
+						<form method="post" accept-charset="utf-8">
+							<input type="hidden" name="channel" value="<?=$user->id?>">
+							<input type="hidden" name="user" value="<?php if( isset($_SESSION['id']) ){ echo $_SESSION['id']; }else {echo '0';} ?>">
+							<div class="col-md-10">
+								<textarea name="comment" rows="4" cols="40" class="form-control comment-box"></textarea>
+							</div>
+							<div class="col-md-2 margin-top"><button class="btn btn-primary margin-top">Enviar</button></div>
+						</form>
+						<script type="text/javascript">
+							$('form').submit(function(event){
+								event.preventDefault();
+								var formData = {
+						            'channel'              : $('input[name=channel]').val(),
+						            'user'             : $('input[name=user]').val(),
+						            'comment'    : $('textarea[name=comment]').val()
+						        };
+								console.log(formData);
+								if(formData.user == 0)
+								{
+									$('#error').html('<div class="alert alert-danger"><strong>Error!</strong> Debes iniciar sesión</div>')
+								}
+								else {
+									$.ajax({
+										url: '<?=site_url('/canal/nuevo_comentario')?>',
+										type: 'POST',
+										data: formData
+									}).then(function () {
+										location.reload();
+									});
+								}
+							});
+						</script>
+						<hr>
+					</div>
+					<?php foreach($comentarios as $i => $comentario) { ?>
+			            <div class="row margin-bottom">
+			                <div class="col-sm-12">
+			                    <div class="col-md-2"><img src="http://lorempixel.com/100/100/people/<?=$i?>" alt="" class="comment-image img-circle"></div>
+			                    <div class="col-md-10">
+			                        <div class="row">
+			                            <div class="col-sm-6"><h4><?=$comentario->username?></h4></div>
+			                            <div class="col-sm-6 right"><em class="date"><?=$comentario->date?></em></div>
+			                        </div>
+			                        <div class="row">
+			                            <div class="col-sm-12">
+			                                <?=$comentario->comment?>
+			                            </div>
+			                        </div>
+			                    </div>
+			                </div>
+			            </div>
+					<?php } ?>
+	            </div>
             </div>
+
         </section>
     </div>
     <div class="col-md-4">
