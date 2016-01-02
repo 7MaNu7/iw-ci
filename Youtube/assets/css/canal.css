@@ -46,7 +46,7 @@ section {
     height: 300px;
     width: 600px;
     position: absolute;
-    background: red;
+    background: black;
     margin-left: 8%;
     margin-top: -150px;
     -webkit-box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.75);

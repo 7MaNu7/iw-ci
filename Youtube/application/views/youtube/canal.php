@@ -7,18 +7,32 @@
         <div class="portada">
             <div class="title"><?=$user->username?></div>
         </div>
-        <iframe src="http://www.youtube.com/embed/<?=substr($last_video->url, 32, 30);?>" class="video"></iframe>
-        <div class="description">
-            <div class="row"><h3><?=$last_video->title?></h3></div>
-            <div class="row video-info">
-                <div class="col-md-4">By <?=$user->username?></div>
-                <div class="col-md-4"><?=$last_video->visits?> visualizaciones</div>
-                <div class="col-md-4">Hace 4 días</div>
-                </div>
-            <div class="row video-description">
-	            <?=$last_video->description?>
-            </div>
-        </div>
+		<?php if ($last_video) { ?>
+	        <iframe src="http://www.youtube.com/embed/<?=substr($last_video->url, 32, 30);?>" class="video"></iframe>
+	        <div class="description">
+	            <div class="row"><h3><?=$last_video->title?></h3></div>
+	            <div class="row video-info">
+	                <div class="col-md-4">By <?=$user->username?></div>
+	                <div class="col-md-4"><?=$last_video->visits?> visualizaciones</div>
+	                <div class="col-md-4">Hace 4 días</div>
+	                </div>
+	            <div class="row video-description">
+		            <?=$last_video->description?>
+	            </div>
+	        </div>
+		<?php } else { ?>
+			<div class="video"></div>
+	        <div class="description">
+	            <div class="row"><h3></h3></div>
+	            <div class="row video-info">
+	                <div class="col-md-4"></div>
+	                <div class="col-md-4"></div>
+	                <div class="col-md-4"></div>
+	                </div>
+	            <div class="row video-description">
+	            </div>
+	        </div>
+		<?php } ?>
         <div class="row space"></div>
         <section class="col-md-12">
             <div class="row">
