@@ -46,47 +46,48 @@
 					</span>
 				</div>
 
-				<a class="registrarse" href="<?=site_url('registro')?>">
-					¿Aun no te has registrado?
-				</a>
+				<div class="registrarse">
+					<?php
+					if (session_status() == PHP_SESSION_NONE)
+						session_start();
+
+					if (!isset($_SESSION['email']) || !isset($_SESSION['password'])) { ?>
+						<a class="btn btn-youtube" href="<?=site_url('login')?>">
+							<i class="glyphicon glyphicon-log-in"></i><span> Iniciar sesión</span>
+						</a>
+						<a class="btn btn-default" href="<?=site_url('registro')?>">
+							<i class="glyphicon glyphicon-pencil"></i><span> Registrarse</span>
+						</a>
+					<?php } else { ?>
+						<a class="btn btn-default" href="<?=site_url('logout')?>">
+							<i class="glyphicon glyphicon-log-out"></i><span> Cerrar sesión</span>
+						</a>
+					<?php } ?>
+				</div>
 			</ul>
-			
+
 			<!-- Menú que se abre con hamburger y Enlaces -->
 			<div class="menu">
 				<ul>
-					<li><a href="<?=site_url('inicio')?>">Página principal</a></li>
-					<li>Mi canal</li>
-					
+					<li><i class="glyphicon glyphicon-home"></i><a href="<?=site_url('inicio')?>">Página principal</a></li>
+					<?php
+
+					if (!isset($_SESSION['email']) || !isset($_SESSION['password']))
+						$urluser = site_url('login?redirect=inicio');
+					else
+						$urluser = site_url('canal/ver/' . $_SESSION['id']);
+					?>
+					<li><i class="glyphicon glyphicon-user"></i><a href="<?=$urluser?>">Mi canal</a></li>
+
 					<!-- Subir video si no está logeado va a login -->
 					<?php
-					if (session_status() == PHP_SESSION_NONE)
-						session_start();		
-	
+
 					if (!isset($_SESSION['email']) || !isset($_SESSION['password']))
 						$urlsubirvideo = site_url('login?redirect=subirvideo');
 					else
 						$urlsubirvideo = site_url('subirvideo');
-					
-					echo '<li><a href="'.$urlsubirvideo.'">Subir video</a></li>';
 					?>
-					
-					<!-- Iniciar sesión o Cerrar sesión (elimina la sesión) -->
-					<?php
-					if (session_status() == PHP_SESSION_NONE)
-						session_start();
-					
-					if (!isset($_SESSION['email']) || !isset($_SESSION['password'])) {
-						$urllogin = site_url('login');
-						$mensajelogeologout = 'Iniciar sesión';
-					}
-					else {
-						$urllogin = site_url('logout');
-						$mensajelogeologout = 'Cerrar sesión';
-					}					
-					echo '<li><a id="loginlogout" href="'.$urllogin.'">'.$mensajelogeologout.'</a></li>';
-					?>
-								
-					
+					<li><i class="glyphicon glyphicon-upload"></i><a href="<?=$urlsubirvideo?>">Subir video</a></li>
 				</ul>
 			</div>
     </div>
