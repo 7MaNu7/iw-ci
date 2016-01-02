@@ -101,7 +101,7 @@
 			<?php } ?>
         </section>
     </div>
-	<div class="col-md-3">
+	<div class="col-md-4">
         <section class="col-md-12">
 			<div class="row">
         	    <div class="col-sm-12">
@@ -113,10 +113,14 @@
 		        <div class="row margin-bottom">
 		            <div class="col-sm-12">
 		                <div class="col-sm-4 video-thumb">
-		                	<img src="http://img.youtube.com/vi/<?php echo substr($rel->url, 32, 30); ?>/0.jpg" alt="" class="videoinicio" style="width: 100%;"/>
+		                	<a href="<?=site_url('/video/watch/' . $rel->id)?>">
+		                		<img src="http://img.youtube.com/vi/<?php echo substr($rel->url, 32, 30); ?>/0.jpg" alt="" class="videoinicio" style="width: 100%;"/>
+		                	</a>
 		                </div>
 		                <div class="col-sm-8 video-thumb-info">
-		                    <div class="row"><span class="video-thumb-title"><?=$rel->title?></span></div>
+			                <a href="<?=site_url('/video/watch/' . $rel->id)?>">
+			                    <div class="row"><span class="video-thumb-title"><?=$rel->title?></span></div>
+		                    </a>
 		                    <div class="row"><span class="video-thumb-user"><?=$rel->userName?></span></div>
 		                    <div class="row"><span class="video-thumb-views"><?=$rel->visits?> Visualizaciones</span></div>
 		                </div>
