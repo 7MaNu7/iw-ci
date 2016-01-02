@@ -16,7 +16,7 @@
 	<main class="container">
 	
 		<ul class="nav nav-tabs enlacesgrocery">
-			<li role="presentation" class="active">
+			<li role="presentation">
 				<a id="1" href='<?php echo site_url('backoffice/gestion_licencias')?>'>Licencias</a>
 			</li>
 			<li role="presentation">
@@ -36,11 +36,24 @@
 		</ul>
 		
 		<script>
-			$('.container').click(function(e){
-			 var id = e.target.id;
-			 console.log("mira:"+id);
-				document.getElementById(id).addClass = ".active";
-				document.getElementById(id).parentNode.addClass = ".active";
+			$( document ).ready(function() {
+				//Según la URL se activa una pestaña u otra
+				var URLactual = String(window.location);
+				var id = "";
+				if(URLactual.indexOf('categoria')>1)
+					id = '2';
+				else if(URLactual.indexOf('visibilidad')>1)
+					id = '3';
+				else if(URLactual.indexOf('etiquetas')>1)
+					id = '4';
+				else if(URLactual.indexOf('idiomas')>1)
+					id = '5';
+				else if(URLactual.indexOf('calidades')>1)
+					id = '6';
+				else
+					id = '1';				
+				document.getElementById(id).className = "active";
+				document.getElementById(id).parentNode.className = "active";
 			});
 		</script>		
 		
