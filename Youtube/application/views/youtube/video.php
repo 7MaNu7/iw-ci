@@ -121,7 +121,9 @@
 			                <a href="<?=site_url('/video/watch/' . $rel->id)?>">
 			                    <div class="row"><span class="video-thumb-title"><?=$rel->title?></span></div>
 		                    </a>
-		                    <div class="row"><span class="video-thumb-user"><?=$rel->userName?></span></div>
+		                    <a href="<?=site_url('canal/ver/' . $rel->user)?>">
+		                    	<div class="row"><span class="video-thumb-user"><?=$rel->userName?></span></div>
+		                    </a>
 		                    <div class="row"><span class="video-thumb-views"><?=$rel->visits?> Visualizaciones</span></div>
 		                </div>
 		            </div>
