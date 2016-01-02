@@ -28,6 +28,7 @@ class Backoffice extends CI_Controller {
 		$this->_backoffice_output($output);
 	}
 
+	/* Si queremos tener una página inicial */
 	public function obtenerDatos() {
 		$my_css_files = [base_url()."assets/css/cabecera.css", base_url()."assets/css/backoffice.css"];
 		$my_js_files = [base_url()."assets/js/cabecera.js"];
@@ -39,7 +40,8 @@ class Backoffice extends CI_Controller {
 	
 	public function index()
 	{	
-		$this->obtenerDatos();
+		//$this->obtenerDatos();
+		$this->gestion_licencias();
 	}
 	
 	// Configuramos la tabla licencias	
