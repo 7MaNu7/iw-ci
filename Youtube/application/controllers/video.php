@@ -14,7 +14,7 @@ class Video extends CI_Controller {
 	{
 		$data['video']=$this->Video_m->get(1);
 		$data['comentarios']=$this->Video_m->get_comments(1);
-        $data['related'] = [];
+        $data['related'] = $this->Video_m->get_search_related_videos($this->Video_m->get(1));
 		$this->load->view('youtube/video', $data);
 	}
 
@@ -28,7 +28,7 @@ class Video extends CI_Controller {
 		}
 		else {
 			$data['comentarios']=$this->Video_m->get_comments($id);
-	        $data['related'] = [];
+	        $data['related'] = $this->Video_m->get_search_related_videos($this->Video_m->get($id));
 	        $data['css_files'] = ["assets/css/video.css", "assets/css/cabecera.css"];
 	        $data['js_files'] = ["assets/js/cabecera.js"];
 			$this->load->view('youtube/video', $data);

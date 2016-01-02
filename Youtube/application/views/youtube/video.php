@@ -112,10 +112,12 @@
 			<?php foreach($related as $rel) { ?>
 		        <div class="row margin-bottom">
 		            <div class="col-sm-12">
-		                <div class="col-sm-4 video-thumb"></div>
+		                <div class="col-sm-4 video-thumb">
+		                	<img src="http://img.youtube.com/vi/<?php echo substr($rel->url, 32, 30); ?>/0.jpg" alt="" class="videoinicio" style="width: 100%;"/>
+		                </div>
 		                <div class="col-sm-8 video-thumb-info">
 		                    <div class="row"><span class="video-thumb-title"><?=$rel->title?></span></div>
-		                    <div class="row"><span class="video-thumb-user"><?=$rel->user?></span></div>
+		                    <div class="row"><span class="video-thumb-user"><?=$rel->userName?></span></div>
 		                    <div class="row"><span class="video-thumb-views"><?=$rel->visits?> Visualizaciones</span></div>
 		                </div>
 		            </div>
