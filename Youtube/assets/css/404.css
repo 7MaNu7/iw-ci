@@ -1,0 +1,51 @@
+@font-face {
+    font-family: Lobster;
+    src: url("../fonts/Lobster_1.3.otf") format("opentype");
+}
+@font-face {
+    font-family: Ostrich;
+    src: url("../fonts/ostrich-regular.ttf") format("truetype");
+}
+@font-face {
+    font-family: Clutchee;
+    src: url("../fonts/clutchee.otf") format("opentype");
+}
+
+html, body {
+    height: 100%;
+}
+body {
+    margin: 0;
+}
+.flex-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+}
+
+.flex-item {
+
+}
+
+.title {
+    font-size: 200px;
+    font-family: Lobster;
+    color: #E52D27;
+}
+.description {
+    font-size: 50px;
+    font-weight: 500;
+    font-family: Ostrich;
+}
+.bg {
+    position: fixed;
+    text-align: center;
+    width: 100%;
+    top: 0;
+    font-family: Clutchee;
+    font-size: 800px;
+    color: white;
+    z-index: -1;
+}
