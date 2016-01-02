@@ -10,7 +10,7 @@
 		<?php if ($last_video) { ?>
 	        <iframe src="http://www.youtube.com/embed/<?=substr($last_video->url, 32, 30);?>" class="video"></iframe>
 	        <div class="description">
-	            <div class="row"><h3><?=$last_video->title?></h3></div>
+	            <div class="row"><a href="<?=site_url('video/watch/' . $last_video->id)?>"><h3><?=$last_video->title?></h3></a></div>
 	            <div class="row video-info">
 	                <div class="col-md-4">By <?=$user->username?></div>
 	                <div class="col-md-4"><?=$last_video->visits?> visualizaciones</div>
@@ -48,8 +48,8 @@
             	<div id="videos" class="row tab-pane fade in active">
             					<?php foreach ($videos as $video) { ?>
             	    <div class="col-md-3">
-            	        <h5><?=$video->title?></h5>
-            	        <img src="http://img.youtube.com/vi/<?=substr($video->url, 32, 30);?>/0.jpg" alt="" class="videos-image"/>
+            	        <a href="<?=site_url('video/watch/' . $video->id)?>"><h5><?=$video->title?></h5>
+            	        	<img src="http://img.youtube.com/vi/<?=substr($video->url, 32, 30);?>/0.jpg" alt="" class="videos-image"/></a>
             	    </div>
             					<?php } ?>
             	</div>
