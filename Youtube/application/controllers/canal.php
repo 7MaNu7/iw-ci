@@ -17,19 +17,29 @@ class Canal extends CI_Controller {
 
     public function ver($id)
     {
-        $data['css_files'] = ["assets/css/canal.css", "assets/css/cabecera.css"];
-        $data['js_files'] = ["assets/js/cabecera.js"];
+
 		$data['user'] = $this->Usuario_m->get($id);
-		$data['videos'] = $this->Usuario_m->get_videos($id);
-		if (count($data['videos']) > 0){
-			$data['last_video'] = $data['videos'][0];
+		if(!$data['user']) {
+			$data['page'] = "canal";
+			$data['css_files'] = ["assets/css/404.css", "assets/css/cabecera.css"];
+	        $data['js_files'] = ["assets/js/cabecera.js"];
+			$this->load->view('error/404', $data);
 		}
 		else {
-			$data['last_video'] = false;
+			$data['videos'] = $this->Usuario_m->get_videos($id);
+			if (count($data['videos']) > 0){
+				$data['last_video'] = $data['videos'][0];
+			}
+			else {
+				$data['last_video'] = false;
+			}
+			$data['related'] = [];
+			$data['comentarios'] = $this->Usuario_m->get_comments($id);
+			$data['css_files'] = ["assets/css/canal.css", "assets/css/cabecera.css"];
+	        $data['js_files'] = ["assets/js/cabecera.js"];
+	        $this->load->view('youtube/canal', $data);
 		}
-		$data['related'] = [];
-		$data['comentarios'] = $this->Usuario_m->get_comments($id);
-        $this->load->view('youtube/canal', $data);
+
     }
 
 	public function nuevo_comentario()

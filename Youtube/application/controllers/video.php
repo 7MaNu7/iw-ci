@@ -21,9 +21,10 @@ class Video extends CI_Controller {
     public function watch($id) {
         $data['video']=$this->Video_m->get($id);
 		if(!$data['video']) {
+			$data['page'] = 'video';
 			$data['css_files'] = ["assets/css/404.css", "assets/css/cabecera.css"];
 	        $data['js_files'] = ["assets/js/cabecera.js"];
-			$this->load->view('404/video', $data);
+			$this->load->view('error/404', $data);
 		}
 		else {
 			$data['comentarios']=$this->Video_m->get_comments($id);
