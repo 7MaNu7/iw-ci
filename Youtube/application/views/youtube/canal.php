@@ -47,7 +47,7 @@
 
             <div class="tab-content margin-top">
             	<div id="videos" class="row tab-pane fade in active">
-					<?php 
+					<?php
     					if(sizeof($videos)!=0)
     					{
     						foreach ($videos as $video) {
@@ -58,7 +58,7 @@
             	        	<img src="http://img.youtube.com/vi/<?=substr($video->url, 32, 30);?>/0.jpg" alt="" class="videos-image"/></a>
             	    </div>
 					<?php
-							 } 
+							 }
 						}
 						else
 						{
@@ -111,7 +111,7 @@
 					<?php foreach($comentarios as $i => $comentario) { ?>
 			            <div class="row margin-bottom">
 			                <div class="col-sm-12">
-			                    <div class="col-md-2"><img src="http://lorempixel.com/100/100/people/<?=$i?>" alt="" class="comment-image img-circle"></div>
+			                    <div class="col-md-2"><img src="http://lorempixel.com/100/100/people/<?=$i?>" alt="" class="image img-circle"></div>
 			                    <div class="col-md-10">
 			                        <div class="row">
 			                            <div class="col-sm-6"><h4><?=$comentario->username?></h4></div>
@@ -133,7 +133,7 @@
     </div>
     <div class="col-md-4">
        <section class="profile center">
-            <img src="http://lorempixel.com/100/100" alt="" class="imagen img-circle">
+            <img src="http://lorempixel.com/100/100" alt="" class="profile-image img-circle">
             <h4><?=$user->username?></h4>
             <div class="btn-group">
                 <button class="btn btn-youtube"><i class="gyphicon glyphicon-plus"></i> Suscribirse</button>
@@ -147,11 +147,24 @@
                     <hr>
                 </div>
             </div>
+			<div class="row margin-bottom">
+				<div class="col-sm-12">
+					<form method="post" action="<?=site_url('canal/nuevo_relacionado')?>">
+						<div class="input-group">
+							<input type="text" name="newuser" placeholder="nombre del usuario" class="form-control" required>
+							<input type="hidden" name="user" value="<?=$user->id?>">
+							<div class="input-group-btn">
+								<button class="btn btn-default">Nuevo usuario</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
 			<?php foreach ($related as $rel) { ?>
             <div class="row margin-bottom">
                 <div class="col-sm-12">
                     <div class="col-sm-4">
-                        <img src="http://lorempixel.com/100/100" alt="" class="relacionados-imagen img-circle">
+                        <img src="http://lorempixel.com/100/100" alt="" class="image img-circle">
                     </div>
                     <div class="col-sm-8 relacionados-channel">
                         <div class="row"><span class="relacionados-user"><?=$rel->username?></span></div>

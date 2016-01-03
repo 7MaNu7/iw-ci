@@ -18,7 +18,7 @@ Como crear usuario: click en nombre tabla/privilegios/Agregar usuario/
 CREATE USER 'iw'@'localhost' IDENTIFIED BY '***';GRANT USAGE ON *.* TO 'iw'@'localhost' IDENTIFIED BY '***' REQUIRE NONE WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0;GRANT ALL PRIVILEGES ON `iw-youtube`.* TO 'iw'@'localhost';
 
 
-CREATE TABLE `iw-youtube`.`User` (
+CREATE TABLE `iw-youtube`.`user` (
     `id` SERIAL NOT NULL PRIMARY KEY,
     `userName` VARCHAR(255) NOT NULL DEFAULT '',
     `password` VARCHAR(255) NOT NULL DEFAULT '',
@@ -26,46 +26,46 @@ CREATE TABLE `iw-youtube`.`User` (
     `verified` BOOLEAN NOT NULL DEFAULT FALSE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE `iw-youtube`.`License` (
+CREATE TABLE `iw-youtube`.`license` (
     `id` SERIAL NOT NULL PRIMARY KEY,
     `name` VARCHAR(255) NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE `iw-youtube`.`Category` (
+CREATE TABLE `iw-youtube`.`category` (
     `id` SERIAL NOT NULL PRIMARY KEY,
     `name` VARCHAR(255) NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE `iw-youtube`.`VideoVisibility` (
+CREATE TABLE `iw-youtube`.`videovisibility` (
     `id` SERIAL NOT NULL PRIMARY KEY,
     `name` VARCHAR(255) NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE `iw-youtube`.`Language` (
+CREATE TABLE `iw-youtube`.`language` (
     `id` SERIAL NOT NULL PRIMARY KEY,
     `name` VARCHAR(255) NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE `iw-youtube`.`Tag` (
+CREATE TABLE `iw-youtube`.`tag` (
     `id` SERIAL NOT NULL PRIMARY KEY,
     `name` VARCHAR(255) NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE `iw-youtube`.`Quality` (
+CREATE TABLE `iw-youtube`.`quality` (
     `id` SERIAL NOT NULL PRIMARY KEY,
     `name` VARCHAR(255) NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE `iw-youtube`.`Playlist` (
+CREATE TABLE `iw-youtube`.`playlist` (
     `id` SERIAL NOT NULL PRIMARY KEY,
     `name` VARCHAR(255) NOT NULL DEFAULT '',
     `private` BOOLEAN NOT NULL DEFAULT FALSE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE `iw-youtube`.`Video` (
+CREATE TABLE `iw-youtube`.`video` (
     `id` SERIAL NOT NULL PRIMARY KEY,
     `title` varchar(255) NOT NULL DEFAULT '',
-		`url` varchar(255) NOT NULL,
+	`url` varchar(255) NOT NULL,
     `description` text,
     `visits` INT NOT NULL DEFAULT 0,
     `numLikes` INT NOT NULL DEFAULT 0,
@@ -82,14 +82,14 @@ CREATE TABLE `iw-youtube`.`Video` (
     `category` BIGINT UNSIGNED NOT NULL,
     `visibility` BIGINT UNSIGNED NOT NULL,
     `language` BIGINT UNSIGNED NOT NULL,
-    FOREIGN KEY (`user`) REFERENCES User(id),
-    FOREIGN KEY (`license`) REFERENCES License(id),
-    FOREIGN KEY (`category`) REFERENCES Category(id),
-    FOREIGN KEY (`visibility`) REFERENCES VideoVisibility(id),
-    FOREIGN KEY (`language`) REFERENCES Language(id)
+    FOREIGN KEY (`user`) REFERENCES user(id),
+    FOREIGN KEY (`license`) REFERENCES license(id),
+    FOREIGN KEY (`category`) REFERENCES category(id),
+    FOREIGN KEY (`visibility`) REFERENCES videovisibility(id),
+    FOREIGN KEY (`language`) REFERENCES language(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE `iw-youtube`.`Comment` (
+CREATE TABLE `iw-youtube`.`comment` (
     `id` SERIAL NOT NULL PRIMARY KEY,
     `comment` text,
     `numLikes` INT NOT NULL DEFAULT 0,
@@ -98,11 +98,11 @@ CREATE TABLE `iw-youtube`.`Comment` (
     `date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `user` BIGINT UNSIGNED NOT NULL,
     `video` BIGINT UNSIGNED NOT NULL,
-    FOREIGN KEY (`user`) REFERENCES User(id),
-    FOREIGN KEY (`video`) REFERENCES Video(id)
+    FOREIGN KEY (`user`) REFERENCES user(id),
+    FOREIGN KEY (`video`) REFERENCES video(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE `iw-youtube`.`ChannelComment` (
+CREATE TABLE `iw-youtube`.`channelcomment` (
     `id` SERIAL NOT NULL PRIMARY KEY,
     `comment` text,
     `numLikes` INT NOT NULL DEFAULT 0,
@@ -111,72 +111,80 @@ CREATE TABLE `iw-youtube`.`ChannelComment` (
     `date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `user` BIGINT UNSIGNED NOT NULL,
     `channel` BIGINT UNSIGNED NOT NULL,
-    FOREIGN KEY (`user`) REFERENCES User(id),
-    FOREIGN KEY (`channel`) REFERENCES User(id)
+    FOREIGN KEY (`user`) REFERENCES user(id),
+    FOREIGN KEY (`channel`) REFERENCES user(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE `iw-youtube`.`VideoTag` (
+CREATE TABLE `iw-youtube`.`videotag` (
     `video` BIGINT UNSIGNED NOT NULL,
     `tag` BIGINT UNSIGNED NOT NULL,
     PRIMARY KEY (`video`, `tag`),
-    FOREIGN KEY (`video`) REFERENCES Video(id),
-    FOREIGN KEY (`tag`) REFERENCES Tag(id)
+    FOREIGN KEY (`video`) REFERENCES video(id),
+    FOREIGN KEY (`tag`) REFERENCES tag(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE `iw-youtube`.`VideoQuality` (
+CREATE TABLE `iw-youtube`.`videoquality` (
     `video` BIGINT UNSIGNED NOT NULL,
     `quality` BIGINT UNSIGNED NOT NULL,
     PRIMARY KEY (`video`, `quality`),
-    FOREIGN KEY (`video`) REFERENCES Video(id),
-    FOREIGN KEY (`quality`) REFERENCES Quality(id)
+    FOREIGN KEY (`video`) REFERENCES video(id),
+    FOREIGN KEY (`quality`) REFERENCES quality(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE `iw-youtube`.`VideoPlaylist` (
+CREATE TABLE `iw-youtube`.`videoplaylist` (
     `video` BIGINT UNSIGNED NOT NULL,
     `playlist` BIGINT UNSIGNED NOT NULL,
     PRIMARY KEY (`video`, `playlist`),
-    FOREIGN KEY (`video`) REFERENCES Video(id),
-    FOREIGN KEY (`playlist`) REFERENCES Playlist(id)
+    FOREIGN KEY (`video`) REFERENCES video(id),
+    FOREIGN KEY (`playlist`) REFERENCES playlist(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE `iw-youtube`.`VideoComment` (
+CREATE TABLE `iw-youtube`.`videocomment` (
     `video` BIGINT UNSIGNED NOT NULL,
     `comment` BIGINT UNSIGNED NOT NULL,
     PRIMARY KEY (`video`, `comment`),
-    FOREIGN KEY (`video`) REFERENCES Video(id),
-    FOREIGN KEY (`comment`) REFERENCES Comment(id)
+    FOREIGN KEY (`video`) REFERENCES video(id),
+    FOREIGN KEY (`comment`) REFERENCES comment(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE `iw-youtube`.`VideoLikes` (
+CREATE TABLE `iw-youtube`.`channelrelated` (
+    `channel` BIGINT UNSIGNED NOT NULL,
+    `user` BIGINT UNSIGNED NOT NULL,
+    PRIMARY KEY (`channel`, `user`),
+    FOREIGN KEY (`channel`) REFERENCES user(id),
+    FOREIGN KEY (`user`) REFERENCES user(id)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `iw-youtube`.`videolikes` (
     `video` BIGINT UNSIGNED NOT NULL,
     `user` BIGINT UNSIGNED NOT NULL,
     PRIMARY KEY (`video`, `user`),
-    FOREIGN KEY (`video`) REFERENCES Video(id),
-    FOREIGN KEY (`user`) REFERENCES User(id)
+    FOREIGN KEY (`video`) REFERENCES video(id),
+    FOREIGN KEY (`user`) REFERENCES user(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE `iw-youtube`.`VideoDislikes` (
+CREATE TABLE `iw-youtube`.`videodislikes` (
     `video` BIGINT UNSIGNED NOT NULL,
     `user` BIGINT UNSIGNED NOT NULL,
     PRIMARY KEY (`video`, `user`),
-    FOREIGN KEY (`video`) REFERENCES Video(id),
-    FOREIGN KEY (`user`) REFERENCES User(id)
+    FOREIGN KEY (`video`) REFERENCES video(id),
+    FOREIGN KEY (`user`) REFERENCES user(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE `iw-youtube`.`SeeLater` (
+CREATE TABLE `iw-youtube`.`seelater` (
     `video` BIGINT UNSIGNED NOT NULL,
     `user` BIGINT UNSIGNED NOT NULL,
     PRIMARY KEY (`video`, `user`),
-    FOREIGN KEY (`video`) REFERENCES Video(id),
-    FOREIGN KEY (`user`) REFERENCES User(id)
+    FOREIGN KEY (`video`) REFERENCES video(id),
+    FOREIGN KEY (`user`) REFERENCES user(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE `iw-youtube`.`History` (
+CREATE TABLE `iw-youtube`.`history` (
     `video` BIGINT UNSIGNED NOT NULL,
     `user` BIGINT UNSIGNED NOT NULL,
     PRIMARY KEY (`video`, `user`),
-    FOREIGN KEY (`video`) REFERENCES Video(id),
-    FOREIGN KEY (`user`) REFERENCES User(id)
+    FOREIGN KEY (`video`) REFERENCES video(id),
+    FOREIGN KEY (`user`) REFERENCES user(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
@@ -255,7 +263,7 @@ INSERT INTO `iw-youtube`.`video` (`id`, `url`, `title`, `description`, `visits`,
 
 INSERT INTO `iw-youtube`.`video` (`id`, `url`, `title`, `description`, `visits`, `numLikes`, `numDislikes`, `numComments`, `video3D`, `insertionAllowed`, `ageRestrictions`, `notifications`, `duration`, `direct`, `user`, `license`, `category`, `visibility`, `language`) VALUES ('17', 'https://www.youtube.com/watch?v=JFSs7rwmTEs', 'AuronPlay Record', 'Para más videos miren mi canal! Denle Like!!!', '0', '0', '0', '0', '0', '1', '0', '1', '60', '1', '4', '4', '2', '1', '1');
 
-INSERT INTO `Comment` (`id`, `comment`, `numLikes`, `numDislikes`, `likesBalance`, `date`, `user`, `video`) VALUES
+INSERT INTO `comment` (`id`, `comment`, `numLikes`, `numDislikes`, `likesBalance`, `date`, `user`, `video`) VALUES
 (NULL, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto nemo impedit, architecto sequi dignissimos laudantium, temporibus ad quidem ipsam! Aspernatur, tempora. Quam ad asperiores maxime voluptas culpa quod velit dolores.', '0', '0', '0', CURRENT_TIMESTAMP, '2', '1'),
 (NULL, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto nemo impedit, architecto sequi dignissimos laudantium, temporibus ad quidem ipsam! Aspernatur, tempora. Quam ad asperiores maxime voluptas culpa quod velit dolores.', '0', '0', '0', CURRENT_TIMESTAMP, '3', '1'),
 (NULL, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto nemo impedit, architecto sequi dignissimos laudantium, temporibus ad quidem ipsam! Aspernatur, tempora. Quam ad asperiores maxime voluptas culpa quod velit dolores.', '0', '0', '0', CURRENT_TIMESTAMP, '4', '2'),
@@ -267,7 +275,7 @@ INSERT INTO `Comment` (`id`, `comment`, `numLikes`, `numDislikes`, `likesBalance
 (NULL, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto nemo impedit, architecto sequi dignissimos laudantium, temporibus ad quidem ipsam! Aspernatur, tempora. Quam ad asperiores maxime voluptas culpa quod velit dolores.', '0', '0', '0', CURRENT_TIMESTAMP, '2', '9'),
 (NULL, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto nemo impedit, architecto sequi dignissimos laudantium, temporibus ad quidem ipsam! Aspernatur, tempora. Quam ad asperiores maxime voluptas culpa quod velit dolores.', '0', '0', '0', CURRENT_TIMESTAMP, '3', '3');
 
-INSERT INTO `ChannelComment` (`id`, `comment`, `numLikes`, `numDislikes`, `likesBalance`, `date`, `user`, `channel`) VALUES
+INSERT INTO `channelcomment` (`id`, `comment`, `numLikes`, `numDislikes`, `likesBalance`, `date`, `user`, `channel`) VALUES
 (NULL, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto nemo impedit, architecto sequi dignissimos laudantium, temporibus ad quidem ipsam! Aspernatur, tempora. Quam ad asperiores maxime voluptas culpa quod velit dolores.', '0', '0', '0', CURRENT_TIMESTAMP, '2', '1'),
 (NULL, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto nemo impedit, architecto sequi dignissimos laudantium, temporibus ad quidem ipsam! Aspernatur, tempora. Quam ad asperiores maxime voluptas culpa quod velit dolores.', '0', '0', '0', CURRENT_TIMESTAMP, '3', '1'),
 (NULL, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto nemo impedit, architecto sequi dignissimos laudantium, temporibus ad quidem ipsam! Aspernatur, tempora. Quam ad asperiores maxime voluptas culpa quod velit dolores.', '0', '0', '0', CURRENT_TIMESTAMP, '4', '2'),

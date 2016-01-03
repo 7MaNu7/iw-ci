@@ -17,6 +17,11 @@ class Usuario_m extends CI_Model {
         return $query->result();
     }
 
+	function get_related($id) {
+        $query = $this->db->query('SELECT u.id, u.username FROM channelrelated c, user u WHERE u.id=c.user AND c.channel=' . $id);
+        return $query->result();
+    }
+
 	function new_comment($channel_id, $user_id, $comment)
 	{
 		$data = array(
@@ -25,5 +30,14 @@ class Usuario_m extends CI_Model {
 			'channel' => $channel_id,
 		);
 		$this->db->insert('channelcomment', $data);
+	}
+
+	function new_related($user, $new_user)
+	{
+		$data = array(
+			'channel' => $user,
+			'user' => $new_user
+		);
+		$this->db->insert('channelrelated', $data);
 	}
 }
