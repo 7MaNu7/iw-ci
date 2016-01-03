@@ -82,7 +82,7 @@ section {
     text-align: center;
 }
 
-.imagen {
+.profile-image {
     width: 100px;
     height: 100px;
     margin: 20px;
@@ -136,7 +136,7 @@ section {
     margin-right: 10px;
 }
 
-.comment-image {
+.image {
     width: 90px;
     height: 90px;
     border: 1px solid #696969;

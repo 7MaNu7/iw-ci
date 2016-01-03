@@ -33,7 +33,7 @@ class Canal extends CI_Controller {
 			else {
 				$data['last_video'] = false;
 			}
-			$data['related'] = [];
+			$data['related'] = $this->Usuario_m->get_related($id);
 			$data['comentarios'] = $this->Usuario_m->get_comments($id);
 			$data['css_files'] = ["assets/css/canal.css", "assets/css/cabecera.css"];
 	        $data['js_files'] = ["assets/js/cabecera.js"];
@@ -49,5 +49,14 @@ class Canal extends CI_Controller {
 		$user = $_POST['user'];
 
 		$this->Usuario_m->new_comment($channel, $user, $comment);
+	}
+
+	public function nuevo_relacionado()
+	{
+		$user = $_POST['user'];
+		$new_user = $_POST['newuser'];
+
+		$this->Usuario_m->new_related($user, $new_user);
+		$this->ver($user);
 	}
 }
