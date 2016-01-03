@@ -14,14 +14,18 @@ class registro extends CI_Controller {
         if (session_status() == PHP_SESSION_NONE)
             session_start();
 
-        //si no se ha llegado a definir la variable que nos indica el borrado de los input
-        //o si queremos que se borren (true) entonces mostramos form vacio
-        if((!isset($_SESSION['clean'])) || $_SESSION["clean"] == true)
+        //Si estamos logeados nos echaran de esta pagina
+        if(!isset($_SESSION['id']))
         {
-            unset($_SESSION["nombre"]); 
-            unset($_SESSION["email"]);
+            //si no se ha llegado a definir la variable que nos indica el borrado de los input
+            //o si queremos que se borren (true) entonces mostramos form vacio
+             if((!isset($_SESSION['clean'])) || $_SESSION["clean"] == true )
+            {
+                unset($_SESSION["nombre"]); 
+                unset($_SESSION["email"]);
+            }
         }
-
+       
         $data['usuarios']=$this->registro_m->get_all();
         $data['cuantos']=$this->registro_m->count_all();
         $data['css_files'] = ["assets/css/cabecera.css", "assets/css/subirvideo.css"];
