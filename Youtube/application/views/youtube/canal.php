@@ -23,13 +23,14 @@
 		<?php } else { ?>
 			<div class="video"></div>
 	        <div class="description">
-	            <div class="row"><h3></h3></div>
+	            <div class="row"><h3>Ups... Parece que no has subido ningún video todavía.</h3></div>
 	            <div class="row video-info">
 	                <div class="col-md-4"></div>
 	                <div class="col-md-4"></div>
 	                <div class="col-md-4"></div>
 	                </div>
 	            <div class="row video-description">
+	            	¡Sube tu primer video <a href="<?=site_url('/subirvideo')?>">aquí</a>!
 	            </div>
 	        </div>
 		<?php } ?>
@@ -46,12 +47,27 @@
 
             <div class="tab-content margin-top">
             	<div id="videos" class="row tab-pane fade in active">
-            					<?php foreach ($videos as $video) { ?>
+					<?php 
+    					if(sizeof($videos)!=0)
+    					{
+    						foreach ($videos as $video) {
+
+					 ?>
             	    <div class="col-md-3">
             	        <a href="<?=site_url('video/watch/' . $video->id)?>"><h5><?=$video->title?></h5>
             	        	<img src="http://img.youtube.com/vi/<?=substr($video->url, 32, 30);?>/0.jpg" alt="" class="videos-image"/></a>
             	    </div>
-            					<?php } ?>
+					<?php
+							 } 
+						}
+						else
+						{
+					?>
+							<p class="mensaje-sin-videos">Aún no tienes ningún video para mostrar</p>
+					<?php
+						}
+
+					?>
             	</div>
 				<div id="comentarios" class="row tab-pane fade">
 					<div class="row margin-bottom">

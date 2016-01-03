@@ -141,3 +141,7 @@ section {
     height: 90px;
     border: 1px solid #696969;
 }
+
+.mensaje-sin-videos {
+  margin-left: 30px;
+}
