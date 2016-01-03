@@ -147,6 +147,7 @@
                     <hr>
                 </div>
             </div>
+			<?php if(isset($_SESSION['id']) && $_SESSION['id'] == $user->id) { ?>
 			<div class="row margin-bottom">
 				<div class="col-sm-12">
 					<form method="post" action="<?=site_url('canal/nuevo_relacionado')?>">
@@ -160,7 +161,7 @@
 					</form>
 				</div>
 			</div>
-			<?php foreach ($related as $rel) { ?>
+			<?php }foreach ($related as $rel) { ?>
             <div class="row margin-bottom">
                 <div class="col-sm-12">
                     <div class="col-sm-4">
