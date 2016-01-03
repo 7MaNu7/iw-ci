@@ -59,7 +59,7 @@
 							<i class="glyphicon glyphicon-pencil"></i><span> Registrarse</span>
 						</a>
 					<?php } else { ?>
-						<a class="btn btn-default" href="<?=site_url('logout')?>">
+						<a id="salir" class="btn btn-default" >
 							<i class="glyphicon glyphicon-log-out"></i><span> Cerrar sesión</span>
 						</a>
 					<?php } ?>
