@@ -135,10 +135,14 @@
        <section class="profile center">
             <img src="http://lorempixel.com/100/100" alt="" class="profile-image img-circle">
             <h4><?=$user->username?></h4>
+			<?php if(isset($_SESSION['id']) && $_SESSION['id'] == $user->id) { ?>
             <div class="btn-group">
-                <button class="btn btn-youtube"><i class="gyphicon glyphicon-plus"></i> Suscribirse</button>
-                <div class="btn btn-default">128.915 segidores</div>
+                <a href="<?=site_url('/subirvideo')?>" class="btn btn-youtube"><i class="glyphicon glyphicon-upload"></i> Subir video</a>
             </div>
+			<?php } else { ?>
+				<button class="btn btn-youtube"><i class="gyphicon glyphicon-plus"></i> Suscribirse</button>
+                <div class="btn btn-default">128.915 segidores</div>
+			<?php } ?>
        </section>
         <section class="col-md-12">
             <div class="row">
