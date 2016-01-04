@@ -1,6 +1,6 @@
 /* LOGIN */
+
 var email = document.getElementById("email");
-email.val;
 
 email.onblur = function() {
 	if(email.value == "") {
@@ -11,7 +11,6 @@ email.onblur = function() {
 }
 
 var password = document.getElementById("password");
-password.val;
 
 password.onblur = function() {
 	if(password.value == "") {
