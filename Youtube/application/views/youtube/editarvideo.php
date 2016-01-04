@@ -35,7 +35,8 @@
 				'value'       => $video->url,
 				'maxlength'   => '255',
 				'class'				=> 'form-control',
-				'placeholder'	=> 'Ej: https://www.youtube.com/watch?v=p87gfVHMms'
+				'placeholder'	=> 'Ej: https://www.youtube.com/watch?v=p87gfVHMms',
+				'readonly'		=>	'readonly'
 			);
 			$description = array(
 				'name'        => 'description',
