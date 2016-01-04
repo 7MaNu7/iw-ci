@@ -39,7 +39,9 @@
     	    </div>
         </section>
 
+		<?php if(isset($_SESSION['id']) && $_SESSION['id'] == $video->userid) { ?>
 		<a href="<?=site_url('/video/editar/' . $video->id)?>" class="btn btn-default btn-editar-video-detalles"><i class="glyphicon glyphicon-pencil"></i> Editar video</a>
+		<?php } ?>
 
         <section>
             <div class="col-sm-12">
@@ -160,7 +162,21 @@
 		}).then(function () {
 			location.reload();
 		});
-	});
+	});/*
+	$('#delete-video-form').submit(function(event){
+		event.preventDefault();
+		var formData = {
+			'video'              : $('input[name=video]').val()
+		};
+		console.log(formData);
+		$.ajax({
+			url: '<?=site_url('/video/borrar_video')?>',
+			type: 'POST',
+			data: formData
+		}).then(function () {
+			location.reload();
+		});
+	});*/
 </script>
 
 <?php
