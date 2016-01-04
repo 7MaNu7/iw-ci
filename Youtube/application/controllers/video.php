@@ -123,12 +123,12 @@ class Video extends CI_Controller {
 				$category = $this->input->post('category');
 				$language = $this->input->post('language');
 				
-				$qualities = "";
+				$qualities = array();
 				if(!empty($this->input->post('qualities'))) {
 					if($this->input->post('qualities')) {
 						$qualities = $_POST['qualities'];
 					} else {
-						$qualities = "";
+						$qualities = array();
 					}
 				}
 				
@@ -151,10 +151,42 @@ class Video extends CI_Controller {
 					$category,
 					$language
 				);
+
+				//tags del video antes de editar
+				$antiguastags = $this->Video_m->get_video_tags($id);
+
+				for($cont=0; $cont<sizeof($antiguastags); $cont++)
+				{
+					$encontrado = false;
+
+					for($pos=0; $pos<sizeof($arrayetiquetas); $pos++)
+					{
+
+						//este video tenia una etiqueta que coincide con una etiqueta al modificar
+						if($antiguastags[$cont]->name == $arrayetiquetas[$pos])
+						{
+
+							//si la etiqueta ya estaba antes no hace falta insertarla de nuevo
+							//dejaremos en el array solo los que se van a insertar
+							unset($arrayetiquetas[$pos]);
+							$arrayetiquetas = array_values($arrayetiquetas);
+							$pos--;
+							$encontrado=true;
+						}
+					}
+
+					//una etiqueta que tenia el video no la tiene tras editar
+					if($encontrado==false)
+					{
+						//borramos la relacion de ese video con ese tag
+						$this->Video_m->delete_videotag($antiguastags[$cont]->id, $video_editado);
+					}
+				}
 				
-	//			$tam = sizeof($arrayetiquetas);
+				$tam = sizeof($arrayetiquetas);
+
 				/* Si la etiqueta no existe la creamos. Relacionamos la etiqueta con el video */
-		/*		for ($i=0;$i<$tam;$i++) {
+				for ($i=0;$i<$tam;$i++) {
 					$tags='';
 					$idtag='';
 					
@@ -167,16 +199,45 @@ class Video extends CI_Controller {
 					
 					$tags = $this->Video_m->get_tag_name($arrayetiquetas[$i]);
 					foreach ($tags as $t) { $idtag = $t->id; }
-					$this->Video_m->insert_videotag($nuevo_video, $idtag);
+					$this->Video_m->insert_videotag($video_editado, $idtag);
 				}
-			*/	
+
+				$antiguasqualities = $this->Video_m->get_video_qualities($id);
+
+				for($cont=0; $cont<sizeof($antiguasqualities); $cont++)
+				{
+					$encontrado = false;
+
+					for($pos=0; $pos<sizeof($qualities); $pos++)
+					{
+						//este video tenia una calidad que coincide con una calidad al modificar
+						if($antiguasqualities[$cont]->id == $qualities[$pos])
+						{
+							//si la calidad ya estaba antes no hace falta insertarla de nuevo
+							//dejaremos en el array solo los que se van a insertar
+							unset($qualities[$pos]);
+							$qualities = array_values($qualities);
+							$pos--;
+							$encontrado=true;
+						}
+
+					}
+
+					//una calidad que tenia el video no la tiene tras editar
+					if($encontrado==false)
+					{
+						//borramos la relacion de ese video con esa calidad
+						$this->Video_m->delete_videoquality($antiguasqualities[$cont]->id, $video_editado);
+					}
+
+				}
+				
 				/* Relacionamos las calidades seleccionadas con el video */
-		/*		if(!empty($this->input->post('qualities'))) {
+				if(!empty($this->input->post('qualities'))) {
 					for ($j=0;$j<count($qualities);$j++) {
-						$this->Video_m->insert_videoquality($nuevo_video, $qualities[$j]);
+						$this->Video_m->insert_videoquality($video_editado, $qualities[$j]);
 					}
 				}
-			*/	
 				$this->load->helper('url');
 				redirect("video/watch/" . $_SESSION["videoId"], 'refresh');
 			}

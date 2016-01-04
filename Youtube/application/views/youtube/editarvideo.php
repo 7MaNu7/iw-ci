@@ -195,7 +195,7 @@
 					
 					if($i<sizeof($videotags))
 					{
-						$cadenatags=$cadenatags . ', ';
+						$cadenatags=$cadenatags . ',';
 					}
 				}
 
