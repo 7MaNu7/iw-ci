@@ -14,8 +14,8 @@ class Login extends CI_Controller {
 		$data['titulo']="Iniciar sesión";
 		$data['usuarios']=$this->Login_m->get_all();
 		$data['cuantos']=$this->Login_m->count_all();
-        $data['css_files'] = ["assets/css/inicio.css", "assets/css/cabecera.css", "assets/css/login.css"];
-        $data['js_files'] = ["assets/js/cabecera.js"];
+		$data['css_files'] = ["assets/css/inicio.css", "assets/css/cabecera.css", "assets/css/login.css"];
+		$data['js_files'] = ["assets/js/cabecera.js", "assets/js/validacion-formularios.js"];
 		$this->load->view('youtube/login', $data);
 	}
 
