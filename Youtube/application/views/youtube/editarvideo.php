@@ -6,8 +6,10 @@
 	<h2><?php echo $titulo; ?></h2>
 	
 	<form method="post" accept-charset="utf-8" 
-				action="<?php echo base_url()?>index.php/subirvideo/insertar_video" class="row formularioeditarvideo"/>
+				action="<?php echo base_url()?>index.php/video/modificar_video" class="row formularioeditarvideo"/>
 		<div class="col-md-6">
+
+
 			<?php	
 			$this->load->helper('form');
 			/* Atributos del formulario */	
@@ -42,7 +44,7 @@
 					'class'	=>	'btn btn-primary botoneditarvideo'
 			);
 			?>
-			
+
 			<label class=""><span class="campoobligatorio">(*) </span>Título:</label>
 			<?php echo form_input($title); echo '<br>'; ?>
 
@@ -53,6 +55,9 @@
 			<?php echo form_textarea($description); echo '<br>';?>
 			
 			<p>(*): El campo es obligatorio.</p>
+
+			<?php $_SESSION["videoId"]= $video->id ?>
+			
 			<?php echo form_submit($submit);?>
 		</div>
 
