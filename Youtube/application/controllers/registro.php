@@ -28,7 +28,7 @@ class registro extends CI_Controller {
        
         $data['usuarios']=$this->registro_m->get_all();
         $data['cuantos']=$this->registro_m->count_all();
-        $data['css_files'] = ["assets/css/cabecera.css", "assets/css/subirvideo.css"];
+        $data['css_files'] = ["assets/css/cabecera.css", "assets/css/registro.css"];
         $data['js_files'] = ["assets/js/cabecera.js"];
         $data['titulo']="Registrarse";
         $this->load->view('youtube/registro', $data);
@@ -53,29 +53,6 @@ class registro extends CI_Controller {
                 'El campo %s debe seguir el formato correcto, aqui un ejemplo con caracteres permitidos: Aa1_-.@ejemplo.com');
             return FALSE;
        }
-
-       /* $fracciones = explode("@", $email);
-                
-        if (sizeof($fracciones)!=2)
-        {
-            $this->form_validation->set_message('patronEmail', 'El campo %s debe seguir el formato ***@***.***');
-            return FALSE;
-        }
-        else
-        {
-            $cadFinal = explode(".", $fracciones[1]);
-            if(sizeof($cadFinal)!=2)
-            {
-                $this->form_validation->set_message('patronEmail', 'El campo %s debe seguir el formato ***@***.***');
-                return FALSE;
-            }
-            else if(strlen($cadFinal[1])<2 || strlen($cadFinal[0])<2)
-            {
-                $this->form_validation->set_message('patronEmail', 'El campo %s debe tener minimo dos caracteres despues del "@" y del "."');
-                return FALSE; 
-            }
-            return TRUE;
-        }*/
     }
 
     public function patronPass($password)
