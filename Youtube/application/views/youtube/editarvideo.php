@@ -6,7 +6,7 @@
 	<h2><?php echo $titulo; ?></h2>
 	
 	<form method="post" accept-charset="utf-8" 
-				action="<?php echo base_url()?>index.php/subirvideo/insertar_video" class="row formulariosubirvideo"/>
+				action="<?php echo base_url()?>index.php/subirvideo/insertar_video" class="row formularioeditarvideo"/>
 		<div class="col-md-6">
 			<?php	
 			$this->load->helper('form');
@@ -14,7 +14,7 @@
 			$title = array(
 				'name'        => 'title',
 				'id'          => 'title',
-				'value'       => (isset($_SESSION['title']) ? $_SESSION['title'] : ''),
+				'value'       => $video->title,
 				'maxlength'   => '255',
 				'class'				=> 'form-control',
 				'placeholder'	=> 'Ej: Recopilación de vídeos graciosos'
@@ -22,7 +22,7 @@
 			$url = array(
 				'name'        => 'url',
 				'id'          => 'url',
-				'value'       => (isset($_SESSION['url']) ? $_SESSION['url'] : ''),
+				'value'       => $video->url,
 				'maxlength'   => '255',
 				'class'				=> 'form-control',
 				'placeholder'	=> 'Ej: https://www.youtube.com/watch?v=p87gfVHMms'
@@ -30,16 +30,16 @@
 			$description = array(
 				'name'        => 'description',
 				'id'          => 'description',
-				'value'       => (isset($_SESSION['description']) ? $_SESSION['description'] : ''),
-				'class'				=> 'form-control formsubirvideotextarea',
+				'value'       => $video->description,
+				'class'				=> 'form-control formeditarvideotextarea',
 				'placeholder'	=> 'Ej: El mejor vídeo de risa que puedas ver. Muestra una serie situaciones graciosas con las que vas a disfrutar...'
 			);
 			$submit = array(
 					'name' => 'submit',
 					'id' => 'submit',
-					'value' => 'Subir video',
-					'title' => 'Subir video',
-					'class'	=>	'btn btn-primary botonsubirvideo'
+					'value' => 'Guardar cambios',
+					'title' => 'Guardar cambios',
+					'class'	=>	'btn btn-primary botoneditarvideo'
 			);
 			?>
 			
@@ -58,7 +58,7 @@
 
 		<div class="col-md-6">
 			
-			<div class="row formsubirvideodosinputs">
+			<div class="row formeditarvideodosinputs">
 				<div class="col-md-6 inputpeque">
 					<label class="">Visibilidad del video:</label>
 
@@ -67,7 +67,7 @@
 					<?php
 					foreach($videovisibilidades as $visibilidad)
 					{
-						if($visibilidad->id == $_SESSION['visibility'])
+						if($visibilidad->id == $video->visibility)
 						{
 							echo '<option value="' .  $visibilidad->id . '" selected>' . $visibilidad->name . '</option>';
 						}
@@ -87,7 +87,7 @@
 					<?php
 					foreach($licenses as $license)
 					{
-						if($license->id == $_SESSION['license'])
+						if($license->id == $video->license)
 						{
 							echo '<option value="' .  $license->id . '" selected>' . $license->name . '</option>';
 						}
@@ -103,12 +103,12 @@
 			</div>
 			
 			<label class="">Categoria:</label>
-			<select name="category" class="form-control formsubirvideoselect">
+			<select name="category" class="form-control formeditarvideoselect">
 
 			<?php
 				foreach($categories as $category)
 				{
-					if($category->id == $_SESSION['category'])
+					if($category->id == $video->category)
 					{
 						echo '<option value="' .  $category->id . '" selected>' . $category->name . '</option>';
 					}
@@ -121,15 +121,16 @@
 
 			</select><br>
 
-			<div class="row formsubirvideodosinputs">
+			<div class="row formeditarvideodosinputs">
 				<div class="col-md-6 inputpeque">
 					<label class="">Idiomas:</label>
 					<select name="language" class="form-control">
 
 					<?php
+
 					foreach($languages as $language)
 					{
-						if($language->id == $_SESSION['language'])
+						if($language->id == $video->language)
 						{
 							echo '<option value="' .  $language->id . '" selected>' . $language->name . '</option>';
 						}
@@ -148,14 +149,16 @@
 			
 					<?php
 
-					$calidades = $_SESSION['qualities'];
+					$calidades = $videoqualities;
 
 					foreach($qualities as $quality)		
 					{
+
 						$encontrado = false;
 						for($i=0; $i<sizeof($calidades); $i++)
 						{
-							if($quality->id==$calidades[$i])
+							echo $calidades[$i]->id;
+							if($quality->id==$calidades[$i]->id)
 							{
 								$encontrado = true;
 							}
@@ -177,11 +180,25 @@
 
 			<?php
 
+				$cadenatags="";
+
+				$i=0;
+				foreach($videotags as $vt)
+				{
+					$cadenatags=$cadenatags . $vt->name;
+					$i++;
+					
+					if($i<sizeof($videotags))
+					{
+						$cadenatags=$cadenatags . ', ';
+					}
+				}
+
 				$etiquetas = array(
 				'name'       	 	=> 'etiquetas',
 				'id'          		=> 'etiquetas',
-				'value'       		=> (isset($_SESSION['etiquetas']) ? $_SESSION['etiquetas'] : ''),
-				'class'				=> 'form-control formsubirvideotextareasmall',
+				'value'       		=>  $cadenatags,
+				'class'				=> 'form-control formeditarvideotextareasmall',
 				'placeholder'		=> 'Etiquetas (p. ej: Albert Einstein, gatitos, comedia)'
 			);
 
@@ -192,7 +209,7 @@
 
 	</form>
 	
-	<div class="alert alert-danger mensajesSubirVideo" id="mensajeSubirVideo"><?php echo validation_errors();?></div>
+	<div class="alert alert-danger mensajesEditarVideo" id="mensajeEditarVideo"><?php echo validation_errors();?></div>
 	
 	<?php 
 	if(isset($_POST["submit"])){
@@ -200,19 +217,19 @@
 			session_start();
 		if (!isset($_SESSION['email']) || !isset($_SESSION['password'])) {
 			$response = "Debes iniciar sesión.";
-			echo '<div class="alert alert-danger mensajesSubirVideo">Error: '.$response.'</div>';
+			echo '<div class="alert alert-danger mensajesEditarVideo">Error: '.$response.'</div>';
 		}		
 	}
 	?>
 
 	<script type="text/javascript">
 		//Si hay errores en el formulario, el div en rojo se mostrará
-		var diverrores = document.getElementById('mensajeSubirVideo').innerHTML;
+		var diverrores = document.getElementById('mensajeEditarVideo').innerHTML;
 		if(diverrores=="") {
-			document.getElementById('mensajeSubirVideo').style.display = "none";
+			document.getElementById('mensajeEditarVideo').style.display = "none";
 		}
 		//Si no hay título o URL dicho campo se pondrá en rojo
-		var mensajes = document.getElementById('mensajeSubirVideo').innerHTML;
+		var mensajes = document.getElementById('mensajeEditarVideo').innerHTML;
 		if(mensajes.indexOf("El campo titulo") > -1)
 			document.getElementById('title').style.borderColor = "rgba(255, 0, 0, 0.51)";
 		if(mensajes.indexOf("El campo url") > -1)

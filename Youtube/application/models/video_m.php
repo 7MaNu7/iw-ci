@@ -3,8 +3,9 @@
 class Video_m extends CI_Model {
 
 	function get($id) {
-		
-		$query = $this->db->query('SELECT v.id, v.title, v.url, v.description, v.visits, v.numLikes likes, v.numDislikes dislikes, u.id userid, u.username FROM video v, user u WHERE v.user=u.id AND v.id='. $id);
+
+		$query = $this->db->query('SELECT v.id, v.title, v.url, v.description, v.visits, v.numLikes likes, v.numDislikes dislikes, v.license, v.category, v.language, v.visibility, u.id userid, u.username FROM video v, user u WHERE v.user=u.id AND v.id='. $id);
+
 		return $query->row();
 	}
 
@@ -39,6 +40,25 @@ class Video_m extends CI_Model {
 		$this->db->select('id, name');
 		return $this->db->get("quality")->result();
 	}
+
+	function get_video_qualities($id) {
+		$this->db->select('videoquality.video, quality.id, quality.name');
+		$this->db->from('videoquality');
+		$this->db->join('quality', 'videoquality.quality = quality.id');
+		$this->db->where('videoquality.video', $id);
+		
+		return $this->db->get()->result();
+	}
+
+	function get_video_tags($id) {
+		$this->db->select('videotag.video, tag.id, tag.name');
+		$this->db->from('videotag');
+		$this->db->join('tag', 'videotag.tag = tag.id');
+		$this->db->where('videotag.video', $id);
+		
+		return $this->db->get()->result();
+	}
+
 
 	function get_tag_name($name) {
 		$this->db->select('id, name');
