@@ -222,6 +222,11 @@ INSERT INTO `iw-youtube`.`user` (`id`, `email`, `password`, `userName`, `verifie
 INSERT INTO `iw-youtube`.`user` (`id`, `email`, `password`, `userName`, `verified`) VALUES ('3', 'bob@gm.com', 'Bob', 'bobTomas', TRUE);
 INSERT INTO `iw-youtube`.`user` (`id`, `email`, `password`, `userName`, `verified`) VALUES ('4', 'maria@gm.com', 'Maria', 'mariaYotuber', TRUE);
 
+/* USER ADMIN */
+ALTER TABLE `user` ADD `admin` BOOLEAN NOT NULL DEFAULT FALSE AFTER `verified`;
+INSERT INTO `iw-youtube`.`user` (`id`, `userName`, `password`, `email`, `admin`) VALUES ('100', 'Admin', 'Admin', 'admin@gm.com', TRUE);
+INSERT INTO `iw-youtube`.`user` (`id`, `userName`, `password`, `email`, `admin`) VALUES ('101', 'Admin2', 'Admin2', 'admin2@gm.com', TRUE);
+
 INSERT INTO `iw-youtube`.`videovisibility` (`id`, `name`) VALUES ('1', 'Public');
 INSERT INTO `iw-youtube`.`videovisibility` (`id`, `name`) VALUES ('2', 'Private');
 
