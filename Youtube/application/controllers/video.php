@@ -54,6 +54,8 @@ class Video extends CI_Controller {
 			$data['categories']=$this->Video_m->get_all_categories();
 			$data['languages']=$this->Video_m->get_all_languages();
 			$data['qualities']=$this->Video_m->get_all_qualities();
+			$data['videoqualities']=$this->Video_m->get_video_qualities($id);
+			$data['videotags']=$this->Video_m->get_video_tags($id);
 			$data['comentarios']=$this->Video_m->get_comments($id);
 	        $data['related'] = $this->Video_m->get_search_related_videos($this->Video_m->get($id));
 	        $data['css_files'] = ["assets/css/video.css", "assets/css/cabecera.css"];
