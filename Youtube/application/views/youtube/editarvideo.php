@@ -4,6 +4,14 @@
 
 <main class="container">
 	<h2><?php echo $titulo; ?></h2>
+
+	<?php 
+
+		//Si no es el creador del video no tiene acceso a modificarlo		
+		if(!isset($_SESSION["id"]) || $_SESSION["id"]!=$video->userid)
+			echo '<script>window.location.href="' . base_url() . 'index.php/video/watch/' . $video->id . '"</script>'; 
+
+	?>
 	
 	<form method="post" accept-charset="utf-8" 
 				action="<?php echo base_url()?>index.php/video/modificar_video" class="row formularioeditarvideo"/>
