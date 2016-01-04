@@ -51,6 +51,15 @@ class Canal extends CI_Controller {
 		$this->Usuario_m->new_comment($channel, $user, $comment);
 	}
 
+	public function borrar_comentario()
+	{
+		$comment = $_POST['comment'];
+		$channel = $_POST['channel'];
+
+		$this->Usuario_m->delete_comment($comment);
+		$this->watch($channel);
+	}
+
 	public function nuevo_relacionado()
 	{
 		$user = $_POST['user'];
