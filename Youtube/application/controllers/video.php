@@ -27,6 +27,7 @@ class Video extends CI_Controller {
 			$this->load->view('error/404', $data);
 		}
 		else {
+			$this->Video_m->increment_visit($id);
 			$data['comentarios']=$this->Video_m->get_comments($id);
 	        $data['related'] = $this->Video_m->get_search_related_videos($this->Video_m->get($id));
 	        $data['css_files'] = ["assets/css/video.css", "assets/css/cabecera.css"];
@@ -50,7 +51,7 @@ class Video extends CI_Controller {
 	{
 		$comment = $_POST['comment'];
 		$video = $_POST['video'];
-		
+
 		$this->Video_m->delete_comment($comment);
 		$this->watch($video);
 	}

@@ -3,8 +3,16 @@
 class Video_m extends CI_Model {
 
 	function get($id) {
+		
 		$query = $this->db->query('SELECT v.id, v.title, v.url, v.description, v.visits, v.numLikes likes, v.numDislikes dislikes, u.id userid, u.username FROM video v, user u WHERE v.user=u.id AND v.id='. $id);
 		return $query->row();
+	}
+
+	function increment_visit($id)
+	{
+		$this->db->where('id', $id);
+		$this->db->set('visits', 'visits+1', false);
+		$this->db->update('video');
 	}
 
     function get_comments($id) {
