@@ -29,7 +29,7 @@ class registro extends CI_Controller {
         $data['usuarios']=$this->registro_m->get_all();
         $data['cuantos']=$this->registro_m->count_all();
         $data['css_files'] = ["assets/css/cabecera.css", "assets/css/registro.css"];
-        $data['js_files'] = ["assets/js/cabecera.js"];
+        $data['js_files'] = ["assets/js/cabecera.js", "assets/js/validacion-registro.js"];
         $data['titulo']="Registrarse";
         $this->load->view('youtube/registro', $data);
     }
