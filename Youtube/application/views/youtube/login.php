@@ -7,9 +7,9 @@
 	
 	<form name="formulario" action="" method="POST" class="divcamposlogin">
 		<label>Email:</label>
-		<input type="text" name="email" class="form-control"> </input>
+		<input type="text" name="email" id="email" class="form-control"> </input>
 		<label>Password:</label>
-		<input type="password" name="password" class="form-control"> </input>
+		<input type="password" name="password" id="password" class="form-control"> </input>
 	 	<input class="btn btn-primary botonlogin" value="Iniciar sesión" type="submit" name="submit"/>
 	</form>
 
