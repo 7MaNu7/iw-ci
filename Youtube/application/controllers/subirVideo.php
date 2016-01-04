@@ -13,26 +13,25 @@ class subirVideo extends CI_Controller {
 	{
 
 		 if (session_status() == PHP_SESSION_NONE)
-            session_start();
+			 session_start();
 
-        //si no se ha llegado a definir la variable que nos indica el borrado de los input
-        //o si queremos que se borren (true) entonces mostramos form vacio
-        if((!isset($_SESSION['clean'])) || $_SESSION["clean"] == true)
-        {
-            unset($_SESSION["title"]); 
-            unset($_SESSION["url"]);
-            unset($_SESSION["description"]); 
-            unset($_SESSION["etiquetas"]);
-            unset($_SESSION["visibility"]);
-            unset($_SESSION["license"]);
-            unset($_SESSION["category"]);
-            unset($_SESSION["language"]);
-            unset($_SESSION["qualities"]);
-        }
-
+		//si no se ha llegado a definir la variable que nos indica el borrado de los input
+		//o si queremos que se borren (true) entonces mostramos form vacio
+		if((!isset($_SESSION['clean'])) || $_SESSION["clean"] == true)
+		{
+				unset($_SESSION["title"]); 
+				unset($_SESSION["url"]);
+				unset($_SESSION["description"]); 
+				unset($_SESSION["etiquetas"]);
+				unset($_SESSION["visibility"]);
+				unset($_SESSION["license"]);
+				unset($_SESSION["category"]);
+				unset($_SESSION["language"]);
+				unset($_SESSION["qualities"]);
+		}
 
 		$data['css_files'] = ["assets/css/cabecera.css", "assets/css/subirvideo.css"];
-		$data['js_files'] = ["assets/js/cabecera.js"];
+		$data['js_files'] = ["assets/js/cabecera.js", "assets/js/validacion-subirvideo.js"];
 		$data['titulo']="Subir nuevo vídeo";
 		$data['videovisibilidades']=$this->subirVideo_m->get_all_videovisibility();
 		$data['licenses']=$this->subirVideo_m->get_all_licenses();
@@ -58,17 +57,17 @@ class subirVideo extends CI_Controller {
 
 			if (!$this->form_validation->run() || (!isset($_SESSION['email']) || !isset($_SESSION['password'])))
 			{
-
-                //Como hay error en el formulario no queremos limpiar los input (SALVO PASSWORD)
-                $_SESSION["title"] = $this->input->post('title'); 
-                $_SESSION["url"] = $this->input->post('url');
-                $_SESSION["description"] = $this->input->post('description'); 
-                $_SESSION["etiquetas"] = $_POST['etiquetas'];
-                $_SESSION["visibility"] = $this->input->post('visibility');
-                $_SESSION["license"] = $this->input->post('license');
-                $_SESSION["category"] = $this->input->post('category');
-                $_SESSION["language"] = $this->input->post('language');
-                $_SESSION["qualities"] = "";
+					//Como hay error en el formulario no queremos limpiar los input (SALVO PASSWORD)
+					$_SESSION["title"] = $this->input->post('title'); 
+					$_SESSION["url"] = $this->input->post('url');
+					$_SESSION["description"] = $this->input->post('description'); 
+					$_SESSION["etiquetas"] = $_POST['etiquetas'];
+					$_SESSION["visibility"] = $this->input->post('visibility');
+					$_SESSION["license"] = $this->input->post('license');
+					$_SESSION["category"] = $this->input->post('category');
+					$_SESSION["language"] = $this->input->post('language');
+					$_SESSION["qualities"] = "";
+				
 				if(!empty($this->input->post('qualities'))) {
 					if($this->input->post('qualities')) {
 						 $_SESSION["qualities"] = $_POST['qualities'];
@@ -77,13 +76,13 @@ class subirVideo extends CI_Controller {
 					}
 				}
 
-                $_SESSION["clean"] = false;
+				$_SESSION["clean"] = false;
 
-                //si no pasamos la validación volvemos al formulario mostrando los errores y sin borrar inputs
-                $this->index();
+				//si no pasamos la validación volvemos al formulario mostrando los errores y sin borrar inputs
+				$this->index();
 
-                //Para futuras navegaciones si que se borran los input
-                $_SESSION["clean"] = true;
+				//Para futuras navegaciones si que se borran los input
+				$_SESSION["clean"] = true;
 			}
 			//si pasamos la validación correctamente pasamos a hacer la inserción en la base de datos
 			else {
