@@ -7,7 +7,7 @@
 
 
 	<form method="post" accept-charset="utf-8" 
-				action="<?php echo base_url()?>index.php/registro/insertar_usuario" class="row"/>
+				action="<?php echo base_url()?>index.php/registro/insertar_usuario" class="row formregistro"/>
 
 			<?php	
 			$this->load->helper('form');
@@ -52,26 +52,22 @@
 					'id' => 'submit',
 					'value' => 'Crear cuenta',
 					'title' => 'Crear cuenta',
-					'class'	=>	'btn btn-primary'
+					'class'	=>	'btn btn-primary botonregistro'
 			);
 
 			?>
 
-		    <label class=""><span class="campoobligatorio">(*) </span>Nick de usuario:</label>
-		    <?php echo form_input($userName); echo '<br>'; ?>
-		    <label class=""><span class="campoobligatorio">(*) </span>Email:</label>
-		    <?php echo form_input($email); echo '<br>'; ?>
-		    <label class=""><span class="campoobligatorio">(*) </span>Password:</label>
-		    <?php echo form_input($password); echo '<br>'; ?>
-		    <label class=""><span class="campoobligatorio">(*) </span>Repite la password:</label>
-		    <?php echo form_input($repetirPassword); echo '<br>'; ?>
+			<label class=""><span class="campoobligatorio">(*) </span>Nick de usuario:</label>
+			<?php echo form_input($userName); echo '<br>'; ?>
+			<label class=""><span class="campoobligatorio">(*) </span>Email:</label>
+			<?php echo form_input($email); echo '<br>'; ?>
+			<label class=""><span class="campoobligatorio">(*) </span>Password:</label>
+			<?php echo form_input($password); echo '<br>'; ?>
+			<label class=""><span class="campoobligatorio">(*) </span>Repite la password:</label>
+			<?php echo form_input($repetirPassword); echo '<br>'; ?>
 
-		    <p>(*): El campo es obligatorio.</p>
-
-	        <?php echo form_submit($submit); ?>
-
-
-
+			<p>(*): El campo es obligatorio.</p>
+			<?php echo form_submit($submit); ?>
 	</form>
 
 	<?php 
