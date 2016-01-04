@@ -29,6 +29,8 @@ function buscar() {
 		window.location=baseURL+"busqueda?search_query="+buscado;
 }
 
+/* Para los links de la cabecera */
+
 $( document ).ready(function() {
 	
 	//Según la URL se activa un link u otro
@@ -40,7 +42,6 @@ $( document ).ready(function() {
 		document.getElementById(id).className = "activecab";
 		document.getElementById(id).parentNode.className = "activecab";
 	} else {
-		console.log("Lo quitamos")
 		id = 'link-inicio';
 		document.getElementById(id).removeClass = "activecab";
 		document.getElementById(id).parentNode.removeClass = "activecab";
@@ -51,7 +52,6 @@ $( document ).ready(function() {
 		document.getElementById(id).className = "activecab";
 		document.getElementById(id).parentNode.className = "activecab";
 	} else {
-		console.log("Lo quitamos")
 		id = 'link-subirvideo';
 		document.getElementById(id).removeClass = "activecab";
 		document.getElementById(id).parentNode.removeClass = "activecab";
@@ -68,20 +68,3 @@ $( document ).ready(function() {
 		document.getElementById(id).parentNode.removeClass = "activecab";
 	}
 });
-
-/*
-else if(URLactual.indexOf('canal')>1) {
-		<?php
-			if (session_status() == PHP_SESSION_NONE)
-							session_start();
-			if (isset($_SESSION['email']) && isset($_SESSION['password'])) {
-				if(URLactual.indexOf('canal/ver/'<?php echo isset($_SESSION['id']?>)>1))
-					id = 'link-canal';
-				else
-					estaenmenu = false;
-			} else
-				estaenmenu = false;
-		?>
-	}
-	
-*/

@@ -76,14 +76,19 @@
 					</li>
 					<!-- Ver canal-->
 					<?php
+					$clasecanal = "";
 					if (!isset($_SESSION['email']) || !isset($_SESSION['password']))
 						$urluser = site_url('login?redirect=inicio');
-					else
+					else {
 						$urluser = site_url('canal/ver/' . $_SESSION['id']);
+						//vemos si está viendo su canal
+						if(strpos($_SERVER['REQUEST_URI'], 'canal/ver/'.$_SESSION['id']))
+							 $clasecanal = "activecab";
+					}
 					?>
-					<li>
+					<li class="<?=$clasecanal?>">
 						<i class="glyphicon glyphicon-user"></i>
-						<a id="link-canal" href="<?=$urluser?>">Mi canal</a>
+						<a class="<?=$clasecanal?>" id="link-canal" href="<?=$urluser?>">Mi canal</a>
 					</li>
 
 					<!-- Subir video si no está logeado va a login -->
