@@ -36,6 +36,33 @@ class Video extends CI_Controller {
 
     }
 
+
+    public function editar($id)
+    {
+
+		 $data['video']=$this->Video_m->get($id);
+		if(!$data['video']) {
+			$data['page'] = 'video';
+			$data['css_files'] = ["assets/css/404.css", "assets/css/cabecera.css"];
+	        $data['js_files'] = ["assets/js/cabecera.js"];
+			$this->load->view('error/404', $data);
+		}
+		else {
+			$data['titulo'] = "Editar video";
+			$data['videovisibilidades']=$this->Video_m->get_all_videovisibility();
+			$data['licenses']=$this->Video_m->get_all_licenses();
+			$data['categories']=$this->Video_m->get_all_categories();
+			$data['languages']=$this->Video_m->get_all_languages();
+			$data['qualities']=$this->Video_m->get_all_qualities();
+			$data['comentarios']=$this->Video_m->get_comments($id);
+	        $data['related'] = $this->Video_m->get_search_related_videos($this->Video_m->get($id));
+	        $data['css_files'] = ["assets/css/video.css", "assets/css/cabecera.css"];
+	        $data['js_files'] = ["assets/js/cabecera.js"];
+			$this->load->view('youtube/editarvideo', $data);
+		}
+
+    }
+
 	public function nuevo_comentario()
 	{
 		$comment = $_POST['comment'];
