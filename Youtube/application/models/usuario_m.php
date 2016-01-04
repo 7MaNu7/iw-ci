@@ -13,7 +13,7 @@ class Usuario_m extends CI_Model {
     }
 
 	function get_comments($id) {
-        $query = $this->db->query('SELECT c.id, c.comment, u.username, c.date FROM channelcomment c, user u WHERE u.id=c.user AND c.channel=' . $id);
+        $query = $this->db->query('SELECT c.id, c.comment, u.username, c.user, c.date FROM channelcomment c, user u WHERE u.id=c.user AND c.channel=' . $id);
         return $query->result();
     }
 
@@ -30,6 +30,12 @@ class Usuario_m extends CI_Model {
 			'channel' => $channel_id,
 		);
 		$this->db->insert('channelcomment', $data);
+	}
+
+	function delete_comment($comment_id)
+	{
+		$this->db->where('id', $comment_id);
+		$this->db->delete('channelcomment');
 	}
 
 	function new_related($user, $new_user)
