@@ -109,6 +109,17 @@ body {
 	text-decoration:none;
 }
 
+.glyphicon {
+    padding-left: 5px;
+}
+
+.activecab {
+	background-color: #636363;
+	color: white !important;
+}
+
+/* Botones y marca */
+
 .registrarse{
     float: right;
     font-size: 15px;

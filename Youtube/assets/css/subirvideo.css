@@ -24,6 +24,7 @@
 
 .formsubirvideotextareasmall {
 	height: 84px !important;
+  width: 500px !important;
 }
 
 .formsubirvideoselect {
@@ -46,6 +47,5 @@
 
 .mensajesSubirVideo {
 	width: 500px;
-  margin-left: 45px;
   margin-top: 20px;
 }

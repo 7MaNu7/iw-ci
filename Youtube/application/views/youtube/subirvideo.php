@@ -55,6 +55,7 @@
 			<?php echo form_textarea($description); echo '<br>';?>
 			
 			<p>(*): El campo es obligatorio.</p>
+			
 			<?php echo form_submit($submit);?>
 		</div>
 		
@@ -153,7 +154,8 @@
 					</select><br>
 				</div>
 			</div>
-
+			
+			<!-- Etiquetas -->
 			<?php
 				$etiquetas = array(
 				'name'       	 	=> 'etiquetas',
@@ -163,7 +165,7 @@
 				'placeholder'		=> 'Etiquetas (p. ej: Albert Einstein, gatitos, comedia)'
 			);
 			?>
-			<label class="">Etiquetas:</label>
+			<label>Etiquetas:</label>
 			<?php echo form_textarea($etiquetas); echo '<br>';?>
 	</form>
 	
