@@ -7,6 +7,25 @@ class Video_m extends CI_Model {
 		return $query->row();
 	}
 
+	function video_editado($id, $user, $title, $url, $description, $visibility, $license, $category, $language) {
+		$data = array(
+			'user'	=> $user,
+			'title' => $title,
+			'url' => $url,
+			'description' => $description,
+			'visibility' => $visibility,
+			'license' => $license,
+			'category' => $category,
+			'language' => $language
+		);
+		
+		$this->db->where('id', $id);
+		$this->db->update('video', $data); 
+
+		return $id;
+		
+	}
+
 	function get_all_videovisibility() {
 		$this->db->select('id, name');
 		return $this->db->get("videovisibility")->result();
