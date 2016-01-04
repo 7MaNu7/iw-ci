@@ -109,8 +109,12 @@ body {
 	text-decoration:none;
 }
 
+.glyphicon {
+    padding-left: 5px;
+}
+
 .activecab {
-	background-color: #333;
+	background-color: #636363;
 	color: white !important;
 }
 
