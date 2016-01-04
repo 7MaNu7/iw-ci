@@ -222,6 +222,9 @@ INSERT INTO `iw-youtube`.`user` (`id`, `email`, `password`, `userName`, `verifie
 INSERT INTO `iw-youtube`.`user` (`id`, `email`, `password`, `userName`, `verified`) VALUES ('3', 'bob@gm.com', 'Bob', 'bobTomas', TRUE);
 INSERT INTO `iw-youtube`.`user` (`id`, `email`, `password`, `userName`, `verified`) VALUES ('4', 'maria@gm.com', 'Maria', 'mariaYotuber', TRUE);
 
+/* USER ADMIN */
+INSERT INTO `iw-youtube`.`user` (`id`, `email`, `password`, `userName`, `verified`) VALUES ('100', 'admin@gm.com', 'Admin', 'Admin', TRUE);
+
 INSERT INTO `iw-youtube`.`videovisibility` (`id`, `name`) VALUES ('1', 'Public');
 INSERT INTO `iw-youtube`.`videovisibility` (`id`, `name`) VALUES ('2', 'Private');
 
