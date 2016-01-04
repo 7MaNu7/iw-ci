@@ -47,38 +47,14 @@
 				<div class="col-md-12">
 					<div id="error"></div>
 				</div>
-				<form method="post" accept-charset="utf-8">
+				<form id="new-comment-form" method="post" accept-charset="utf-8">
 					<input type="hidden" name="video" value="<?=$video->id?>">
 					<input type="hidden" name="user" value="<?php if( isset($_SESSION['id']) ){ echo $_SESSION['id']; }else {echo '0';} ?>">
 					<div class="col-md-10">
-						<textarea name="comment" rows="4" cols="40" class="form-control comment-box"></textarea>
+						<textarea name="newcomment" rows="4" cols="40" class="form-control comment-box"></textarea>
 					</div>
 					<div class="col-md-2 margin-top"><button class="btn btn-primary margin-top">Enviar</button></div>
 				</form>
-				<script type="text/javascript">
-					$('form').submit(function(event){
-						event.preventDefault();
-						var formData = {
-				            'video'              : $('input[name=video]').val(),
-				            'user'             : $('input[name=user]').val(),
-				            'comment'    : $('textarea[name=comment]').val()
-				        };
-						console.log(formData);
-						if(formData.user == 0)
-						{
-							$('#error').html('<div class="alert alert-danger"><strong>Error!</strong> Debes iniciar sesión</div>')
-						}
-						else {
-							$.ajax({
-								url: '<?=site_url('/video/nuevo_comentario')?>',
-								type: 'POST',
-								data: formData
-							}).then(function () {
-								location.reload();
-							});
-						}
-					});
-				</script>
 				<hr>
 			</div>
 			<?php foreach($comentarios as $i => $comentario) { ?>
@@ -88,7 +64,16 @@
 	                    <div class="col-md-10">
 	                        <div class="row">
 	                            <div class="col-sm-6"><h4><?=$comentario->username?></h4></div>
-	                            <div class="col-sm-6 right"><em class="date"><?=$comentario->date?></em></div>
+	                            <div class="col-sm-6 right">
+									<em class="date"><?=$comentario->date?></em>
+									<?php if(isset($_SESSION['id']) && $_SESSION['id'] == $comentario->user) { ?>
+										<form id="delete-comment-form" method="post">
+											<input type="hidden" name="video" value="<?=$video->id?>">
+											<input type="hidden" name="comment" value="<?=$comentario->id?>">
+											<button class="btn btn-default" data-toggle="tooltip" data-title="Borrar comentario" data-placement="bottom"><i class="glyphicon glyphicon-trash"></i></button>
+										</form>
+									<?php } ?>
+								</div>
 	                        </div>
 	                        <div class="row">
 	                            <div class="col-sm-12">
@@ -132,6 +117,48 @@
 		</section>
     </div>
 </main>
+<script type="text/javascript">
+	$(function () {
+		$('[data-toggle="tooltip"]').tooltip()
+	});
+	$('#new-comment-form').submit(function(event){
+		event.preventDefault();
+		var formData = {
+			'video'              : $('input[name=video]').val(),
+			'user'             : $('input[name=user]').val(),
+			'comment'    : $('textarea[name=newcomment]').val()
+		};
+		console.log(formData);
+		if(formData.user == 0)
+		{
+			$('#error').html('<div class="alert alert-danger"><strong>Error!</strong> Debes iniciar sesión</div>')
+		}
+		else {
+			$.ajax({
+				url: '<?=site_url('/video/nuevo_comentario')?>',
+				type: 'POST',
+				data: formData
+			}).then(function () {
+				location.reload();
+			});
+		}
+	});
+	$('#delete-comment-form').submit(function(event){
+		event.preventDefault();
+		var formData = {
+			'video'              : $('input[name=video]').val(),
+			'comment'    : $('input[name=comment]').val()
+		};
+		console.log(formData);
+		$.ajax({
+			url: '<?=site_url('/video/borrar_comentario')?>',
+			type: 'POST',
+			data: formData
+		}).then(function () {
+			location.reload();
+		});
+	});
+</script>
 
 <?php
 	$this->load->view('inc/pie.php');
