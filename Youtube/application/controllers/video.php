@@ -53,22 +53,6 @@ class Video extends CI_Controller {
 	 		if (session_status() == PHP_SESSION_NONE)
             	session_start();
 
-
-	        //si no se ha llegado a definir la variable que nos indica el borrado de los input
-	        //o si queremos que se borren (true) entonces mostramos form vacio
-	        if((!isset($_SESSION['clean'])) || $_SESSION["clean"] == true)
-	        {
-	            unset($_SESSION["title"]); 
-	            unset($_SESSION["url"]);
-	            unset($_SESSION["description"]); 
-	            unset($_SESSION["etiquetas"]);
-	            unset($_SESSION["visibility"]);
-	            unset($_SESSION["license"]);
-	            unset($_SESSION["category"]);
-	            unset($_SESSION["language"]);
-	            unset($_SESSION["qualities"]);
-	        }
-
 			$data['titulo'] = "Editar video";
 			$data['videovisibilidades']=$this->Video_m->get_all_videovisibility();
 			$data['licenses']=$this->Video_m->get_all_licenses();
@@ -107,7 +91,7 @@ class Video extends CI_Controller {
 	}
 
 	function modificar_video() {
-					echo "probando";
+
     	//si se ha pulsado el botón submit validamos el formulario con codeIgniter
 		if($this->input->post('submit')) {
 			//hacemos las comprobaciones que deseemos en nuestro formulario
@@ -123,34 +107,9 @@ class Video extends CI_Controller {
 			if (!$this->form_validation->run() || (!isset($_SESSION['email']) || !isset($_SESSION['password'])))
 			{
 
-                //Como hay error en el formulario no queremos limpiar los input (SALVO PASSWORD)
-                echo "title: " . $this->input->post('title');
-                echo "url: " . $this->input->post('url');
-                $_SESSION["title"] = $this->input->post('title'); 
-                $_SESSION["url"] = $this->input->post('url');
-                $_SESSION["description"] = $this->input->post('description'); 
-                $_SESSION["etiquetas"] = $_POST['etiquetas'];
-                $_SESSION["visibility"] = $this->input->post('visibility');
-                $_SESSION["license"] = $this->input->post('license');
-                $_SESSION["category"] = $this->input->post('category');
-                $_SESSION["language"] = $this->input->post('language');
-                $_SESSION["qualities"] = "";
-				if(!empty($this->input->post('qualities'))) {
-					if($this->input->post('qualities')) {
-						 $_SESSION["qualities"] = $_POST['qualities'];
-					} else {
-						 $_SESSION["qualities"] = "";
-					}
-				}
-
-                $_SESSION["clean"] = false;
-
                 //si no pasamos la validación volvemos al formulario mostrando los errores y sin borrar inputs
-                echo "id: " . $_SESSION["videoId"];
                 $this->editar($_SESSION["videoId"]);
 
-                //Para futuras navegaciones si que se borran los input
-                $_SESSION["clean"] = true;
 			}
 			//si pasamos la validación correctamente pasamos a hacer la inserción en la base de datos
 			else {
