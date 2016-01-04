@@ -8,7 +8,7 @@ class Video_m extends CI_Model {
 	}
 
     function get_comments($id) {
-        $query = $this->db->query('SELECT c.id, c.comment, u.username, c.date FROM comment c, user u WHERE u.id=c.user AND c.video=' . $id);
+        $query = $this->db->query('SELECT c.id, c.comment, u.username, c.user, c.date FROM comment c, user u WHERE u.id=c.user AND c.video=' . $id);
         return $query->result();
     }
 
@@ -20,6 +20,12 @@ class Video_m extends CI_Model {
 			'video' => $video_id,
 		);
 		$this->db->insert('comment', $data);
+	}
+
+	function delete_comment($comment_id)
+	{
+		$this->db->where('id', $comment_id);
+		$this->db->delete('comment');
 	}
 
 //buscamos los videos relacionados a un video concreto
@@ -42,7 +48,7 @@ function get_search_related_videos($video) {
 			//para cada palabra
 			foreach($titlewords as $word)
 			{
-				//si es significativa (mas de 3 letras) 
+				//si es significativa (mas de 3 letras)
 				if(strlen($word)>3)
 				{
 					//buscamos titulos que tenga palabras similares o iguales
@@ -95,7 +101,7 @@ function get_search_related_videos($video) {
 		$this->db->from('video');
 		$this->db->join('videotag', 'videotag.video = video.id');
 		$this->db->join('tag', 'tag.id = videotag.tag');
-		$this->db->where('videotag.video', $video->id); 
+		$this->db->where('videotag.video', $video->id);
 
 		$etiquetasquery = $this->db->get()->result();
 
@@ -110,7 +116,7 @@ function get_search_related_videos($video) {
 			$this->db->join('user', 'user.id = video.user');
 
 			//el primer where va sin 'or', buscamos la primera etiqueta
-			$this->db->where('tag.id', $etiquetasquery[0]->id); 
+			$this->db->where('tag.id', $etiquetasquery[0]->id);
 
 			//añadimos 'or_where' a partir de la segunda etiqueta a buscar (si la hubiese)
 			for($j=1; $j<sizeof($etiquetasquery); $j++)

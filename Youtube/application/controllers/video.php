@@ -45,4 +45,13 @@ class Video extends CI_Controller {
 		$this->Video_m->new_comment($video, $user, $comment);
 		$this->watch($video);
 	}
+
+	public function borrar_comentario()
+	{
+		$comment = $_POST['comment'];
+		$video = $_POST['video'];
+		
+		$this->Video_m->delete_comment($comment);
+		$this->watch($video);
+	}
 }
