@@ -15,6 +15,60 @@ class Video_m extends CI_Model {
 		$this->db->update('video');
 	}
 
+	function get_all_videovisibility() {
+		$this->db->select('id, name');
+		return $this->db->get("videovisibility")->result();
+	}	
+	
+	function get_all_licenses() {
+		$this->db->select('id, name');
+		return $this->db->get("license")->result();
+	}	
+	
+	function get_all_categories() {
+		$this->db->select('id, name');
+		return $this->db->get("category")->result();
+	}	
+	
+	function get_all_languages() {
+		$this->db->select('id, name');
+		return $this->db->get("language")->result();
+	}
+	
+	function get_all_qualities() {
+		$this->db->select('id, name');
+		return $this->db->get("quality")->result();
+	}
+
+	function get_tag_name($name) {
+		$this->db->select('id, name');
+		$this->db->where('name', $name);
+		return $this->db->get("tag")->result();
+	}
+	
+	function insert_tag($name) {
+		$data = array(
+			'name'	=> $name
+		);
+		$this->db->insert('tag',$data);
+	}
+	
+	function insert_videotag($idvideo, $idtag) {
+		$data = array(
+			'video'	=> $idvideo,
+			'tag'	=> $idtag
+		);
+		$this->db->insert('videotag',$data);
+	}
+	
+	function insert_videoquality($idvideo, $idquality) {
+		$data = array(
+			'video'	=> $idvideo,
+			'quality'	=> $idquality
+		);
+		$this->db->insert('videoquality',$data);
+	}
+
     function get_comments($id) {
         $query = $this->db->query('SELECT c.id, c.comment, u.username, c.user, c.date FROM comment c, user u WHERE u.id=c.user AND c.video=' . $id);
         return $query->result();
@@ -36,8 +90,9 @@ class Video_m extends CI_Model {
 		$this->db->delete('comment');
 	}
 
-//buscamos los videos relacionados a un video concreto
-function get_search_related_videos($video) {
+	//buscamos los videos relacionados a un video concreto
+	function get_search_related_videos($video) {
+
 
 		//obtenemos los datos del video y del usuario
 		$this->db->select('video.id, user.id userid, title, url, description, duration, visits, user, userName');
