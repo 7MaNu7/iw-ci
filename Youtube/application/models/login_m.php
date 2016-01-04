@@ -3,7 +3,7 @@
 class Login_m extends CI_Model {
 	
 	function get_all() {
-		$this->db->select('id, email, password, userName');
+		$this->db->select('id, email, password, userName, admin');
 		return $this->db->get("user")->result();
 	}
 	

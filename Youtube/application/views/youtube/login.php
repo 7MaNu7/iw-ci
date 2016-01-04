@@ -29,6 +29,7 @@
 			if($usuario->email==$uemail && $usuario->password==$upass) {
 				$existeusuario=true;
 				$uid = $usuario->id;
+				$uadmin = $usuario->admin;
 			}
 			if($uemail=="" || $upass=="")
 				$camposvacios=true;
@@ -48,6 +49,7 @@
 			$_SESSION["email"] = $uemail; 
 			$_SESSION["password"] = $upass;
 			$_SESSION["id"] = $uid;
+			$_SESSION["admin"] = $uadmin;
 			
 			echo '<div class="alert alert-success errorlogin">Inicio de sesión correcto</div>';
 			

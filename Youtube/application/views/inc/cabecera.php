@@ -94,7 +94,7 @@
 						session_start();
 
 					if (isset($_SESSION['email']) && isset($_SESSION['password'])) {
-						if ($_SESSION['email']=='admin@gm.com' && $_SESSION['password']=='Admin') { ?>
+						if ($_SESSION['admin']==1) { ?>
 							<li><i class="glyphicon glyphicon-briefcase"></i><a href="<?=site_url('backoffice')?>">Back-office</a></li>
 					<?php 
 						}
