@@ -70,8 +70,8 @@
 			<div class="menu">
 				<ul>
 					<li><i class="glyphicon glyphicon-home"></i><a href="<?=site_url('inicio')?>">Página principal</a></li>
+					<!-- Ver canal-->
 					<?php
-
 					if (!isset($_SESSION['email']) || !isset($_SESSION['password']))
 						$urluser = site_url('login?redirect=inicio');
 					else
@@ -81,13 +81,26 @@
 
 					<!-- Subir video si no está logeado va a login -->
 					<?php
-
 					if (!isset($_SESSION['email']) || !isset($_SESSION['password']))
 						$urlsubirvideo = site_url('login?redirect=subirvideo');
 					else
 						$urlsubirvideo = site_url('subirvideo');
 					?>
 					<li><i class="glyphicon glyphicon-upload"></i><a href="<?=$urlsubirvideo?>">Subir video</a></li>
+					
+					<!-- Ver Backoffice si es admin -->
+					<?php
+					if (session_status() == PHP_SESSION_NONE)
+						session_start();
+
+					if (isset($_SESSION['email']) && isset($_SESSION['password'])) {
+						if ($_SESSION['email']=='admin@gm.com' && $_SESSION['password']=='Admin') { ?>
+							<li><i class="glyphicon glyphicon-briefcase"></i><a href="<?=site_url('backoffice')?>">Back-office</a></li>
+					<?php 
+						}
+					} 
+					?>
+					
 				</ul>
 			</div>
     </div>
