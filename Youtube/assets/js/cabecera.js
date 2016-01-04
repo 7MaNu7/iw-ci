@@ -30,22 +30,47 @@ function buscar() {
 }
 
 $( document ).ready(function() {
-	var estaenmenu = true;
 	
-	//Según la URL se activa una pestaña u otra
+	//Según la URL se activa un link u otro
 	var URLactual = String(window.location);
 	var id = "";
-	if(URLactual.indexOf('login')>1)
-		id = 'link-login';
-	else if(URLactual.indexOf('registro')>1)
-		id = 'link-registro';
-	else if(URLactual.indexOf('inicio')>1)
+	
+	if(URLactual.indexOf('index.php/inicio')>1 || URLactual.substr(URLactual.length - 9)=="index.php") {
 		id = 'link-inicio';
-	else if(URLactual.indexOf('subirvideo')>1)
+		document.getElementById(id).className = "activecab";
+		document.getElementById(id).parentNode.className = "activecab";
+	} else {
+		console.log("Lo quitamos")
+		id = 'link-inicio';
+		document.getElementById(id).removeClass = "activecab";
+		document.getElementById(id).parentNode.removeClass = "activecab";
+	}
+	
+	if(URLactual.indexOf('subirvideo')>1) {
 		id = 'link-subirvideo';
-	else if(URLactual.indexOf('backoffice')>1)
+		document.getElementById(id).className = "activecab";
+		document.getElementById(id).parentNode.className = "activecab";
+	} else {
+		console.log("Lo quitamos")
+		id = 'link-subirvideo';
+		document.getElementById(id).removeClass = "activecab";
+		document.getElementById(id).parentNode.removeClass = "activecab";
+	}
+	
+	if(URLactual.indexOf('backoffice')>1) {
 		id = 'link-backoffice';
-	else if(URLactual.indexOf('canal')>1) {
+		document.getElementById(id).className = "activecab";
+		document.getElementById(id).parentNode.className = "activecab";
+	} else {
+		console.log("Lo quitamos")
+		id = 'link-backoffice';
+		document.getElementById(id).removeClass = "activecab";
+		document.getElementById(id).parentNode.removeClass = "activecab";
+	}
+});
+
+/*
+else if(URLactual.indexOf('canal')>1) {
 		<?php
 			if (session_status() == PHP_SESSION_NONE)
 							session_start();
@@ -58,11 +83,5 @@ $( document ).ready(function() {
 				estaenmenu = false;
 		?>
 	}
-	else
-		estaenmenu = false;
 	
-	if(estaenmenu) {
-		document.getElementById(id).className = "active";//color: white;
-		document.getElementById(id).parentNode.className = "active";//    background-color: #333; color: white !important;
-	}
-});
+*/

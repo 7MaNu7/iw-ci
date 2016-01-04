@@ -109,6 +109,13 @@ body {
 	text-decoration:none;
 }
 
+.activecab {
+	background-color: #333;
+	color: white !important;
+}
+
+/* Botones y marca */
+
 .registrarse{
     float: right;
     font-size: 15px;

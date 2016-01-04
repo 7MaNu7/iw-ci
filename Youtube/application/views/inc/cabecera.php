@@ -69,7 +69,11 @@
 			<!-- Menú que se abre con hamburger y Enlaces -->
 			<div class="menu">
 				<ul>
-					<li><i class="glyphicon glyphicon-home"></i><a href="<?=site_url('inicio')?>">Página principal</a></li>
+					<!-- Página principal -->
+					<li>
+						<i class="glyphicon glyphicon-home"></i>
+						<a id="link-inicio" href="<?=site_url('inicio')?>">Página principal</a>
+					</li>
 					<!-- Ver canal-->
 					<?php
 					if (!isset($_SESSION['email']) || !isset($_SESSION['password']))
@@ -77,7 +81,10 @@
 					else
 						$urluser = site_url('canal/ver/' . $_SESSION['id']);
 					?>
-					<li><i class="glyphicon glyphicon-user"></i><a href="<?=$urluser?>">Mi canal</a></li>
+					<li>
+						<i class="glyphicon glyphicon-user"></i>
+						<a id="link-canal" href="<?=$urluser?>">Mi canal</a>
+					</li>
 
 					<!-- Subir video si no está logeado va a login -->
 					<?php
@@ -86,7 +93,10 @@
 					else
 						$urlsubirvideo = site_url('subirvideo');
 					?>
-					<li><i class="glyphicon glyphicon-upload"></i><a href="<?=$urlsubirvideo?>">Subir video</a></li>
+					<li>
+						<i class="glyphicon glyphicon-upload"></i>
+						<a id="link-subirvideo" href="<?=$urlsubirvideo?>">Subir video</a>
+					</li>
 					
 					<!-- Ver Backoffice si es admin -->
 					<?php
@@ -95,7 +105,10 @@
 
 					if (isset($_SESSION['email']) && isset($_SESSION['password'])) {
 						if ($_SESSION['admin']==1) { ?>
-							<li><i class="glyphicon glyphicon-briefcase"></i><a href="<?=site_url('backoffice')?>">Back-office</a></li>
+							<li>
+								<i class="glyphicon glyphicon-briefcase"></i>
+								<a id="link-backoffice" href="<?=site_url('backoffice')?>">Back-office</a>
+							</li>
 					<?php 
 						}
 					} 
