@@ -69,7 +69,6 @@ class Video_m extends CI_Model {
 		return $this->db->get()->result();
 	}
 
-
 	function get_tag_name($name) {
 		$this->db->select('id, name');
 		$this->db->where('name', $name);
@@ -90,7 +89,21 @@ class Video_m extends CI_Model {
 		);
 		$this->db->insert('videotag',$data);
 	}
-	
+
+	function delete_videotag($id, $video_editado)
+	{
+		$this->db->where('tag', $id);
+		$this->db->where('video', $video_editado);
+		$this->db->delete('videotag'); 
+	}
+
+	function delete_videoquality($id, $video_editado)
+	{
+		$this->db->where('quality', $id);
+		$this->db->where('video', $video_editado);
+		$this->db->delete('videoquality'); 
+	}
+
 	function insert_videoquality($idvideo, $idquality) {
 		$data = array(
 			'video'	=> $idvideo,
