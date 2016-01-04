@@ -38,6 +38,9 @@
 	        	</div>
     	    </div>
         </section>
+
+		<a href="<?=site_url('/video/editar/' . $video->id)?>" class="btn btn-default btn-editar-video-detalles"><i class="glyphicon glyphicon-pencil"></i> Editar video</a>
+
         <section>
             <div class="col-sm-12">
                 <h4>Comentarios</h4>
