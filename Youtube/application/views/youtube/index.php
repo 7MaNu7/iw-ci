@@ -26,14 +26,6 @@
 					<a href="<?=site_url('/video/watch/' . $video->id)?>">
 						<img src="http://img.youtube.com/vi/<?php echo substr($video->url, 32, 30); ?>/0.jpg" alt="" class="videoinicio"/>
 					</a>
-					<?php
-						if(isset($_SESSION['id']) && $_SESSION['id'] == $video->userid)
-						{
-					?>
-						<a href="<?=site_url('/video/editar/' . $video->id)?>" class="btn btn-default btn-editar-video"><i class="glyphicon glyphicon-pencil"></i> Editar video</a>
-					<?php
-						}
-					?>
 				</div>
 
 		<?php 
