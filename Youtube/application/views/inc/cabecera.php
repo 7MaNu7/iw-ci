@@ -17,6 +17,7 @@
 	foreach($css_files as $file): ?>
 	<link type="text/css" rel="stylesheet" href="<?=base_url($file)?>" />
 	<?php endforeach; ?>
+	<link rel="stylesheet" href="<?=base_url('assets/css/mensajes.css')?>">
 </head>
 
 
@@ -123,3 +124,8 @@
 			</div>
     </div>
 </nav>
+	
+<!-- Para el cierre de sesión -->
+<?php
+$this->load->view('inc/cierresesion');
+?>

@@ -1,15 +1,24 @@
 <!--Mensaje cierre de sesión -->
-<div id="divmensajelogout" style="width:500px; margin-left: 250px; margin-top: 15px;" class="mensajeoculto">
+<div id="divmensajelogout" 
+		 style="position:fixed; text-align:center; width:400px; margin-left: 35%; margin-top: 15px; z-index:1;" class="mensajeoculto">
 	<div class="alert alert-success" id="mensajelogout">Cierre de sesión correcto</div>
 </div>
 
 <script type="text/javascript">
+	console.log("HOLA1");
 	var funcion = function() {
+		console.log("HOLA2");
 		var mensaje = document.getElementById("mensajelogout");
 		var divmensaje = document.getElementById("divmensajelogout");
 		mensaje.className = "alert alert-success";
 		divmensaje.className = "mensajevisible";
-		setTimeout(function(){window.location="logout"}, 2000);
+		
+		//Vamos a logout para cerrar la sesión
+		setTimeout(function(){
+			var URLactual = String(window.location);
+			var baseURL = URLactual.split('index.php')[0]+"index.php/";
+			window.location=baseURL+"logout";
+		}, 2000);
 	}
 	document.getElementById("salir").onclick=funcion;
 </script>

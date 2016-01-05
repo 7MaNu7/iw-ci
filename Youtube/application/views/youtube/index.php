@@ -4,11 +4,6 @@
 ?>
 
 <main class="container">
-
-	<!-- Para el cierre de sesión -->
-	<?php
-	$this->load->view('inc/cierresesion');
-	?>
 	
 	<h2><?=$titulo?></h2>
 
