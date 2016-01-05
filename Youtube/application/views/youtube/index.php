@@ -5,11 +5,10 @@
 
 <main class="container">
 
-	<!--<div id="alerta"></div>-->
-	<!--Mensaje cierre de sesión -->
-	<div id="divmensajelogin" style="width:500px; margin-left: 250px; margin-top: 15px;" class="mensajeoculto">
-		<div class="alert alert-success" id="mensajelogin">Cierre de sesión correcto</div>
-	</div>
+	<!-- Para el cierre de sesión -->
+	<?php
+	$this->load->view('inc/cierresesion');
+	?>
 	
 	<h2><?=$titulo?></h2>
 
@@ -38,21 +37,6 @@
 			}
 		?>
 	</div>
-
-    <script type="text/javascript">
-    	/*var funcion = function() {
-    		document.getElementById("alerta").innerHTML='<div class="alert alert-success errorlogin">Cerrado de sesión correcto</div>';
-    		setTimeout(function(){window.location="logout"}, 2000);
-    	}*/
-			var funcion = function() {
-				var mensaje = document.getElementById("mensajelogin");
-				var divmensaje = document.getElementById("divmensajelogin");
-				mensaje.className = "alert alert-success";
-				divmensaje.className = "mensajevisible";
-				setTimeout(function(){window.location="logout"}, 2000);
-			}
-    	document.getElementById("salir").onclick=funcion;
-    </script>
 
 </main>
 
