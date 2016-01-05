@@ -36,6 +36,13 @@
 	        	        <?=$video->description?>
 	        	    </div>
 	        	</div>
+				<div class="row margin-top">
+					<div class="col-sm-12">
+						<?php if(isset($_SESSION['id']) && $_SESSION['id'] == $video->userid) { ?>
+							<a href="<?=site_url('/video/editar/' . $video->id)?>" class="btn btn-default btn-block"><i class="glyphicon glyphicon-pencil"></i> Editar video</a>
+						<?php } ?>
+					</div>
+				</div>
     	    </div>
         </section>
         <section>
@@ -157,7 +164,21 @@
 		}).then(function () {
 			location.reload();
 		});
-	});
+	});/*
+	$('#delete-video-form').submit(function(event){
+		event.preventDefault();
+		var formData = {
+			'video'              : $('input[name=video]').val()
+		};
+		console.log(formData);
+		$.ajax({
+			url: '<?=site_url('/video/borrar_video')?>',
+			type: 'POST',
+			data: formData
+		}).then(function () {
+			location.reload();
+		});
+	});*/
 </script>
 
 <?php

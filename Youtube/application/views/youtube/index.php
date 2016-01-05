@@ -27,6 +27,7 @@
 						<img src="http://img.youtube.com/vi/<?php echo substr($video->url, 32, 30); ?>/0.jpg" alt="" class="videoinicio"/>
 					</a>
 				</div>
+
 		<?php 
 				}
 

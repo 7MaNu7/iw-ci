@@ -3,16 +3,124 @@
 class Video_m extends CI_Model {
 
 	function get($id) {
-		
-		$query = $this->db->query('SELECT v.id, v.title, v.url, v.description, v.visits, v.numLikes likes, v.numDislikes dislikes, u.id userid, u.username FROM video v, user u WHERE v.user=u.id AND v.id='. $id);
+
+		$query = $this->db->query('SELECT v.id, v.title, v.url, v.description, v.visits, v.numLikes likes, v.numDislikes dislikes, v.license, v.category, v.language, v.visibility, u.id userid, u.username FROM video v, user u WHERE v.user=u.id AND v.id='. $id);
+
 		return $query->row();
 	}
+
 
 	function increment_visit($id)
 	{
 		$this->db->where('id', $id);
 		$this->db->set('visits', 'visits+1', false);
 		$this->db->update('video');
+	}
+
+	function video_editado($id, $user, $title, $url, $description, $visibility, $license, $category, $language) 
+	{
+		$data = array(
+			'user'	=> $user,
+			'title' => $title,
+			'url' => $url,
+			'description' => $description,
+			'visibility' => $visibility,
+			'license' => $license,
+			'category' => $category,
+			'language' => $language
+		);
+		
+		$this->db->where('id', $id);
+		$this->db->update('video', $data); 
+
+		return $id;
+		
+	}
+
+	function get_all_videovisibility() {
+		$this->db->select('id, name');
+		return $this->db->get("videovisibility")->result();
+	}	
+	
+	function get_all_licenses() {
+		$this->db->select('id, name');
+		return $this->db->get("license")->result();
+	}	
+	
+	function get_all_categories() {
+		$this->db->select('id, name');
+		return $this->db->get("category")->result();
+	}	
+	
+	function get_all_languages() {
+		$this->db->select('id, name');
+		return $this->db->get("language")->result();
+	}
+	
+	function get_all_qualities() {
+		$this->db->select('id, name');
+		return $this->db->get("quality")->result();
+	}
+
+	function get_video_qualities($id) {
+		$this->db->select('videoquality.video, quality.id, quality.name');
+		$this->db->from('videoquality');
+		$this->db->join('quality', 'videoquality.quality = quality.id');
+		$this->db->where('videoquality.video', $id);
+		
+		return $this->db->get()->result();
+	}
+
+	function get_video_tags($id) {
+		$this->db->select('videotag.video, tag.id, tag.name');
+		$this->db->from('videotag');
+		$this->db->join('tag', 'videotag.tag = tag.id');
+		$this->db->where('videotag.video', $id);
+		
+		return $this->db->get()->result();
+	}
+
+	function get_tag_name($name) {
+		$this->db->select('id, name');
+		$this->db->where('name', $name);
+		return $this->db->get("tag")->result();
+	}
+	
+	function insert_tag($name) {
+		$data = array(
+			'name'	=> $name
+		);
+		$this->db->insert('tag',$data);
+	}
+	
+	function insert_videotag($idvideo, $idtag) {
+		$data = array(
+			'video'	=> $idvideo,
+			'tag'	=> $idtag
+		);
+		$this->db->insert('videotag',$data);
+	}
+
+	function delete_videotag($id, $video_editado)
+	{
+		$this->db->where('tag', $id);
+		$this->db->where('video', $video_editado);
+		$this->db->delete('videotag'); 
+	}
+
+	function delete_videoquality($id, $video_editado)
+	{
+		$this->db->where('quality', $id);
+		$this->db->where('video', $video_editado);
+		$this->db->delete('videoquality'); 
+	}
+
+	function insert_videoquality($idvideo, $idquality) {
+		$data = array(
+			'video'	=> $idvideo,
+			'quality'	=> $idquality
+		);
+		$this->db->insert('videoquality',$data);
 	}
 
     function get_comments($id) {
@@ -36,8 +144,9 @@ class Video_m extends CI_Model {
 		$this->db->delete('comment');
 	}
 
-//buscamos los videos relacionados a un video concreto
-function get_search_related_videos($video) {
+	//buscamos los videos relacionados a un video concreto
+	function get_search_related_videos($video) {
+
 
 		//obtenemos los datos del video y del usuario
 		$this->db->select('video.id, user.id userid, title, url, description, duration, visits, user, userName');
