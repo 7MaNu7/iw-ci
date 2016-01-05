@@ -66,6 +66,34 @@
 								<input type="hidden" name="user" value="<?=$user->id?>">
 								<button class="btn btn-danger" name="submit" id="submit"><i class="glyphicon glyphicon-trash"></i> Borra este video</button>
 							</form>
+
+							<!-- Button trigger modal -->
+					<!--		<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">
+							  <i class="glyphicon glyphicon-trash"></i> Borra este video
+							</button>
+					-->
+							<!-- Modal -->
+					<!--		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+							  <div class="modal-dialog" role="document">
+							    <div class="modal-content">
+							      <div class="modal-header">
+							        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							        <h4 class="modal-title" id="myModalLabel">¿Está seguro de borrar este video?</h4>
+							      </div>
+							      <div class="modal-body">
+							      -->
+							      	<!-- probando, pero no se muestra -->
+							      	<!--
+							       	<?php $user->username; ?>
+							      </div>
+							      <div class="modal-footer">
+							        <button type="button" class="btn btn-default" data-dismiss="modal">Volver</button>
+							        <button type="button" class="btn btn-danger">Borrar</button>
+							      </div>
+							    </div>
+							  </div>
+							</div> 
+					-->
 						<?php
 							}
 						?>
