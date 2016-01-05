@@ -38,6 +38,32 @@ class Usuario_m extends CI_Model {
 		$this->db->delete('channelcomment');
 	}
 
+	
+	function delete_video($video_id)
+	{
+		$this->db->where('id', $video_id);
+		$this->db->delete('video');
+	}
+
+	function delete_comments_video($video)
+	{
+		$this->db->where('video', $video);
+		$this->db->delete('comment');
+	}
+
+	function delete_tags_video($video)
+	{
+		$this->db->where('video', $video);
+		$this->db->delete('videotag');
+	}
+
+	function delete_qualities_video($video)
+	{
+		$this->db->where('video', $video);
+		$this->db->delete('videoquality');
+	}
+
+
 	function new_related($user, $new_user)
 	{
 		$data = array(

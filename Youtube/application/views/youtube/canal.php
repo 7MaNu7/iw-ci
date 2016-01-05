@@ -61,6 +61,11 @@
 							{
 						?>
 							<a href="<?=site_url('/video/editar/' . $video->id)?>" class="btn btn-default btn-block"><i class="glyphicon glyphicon-pencil"></i> Editar video</a>
+							<form id="delete-video-form" method="post" action="<?php echo base_url()?>index.php/canal/borrar_video">
+								<input type="hidden" name="video" value="<?=$video->id?>">
+								<input type="hidden" name="user" value="<?=$user->id?>">
+								<button class="btn btn-danger" name="submit" id="submit"><i class="glyphicon glyphicon-trash"></i> Borra este video</button>
+							</form>
 						<?php
 							}
 						?>
