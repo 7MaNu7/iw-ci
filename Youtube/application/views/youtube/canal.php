@@ -79,9 +79,9 @@
             	</div>
 				<div id="comentarios" class="row tab-pane fade">
 					<div class="row margin-bottom">
-						<div class="col-md-12">
-							<div id="error"></div>
-						</div>
+						<!-- Mensaje error comentario -->
+						<div id="error" class="col-md-12"></div>
+						
 						<form id="new-comment-form" method="post" accept-charset="utf-8">
 							<input type="hidden" name="channel" value="<?=$user->id?>">
 							<input type="hidden" name="user" value="<?php if( isset($_SESSION['id']) ){ echo $_SESSION['id']; }else {echo '0';} ?>">
@@ -189,7 +189,13 @@
 		console.log(formData);
 		if(formData.user == 0)
 		{
-			$('#error').html('<div class="alert alert-danger"><strong>Error!</strong> Debes iniciar sesión</div>')
+			$('#error').html('<div id="divmensajecomentarioerror" style="width:600px; margin-left: 10px;" class="mensajeoculto"><div class="alert alert-danger" id="mensajecomentarioerror">Error: Debes iniciar sesión</div></div>');
+			setTimeout(function(){
+				var mensaje = document.getElementById("mensajecomentarioerror");
+				var divmensaje = document.getElementById("divmensajecomentarioerror");
+				mensaje.className = "alert alert-danger";
+				divmensaje.className = "mensajevisible";
+			}, 1);	
 		}
 		else {
 			$.ajax({

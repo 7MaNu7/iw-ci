@@ -22,16 +22,16 @@ class Video extends CI_Controller {
         $data['video']=$this->Video_m->get($id);
 		if(!$data['video']) {
 			$data['page'] = 'video';
-			$data['css_files'] = ["assets/css/404.css", "assets/css/cabecera.css"];
+			$data['css_files'] = ["assets/css/404.css", "assets/css/cabecera.css", "assets/css/mensajes.css"];
 	        $data['js_files'] = ["assets/js/cabecera.js"];
 			$this->load->view('error/404', $data);
 		}
 		else {
 			$this->Video_m->increment_visit($id);
 			$data['comentarios']=$this->Video_m->get_comments($id);
-	        $data['related'] = $this->Video_m->get_search_related_videos($this->Video_m->get($id));
-	        $data['css_files'] = ["assets/css/video.css", "assets/css/cabecera.css"];
-	        $data['js_files'] = ["assets/js/cabecera.js"];
+			$data['related'] = $this->Video_m->get_search_related_videos($this->Video_m->get($id));
+			$data['css_files'] = ["assets/css/video.css", "assets/css/cabecera.css", "assets/css/mensajes.css"];
+			$data['js_files'] = ["assets/js/cabecera.js"];
 			$this->load->view('youtube/video', $data);
 		}
 
