@@ -1,26 +1,26 @@
-<?php 
+<?php
 	$this->load->view('inc/cabecera');
 ?>
 
 <main class="container">
 	<h2><?php echo $titulo; ?></h2>
 
-	<?php 
+	<?php
 
-		//Si no es el creador del video no tiene acceso a modificarlo		
+		//Si no es el creador del video no tiene acceso a modificarlo
 		if(!isset($_SESSION["id"]) || $_SESSION["id"]!=$video->userid)
-			echo '<script>window.location.href="' . base_url() . 'index.php/video/watch/' . $video->id . '"</script>'; 
+			echo '<script>window.location.href="' . base_url() . 'index.php/video/watch/' . $video->id . '"</script>';
 
 	?>
-	
-	<form method="post" accept-charset="utf-8" 
+
+	<form method="post" accept-charset="utf-8"
 				action="<?php echo base_url()?>index.php/video/modificar_video" class="row formularioeditarvideo"/>
 		<div class="col-md-6">
 
 
-			<?php	
+			<?php
 			$this->load->helper('form');
-			/* Atributos del formulario */	
+			/* Atributos del formulario */
 			$title = array(
 				'name'        => 'title',
 				'id'          => 'title',
@@ -62,16 +62,16 @@
 
 			<label class="">Descripción del video:</label>
 			<?php echo form_textarea($description); echo '<br>';?>
-			
+
 			<p>(*): El campo es obligatorio.</p>
 
 			<?php $_SESSION["videoId"]= $video->id ?>
-			
-			<?php echo form_submit($submit);?>
-		</div>
 
+			<?php echo form_submit($submit);?>
+
+		</div>
 		<div class="col-md-6">
-			
+
 			<div class="row formeditarvideodosinputs">
 				<div class="col-md-6 inputpeque">
 					<label class="">Visibilidad del video:</label>
@@ -88,11 +88,11 @@
 						else
 						{
 							echo '<option value="' .  $visibilidad->id . '">' . $visibilidad->name . '</option>';
-						}	
+						}
 					}
 					?>
 
-					</select><br>	
+					</select><br>
 				</div>
 				<div class="col-md-6 inputpeque">
 					<label class="">Tipo de licencia:</label>
@@ -108,14 +108,14 @@
 						else
 						{
 							echo '<option value="' .  $license->id . '">' . $license->name . '</option>';
-						}	
+						}
 					}
 					?>
 
 					</select><br>
 				</div>
 			</div>
-			
+
 			<label class="">Categoria:</label>
 			<select name="category" class="form-control formeditarvideoselect">
 
@@ -129,7 +129,7 @@
 					else
 					{
 						echo '<option value="' .  $category->id . '">' . $category->name . '</option>';
-					}	
+					}
 				}
 			?>
 
@@ -151,7 +151,7 @@
 						else
 						{
 							echo '<option value="' .  $language->id . '">' . $language->name . '</option>';
-						}	
+						}
 					}
 					?>
 
@@ -160,12 +160,12 @@
 				<div class="col-md-6 inputpeque">
 					<label class="">Calidades del video:</label>
 					<select name="qualities[]" class="form-control" multiple>
-			
+
 					<?php
 
 					$calidades = $videoqualities;
 
-					foreach($qualities as $quality)		
+					foreach($qualities as $quality)
 					{
 
 						$encontrado = false;
@@ -201,7 +201,7 @@
 				{
 					$cadenatags=$cadenatags . $vt->name;
 					$i++;
-					
+
 					if($i<sizeof($videotags))
 					{
 						$cadenatags=$cadenatags . ',';
@@ -220,38 +220,85 @@
 
 			<label class="">Etiquetas:</label>
 			<?php echo form_textarea($etiquetas); echo '<br>';?>
-
+		</div>
 	</form>
-	
+
+		<div class="row">
+			<div class="col-md-6 col-md-offset-6">
+				<button class="btn btn-danger btn-borrar" data-toggle="modal" data-target="#delete-modal" data-user="<?=$video->userid?>" data-video="<?=$video->id?>" data-title="<?=$video->title?>"><i class="glyphicon glyphicon-trash"></i> Borra este video</button>
+			</div>
+		</div>
+
 	<div class="alert alert-danger mensajesEditarVideo" id="mensajeEditarVideo"><?php echo validation_errors();?></div>
-	
-	<?php 
+
+	<?php
 	if(isset($_POST["submit"])){
 		if (session_status() == PHP_SESSION_NONE)
 			session_start();
 		if (!isset($_SESSION['email']) || !isset($_SESSION['password'])) {
 			$response = "Debes iniciar sesión.";
 			echo '<div class="alert alert-danger mensajesEditarVideo">Error: '.$response.'</div>';
-		}		
+		}
 	}
 	?>
 
-	<script type="text/javascript">
-		//Si hay errores en el formulario, el div en rojo se mostrará
-		var diverrores = document.getElementById('mensajeEditarVideo').innerHTML;
-		if(diverrores=="") {
-			document.getElementById('mensajeEditarVideo').style.display = "none";
-		}
-		//Si no hay título o URL dicho campo se pondrá en rojo
-		var mensajes = document.getElementById('mensajeEditarVideo').innerHTML;
-		if(mensajes.indexOf("El campo titulo") > -1)
-			document.getElementById('title').style.borderColor = "rgba(255, 0, 0, 0.51)";
-		if(mensajes.indexOf("El campo url") > -1)
-			document.getElementById('url').style.borderColor = "rgba(255, 0, 0, 0.51)";	
-	</script>
-
 </main>
 
-<?php 
+<!-- Modal -->
+<div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+	<div class="modal-content">
+	  <div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		<h4 class="modal-title" id="myModalLabel">¿Está seguro de borrar este video?</h4>
+	  </div>
+	  <div class="modal-body">
+		<form id="delete-video-form" method="post" action="<?php echo base_url()?>index.php/canal/borrar_video">
+			<label for=""></label>
+			<input type="hidden" name="video" value="">
+			<input type="hidden" name="user" value="">
+		</form>
+	  </div>
+	  <div class="modal-footer">
+		<button type="button" class="btn btn-default" data-dismiss="modal">Volver</button>
+		<button id="submit-delete" type="button" class="btn btn-danger">Borrar</button>
+	  </div>
+	</div>
+  </div>
+</div>
+
+<script type="text/javascript">
+	//Si hay errores en el formulario, el div en rojo se mostrará
+	var diverrores = document.getElementById('mensajeEditarVideo').innerHTML;
+	if(diverrores=="") {
+		document.getElementById('mensajeEditarVideo').style.display = "none";
+	}
+	//Si no hay título o URL dicho campo se pondrá en rojo
+	var mensajes = document.getElementById('mensajeEditarVideo').innerHTML;
+	if(mensajes.indexOf("El campo titulo") > -1)
+		document.getElementById('title').style.borderColor = "rgba(255, 0, 0, 0.51)";
+	if(mensajes.indexOf("El campo url") > -1)
+		document.getElementById('url').style.borderColor = "rgba(255, 0, 0, 0.51)";
+
+
+	$('#delete-modal').on('show.bs.modal', function (event) {
+		var button = $(event.relatedTarget) // Button that triggered the modal
+		var video = button.data('video') // Extract info from data-* attributes
+		var user = button.data('user') // Extract info from data-* attributes
+		var title = button.data('title') // Extract info from data-* attributes
+
+		var modal = $(this);
+
+		modal.find('input[name=video]').val(video);
+		modal.find('input[name=user]').val(user);
+		modal.find('label').text(title);
+
+		$('#submit-delete').click(function () {
+			document.getElementById('delete-video-form').submit();
+		})
+	});
+</script>
+
+<?php
 	$this->load->view('inc/pie.php');
 ?>

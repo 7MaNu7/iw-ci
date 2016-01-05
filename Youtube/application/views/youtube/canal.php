@@ -55,27 +55,17 @@
 					 ?>
             	    <div class="col-md-3 margin-bottom">
             	        <a href="<?=site_url('video/watch/' . $video->id)?>"><h5><?=$video->title?></h5>
-            	        	<img src="http://img.youtube.com/vi/<?=substr($video->url, 32, 30);?>/0.jpg" alt="" class="videos-image"/></a>
-    	        		<?php
-							if(isset($_SESSION['id']) && $_SESSION['id'] == $user->id)
-							{
-						?>
+            	        <img src="http://img.youtube.com/vi/<?=substr($video->url, 32, 30);?>/0.jpg" alt="" class="videos-image"/></a>
+    	        		<?php if(isset($_SESSION['id']) && $_SESSION['id'] == $user->id) { ?>
 							<a href="<?=site_url('/video/editar/' . $video->id)?>" class="btn btn-default btn-block"><i class="glyphicon glyphicon-pencil"></i> Editar video</a>
-						<?php
-							}
-						?>
+							<button class="btn btn-danger" data-toggle="modal" data-target="#delete-modal" data-user="<?=$user->id?>" data-video="<?=$video->id?>" data-title="<?=$video->title?>"><i class="glyphicon glyphicon-trash"></i> Borra este video</button>
+						<?php } ?>
             	    </div>
-					<?php
-							 }
+					<?php }
 						}
-						else
-						{
-					?>
+						else { ?>
 							<p class="mensaje-sin-videos">Aún no tienes ningún video para mostrar</p>
-					<?php
-						}
-
-					?>
+					<?php } ?>
             	</div>
 				<div id="comentarios" class="row tab-pane fade">
 					<div class="row margin-bottom">
@@ -175,10 +165,49 @@
     </div>
 </main>
 
+<!-- Modal -->
+<div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+	<div class="modal-content">
+	  <div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		<h4 class="modal-title" id="myModalLabel">¿Está seguro de borrar este video?</h4>
+	  </div>
+	  <div class="modal-body">
+		<form id="delete-video-form" method="post" action="<?php echo base_url()?>index.php/canal/borrar_video">
+			<label for=""></label>
+			<input type="hidden" name="video" value="">
+			<input type="hidden" name="user" value="">
+		</form>
+	  </div>
+	  <div class="modal-footer">
+		<button type="button" class="btn btn-default" data-dismiss="modal">Volver</button>
+		<button id="submit-delete" type="button" class="btn btn-danger">Borrar</button>
+	  </div>
+	</div>
+  </div>
+</div>
+
 <script type="text/javascript">
 	$(function () {
 		$('[data-toggle="tooltip"]').tooltip()
 	});
+	$('#delete-modal').on('show.bs.modal', function (event) {
+	  var button = $(event.relatedTarget) // Button that triggered the modal
+	  var video = button.data('video') // Extract info from data-* attributes
+	  var user = button.data('user') // Extract info from data-* attributes
+	  var title = button.data('title') // Extract info from data-* attributes
+
+	  var modal = $(this);
+
+	  modal.find('input[name=video]').val(video);
+	  modal.find('input[name=user]').val(user);
+	  modal.find('label').text(title);
+
+	  $('#submit-delete').click(function () {
+	  	document.getElementById('delete-video-form').submit();
+	  })
+  });
 	$('#new-comment-form').submit(function(event){
 		event.preventDefault();
 		var formData = {

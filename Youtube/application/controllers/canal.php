@@ -60,6 +60,21 @@ class Canal extends CI_Controller {
 		$this->watch($channel);
 	}
 
+
+	public function borrar_video()
+	{
+		$user = $_POST['user'];
+		$video = $_POST['video'];
+
+		$this->Usuario_m->delete_comments_video($video);
+		$this->Usuario_m->delete_tags_video($video);
+		$this->Usuario_m->delete_qualities_video($video);
+		$this->Usuario_m->delete_video($video);
+
+		$this->ver($user);
+
+	}
+
 	public function nuevo_relacionado()
 	{
 		$user = $_POST['user'];
