@@ -35,9 +35,9 @@ class Canal extends CI_Controller {
 			}
 			$data['related'] = $this->Usuario_m->get_related($id);
 			$data['comentarios'] = $this->Usuario_m->get_comments($id);
-			$data['css_files'] = ["assets/css/canal.css", "assets/css/cabecera.css"];
-	        $data['js_files'] = ["assets/js/cabecera.js"];
-	        $this->load->view('youtube/canal', $data);
+			$data['css_files'] = ["assets/css/canal.css", "assets/css/cabecera.css", "assets/css/mensajes.css"];
+			$data['js_files'] = ["assets/js/cabecera.js"];
+			$this->load->view('youtube/canal', $data);
 		}
 
     }
