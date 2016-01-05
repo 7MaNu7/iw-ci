@@ -94,17 +94,51 @@ class Video extends CI_Controller {
 	public function dar_like()
 	{
 		$video = $_POST['video'];
+		$user = $_POST['user'];
+
+		$dislikesBefore = $this->Video_m->count_dislikes();
+
+		$this->Video_m->user_likes_it($video, $user);
+
+		//si dio dislike y ahora like se borra el dislike
+		$this->Video_m->delete_dislike($video, $user);
+
+		$dislikesAfter = $this->Video_m->count_dislikes();
+
+		//solo en ese caso sera cuando haya que decrementar los dislikes
+		if($dislikesBefore!=$dislikesAfter)
+		{
+			$this->Video_m->decrement_dislikes($video);
+		}
 
 		$this->Video_m->increment_likes($video);
+
 		$this->watch($video);
 	}
 
 	public function dar_dislike()
 	{
 		$video = $_POST['video'];
+		$user = $_POST['user'];
 
-		echo "Me he metido";
+
+		$likesBefore = $this->Video_m->count_likes();
+
+		$this->Video_m->user_dislikes_it($video, $user);
+
+		//si dio like y ahora dislike se borra el like
+		$this->Video_m->delete_like($video, $user);
+
+		$likesAfter = $this->Video_m->count_likes();
+
+		//solo en ese caso sera cuando haya que decrementar los likes
+		if($likesBefore!=$likesAfter)
+		{
+			$this->Video_m->decrement_likes($video);
+		}
+
 		$this->Video_m->increment_dislikes($video);
+		
 		$this->watch($video);
 	}
 
