@@ -16,7 +16,7 @@ class Inicio extends CI_Controller {
 		$data['titulo']="Vídeos más populares";
 		$data['cuantos']=$this->Inicio_m->count_all();
 		$data['videos']=$this->Inicio_m->get_all();
-        $data['css_files'] = ["assets/css/inicio.css", "assets/css/cabecera.css"];
+        $data['css_files'] = ["assets/css/inicio.css", "assets/css/cabecera.css", "assets/css/mensajes.css"];
         $data['js_files'] = ["assets/js/cabecera.js"];
 		$this->load->view('youtube/index', $data);
 	}
