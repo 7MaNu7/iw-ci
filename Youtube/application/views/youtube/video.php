@@ -17,8 +17,17 @@
 						</div>
         	            <div class="row">
 							<div class="col-sm-12">
-								<span style="margin:5px;color:green"><?=$video->likes?></span> <span class="glyphicon glyphicon-thumbs-up" style="color:green"></span>
-								<span style="margin:5px;color:red"><?=$video->dislikes?></span> <span class="glyphicon glyphicon-thumbs-down" style="color:red"></span>
+									<form id="me-gusta-form" method="post">
+										<input type="hidden" name="user" value="<?=$video->id?>">
+										<span style="margin:5px;color:green"><?=$video->likes?></span><button class="btn btn-default btn-votos" data-toggle="tooltip" data-title="Me gusta" data-placement="bottom"><span class="glyphicon glyphicon-thumbs-up click-voto" style="color:green"></span></button>
+									</form>
+
+									<form id="no-me-gusta-form" method="post">
+										<input type="hidden" name="user" value="<?=$video->id?>">
+										<span style="margin:5px;color:red"><?=$video->dislikes?></span><button class="btn btn-default btn-votos" data-toggle="tooltip" data-title="No me gusta" data-placement="bottom"><span class="glyphicon glyphicon-thumbs-down click-voto" style="color:red"></span></button>
+									</form>
+								<!--<span style="margin:5px;color:green"><?=$video->likes?></span> <span class="glyphicon glyphicon-thumbs-up" style="color:green"></span>-->
+								<!--<span style="margin:5px;color:red"><?=$video->dislikes?></span> <span class="glyphicon glyphicon-thumbs-down" style="color:red"></span>-->
 							</div>
 						</div>
         	        </div>
@@ -164,21 +173,35 @@
 		}).then(function () {
 			location.reload();
 		});
-	});/*
-	$('#delete-video-form').submit(function(event){
+	});
+	$('#me-gusta-form').submit(function(event){
 		event.preventDefault();
 		var formData = {
 			'video'              : $('input[name=video]').val()
 		};
 		console.log(formData);
 		$.ajax({
-			url: '<?=site_url('/video/borrar_video')?>',
+			url: '<?=site_url('/video/dar_like')?>',
 			type: 'POST',
 			data: formData
-		}).then(function () {
+		}).success(function () {
 			location.reload();
 		});
-	});*/
+	});
+	$('#no-me-gusta-form').submit(function(event){
+		event.preventDefault();
+		var formData = {
+			'video'              : $('input[name=video]').val()
+		};
+		console.log(formData);
+		$.ajax({
+			url: '<?=site_url('/video/dar_dislike')?>',
+			type: 'POST',
+			data: formData
+		}).success(function () {
+			location.reload();
+		});
+	});
 </script>
 
 <?php

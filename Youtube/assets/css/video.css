@@ -119,6 +119,19 @@ section {
     width: 100%;
 }
 
+.btn-votos, .btn-votos:hover, .btn-votos:active, .btn-votos:focus {
+    border-color: white;
+    background-color: white;
+    outline:none !important;
+    border:none !important;
+    background: white;
+    cursor: auto;
+}
+
+.click-voto {
+    cursor: pointer;
+}
+
 /* Mensajes */
 
 .mensajesEditarVideo {
