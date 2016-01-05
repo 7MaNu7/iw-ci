@@ -60,6 +60,11 @@
 				</div>
     	    </div>
         </section>
+
+		<div id="alertaVoto">
+
+		</div>
+
         <section>
             <div class="col-sm-12">
                 <h4>Comentarios</h4>
