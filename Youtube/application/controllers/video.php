@@ -7,6 +7,8 @@ class Video extends CI_Controller {
 		parent::__construct();
 
 		$this->load->model("Video_m", '', TRUE);
+		//$this->load->model("Usuario_m", '', TRUE);
+		//$this->load->library('session');
 	}
 
 
@@ -30,6 +32,8 @@ class Video extends CI_Controller {
 			$this->Video_m->increment_visit($id);
 			$data['comentarios']=$this->Video_m->get_comments($id);
 	        $data['related'] = $this->Video_m->get_search_related_videos($this->Video_m->get($id));
+			//$data['likes_video'] = $this->Usuario_m->likes_video($this->session->userdata('id'),$id);
+			//$data['dislikes_video'] = $this->Usuario_m->dislikes_video($this->session->userdata('id'), $id);
 	        $data['css_files'] = ["assets/css/video.css", "assets/css/cabecera.css"];
 	        $data['js_files'] = ["assets/js/cabecera.js"];
 			$this->load->view('youtube/video', $data);
@@ -116,6 +120,28 @@ class Video extends CI_Controller {
 		$this->watch($video);
 	}
 
+	public function quitar_like()
+	{
+		$video = $_POST['video'];
+		$user = $_POST['user'];
+
+		$likesBefore = $this->Video_m->count_likes();
+
+		//si dio dislike y ahora like se borra el dislike
+		$this->Video_m->delete_like($video, $user);
+
+		$likesAfter = $this->Video_m->count_likes();
+
+		//solo en ese caso sera cuando haya que decrementar los dislikes
+		if($likesBefore!=$likesAfter)
+		{
+			$this->Video_m->decrement_likes($video);
+		}
+
+		$this->watch($video);
+	}
+
+
 	public function dar_dislike()
 	{
 		$video = $_POST['video'];
@@ -138,10 +164,30 @@ class Video extends CI_Controller {
 		}
 
 		$this->Video_m->increment_dislikes($video);
-		
+
 		$this->watch($video);
 	}
 
+	public function quitar_dislike()
+	{
+		$video = $_POST['video'];
+		$user = $_POST['user'];
+
+		$likesBefore = $this->Video_m->count_dislikes();
+
+		//si dio dislike y ahora like se borra el dislike
+		$this->Video_m->delete_dislike($video, $user);
+
+		$likesAfter = $this->Video_m->count_dislikes();
+
+		//solo en ese caso sera cuando haya que decrementar los dislikes
+		if($likesBefore!=$likesAfter)
+		{
+			$this->Video_m->decrement_dislikes($video);
+		}
+
+		$this->watch($video);
+	}
 
 	public function borrar_video()
 	{
@@ -168,10 +214,10 @@ class Video extends CI_Controller {
 			//hacemos las comprobaciones que deseemos en nuestro formulario
 			$this->form_validation->set_rules('title','titulo','trim|required|xss_clean');
 			$this->form_validation->set_rules('url','url','trim|required|xss_clean');
-			
+
 			//validamos que se introduzcan los campos requeridos con la función de ci required
 			$this->form_validation->set_message('required', 'El campo %s es obligatorio');
-			
+
 			if (session_status() == PHP_SESSION_NONE)
 				session_start();
 
@@ -185,15 +231,15 @@ class Video extends CI_Controller {
 			//si pasamos la validación correctamente pasamos a hacer la inserción en la base de datos
 			else {
 				$id = $_SESSION["videoId"];
-				$title = $this->input->post('title');	
-				$url = $this->input->post('url');		
-				$description = $this->input->post('description');							
+				$title = $this->input->post('title');
+				$url = $this->input->post('url');
+				$description = $this->input->post('description');
 				$visibility = $this->input->post('visibility');
 				$visibility = $this->input->post('visibility');
 				$license = $this->input->post('license');
 				$category = $this->input->post('category');
 				$language = $this->input->post('language');
-				
+
 				$qualities = array();
 				if(!empty($this->input->post('qualities'))) {
 					if($this->input->post('qualities')) {
@@ -202,14 +248,14 @@ class Video extends CI_Controller {
 						$qualities = array();
 					}
 				}
-				
+
 				/* Obtenemos array de etiquetas separadas por comas */
 				$etiquetas = $_POST['etiquetas'];
 				$arrayetiquetas = explode(",", $etiquetas);
-				
+
 				/* Obtenemos el id de los usuarios */
-				$user = $_SESSION["id"];				
-				
+				$user = $_SESSION["id"];
+
 				//ahora procesamos los datos hacía el modelo que debemos crear
 				$video_editado = $this->Video_m->video_editado(
 					$id,
@@ -253,21 +299,21 @@ class Video extends CI_Controller {
 						$this->Video_m->delete_videotag($antiguastags[$cont]->id, $video_editado);
 					}
 				}
-				
+
 				$tam = sizeof($arrayetiquetas);
 
 				/* Si la etiqueta no existe la creamos. Relacionamos la etiqueta con el video */
 				for ($i=0;$i<$tam;$i++) {
 					$tags='';
 					$idtag='';
-					
+
 					$tags = $this->Video_m->get_tag_name($arrayetiquetas[$i]);
 					foreach ($tags as $t) { $idtag = $t->id; }
-					
+
 					if(empty($idtag) || $idtag=='') {
 						$nueva_tag = $this->Video_m->insert_tag($arrayetiquetas[$i]);
 					}
-					
+
 					$tags = $this->Video_m->get_tag_name($arrayetiquetas[$i]);
 					foreach ($tags as $t) { $idtag = $t->id; }
 					$this->Video_m->insert_videotag($video_editado, $idtag);
@@ -302,7 +348,7 @@ class Video extends CI_Controller {
 					}
 
 				}
-				
+
 				/* Relacionamos las calidades seleccionadas con el video */
 				if(!empty($this->input->post('qualities'))) {
 					for ($j=0;$j<count($qualities);$j++) {
