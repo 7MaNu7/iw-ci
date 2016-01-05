@@ -18,12 +18,14 @@
         	            <div class="row">
 							<div class="col-sm-12">
 									<form id="me-gusta-form" method="post">
-										<input type="hidden" name="user" value="<?=$video->id?>">
+										<input type="hidden" name="video" value="<?=$video->id?>">
+										<input type="hidden" name="user" value="<?=$video->userid?>">
 										<span style="margin:5px;color:green"><?=$video->likes?></span><button id="submitlike" name="submitlike" class="btn btn-default btn-votos" data-toggle="tooltip" data-title="Me gusta" data-placement="bottom"><span class="glyphicon glyphicon-thumbs-up click-voto" style="color:green"></span></button>
 									</form>
 
 									<form id="no-me-gusta-form" method="post">
-										<input type="hidden" name="user" value="<?=$video->id?>">
+										<input type="hidden" name="video" value="<?=$video->id?>">
+										<input type="hidden" name="user" value="<?=$video->userid?>">
 										<span style="margin:5px;color:red"><?=$video->dislikes?></span><button id="submitdislike" name="submitdislike" class="btn btn-default btn-votos" data-toggle="tooltip" data-title="No me gusta" data-placement="bottom"><span class="glyphicon glyphicon-thumbs-down click-voto" style="color:red"></span></button>
 									</form>
 								<!--<span style="margin:5px;color:green"><?=$video->likes?></span> <span class="glyphicon glyphicon-thumbs-up" style="color:green"></span>-->
@@ -62,7 +64,9 @@
 		<script type="text/javascript">
 
 			var votar = function() {
-				document.getElementById("alertaVoto").innerHTML='<div class="alert alert-danger mensajesVotar">Para votar tienes que iniciar sesión</div>';
+				<?php if(!isset($_SESSION["id"])) { ?>
+					document.getElementById("alertaVoto").innerHTML='<div class="alert alert-danger mensajesVotar">Para votar tienes que iniciar sesión</div>';
+				<?php } ?>
 				//href="<?=site_url('logout')?>"
 			}
 
@@ -194,20 +198,22 @@
 	$('#me-gusta-form').submit(function(event){
 		event.preventDefault();
 		var formData = {
-			'video'              : $('input[name=video]').val()
+			'video'              : $('input[name=video]').val(),
+			'user'              : $('input[name=user]').val()
 		};
 		console.log(formData);
 		<?php
 		if(isset($_SESSION['id']))
 		{
 		?>
-			console.log("tengo id");
 			$.ajax({
 				url: '<?=site_url('/video/dar_like')?>',
 				type: 'POST',
 				data: formData
 			}).success(function () {
 				location.reload();
+			}).error(function () {
+				document.getElementById("alertaVoto").innerHTML='<div class="alert alert-danger mensajesVotar">No puedes dar like dos veces al mismo video</div>';
 			});
 		<?php
 		}
@@ -216,7 +222,8 @@
 	$('#no-me-gusta-form').submit(function(event){
 		event.preventDefault();
 		var formData = {
-			'video'              : $('input[name=video]').val()
+			'video'              : $('input[name=video]').val(),
+			'user'              : $('input[name=user]').val()
 		};
 		console.log(formData);
 		<?php
@@ -229,6 +236,8 @@
 				data: formData
 			}).success(function () {
 				location.reload();
+			}).error(function () {
+				document.getElementById("alertaVoto").innerHTML='<div class="alert alert-danger mensajesVotar">No puedes dar dislike dos veces al mismo video</div>';
 			});
 		<?php
 		}

@@ -18,6 +18,13 @@ class Video_m extends CI_Model {
 		return $query->row();
 	}
 
+	function count_likes() {
+		return $this->db->count_all("videolikes");
+	}
+
+	function count_dislikes() {
+		return $this->db->count_all("videodislikes");
+	}
 
 	function increment_visit($id)
 	{
@@ -38,6 +45,52 @@ class Video_m extends CI_Model {
 		$this->db->where('id', $id);
 		$this->db->set('numDislikes', 'numDislikes+1', false);
 		$this->db->update('video');
+	}
+
+	function decrement_likes($id)
+	{
+		$this->db->where('id', $id);
+		$this->db->set('numLikes', 'numLikes-1', false);
+		$this->db->update('video');
+	}
+
+	function decrement_dislikes($id)
+	{
+		$this->db->where('id', $id);
+		$this->db->set('numDislikes', 'numDislikes-1', false);
+		$this->db->update('video');
+	}
+
+	function user_likes_it($video, $user)
+	{
+		$data = array(
+			'user' => $user,
+			'video' => $video
+		);
+		$this->db->insert('videolikes', $data);
+	}
+
+	function user_dislikes_it($video, $user)
+	{
+		$data = array(
+			'user' => $user,
+			'video' => $video
+		);
+		$this->db->insert('videodislikes', $data);
+	}
+
+	function delete_like($video, $user)
+	{
+		$this->db->where('video', $video);
+		$this->db->where('user', $user);
+		$this->db->delete('videolikes');
+	}
+
+	function delete_dislike($video, $user)
+	{
+		$this->db->where('video', $video);
+		$this->db->where('user', $user);
+		$this->db->delete('videodislikes');
 	}
 
 	function video_editado($id, $user, $title, $url, $description, $visibility, $license, $category, $language) 
