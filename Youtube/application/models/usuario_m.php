@@ -38,7 +38,7 @@ class Usuario_m extends CI_Model {
 		$this->db->delete('channelcomment');
 	}
 
-	
+
 	function delete_video($video_id)
 	{
 		$this->db->where('id', $video_id);
@@ -71,5 +71,21 @@ class Usuario_m extends CI_Model {
 			'user' => $new_user
 		);
 		$this->db->insert('channelrelated', $data);
+	}
+
+	function likes_video($user, $video)
+	{
+		$where = array('user' => $user, 'video' => $video);
+		$this->db->select('video', 'user');
+		$this->db->where($where);
+		return $this->db->count_all_results('videolikes');
+	}
+
+	function dislikes_video($user, $video)
+	{
+		$where = array('user' => $user, 'video' => $video);
+		$this->db->select('video', 'user');
+		$this->db->where($where);
+		return $this->db->count_all_results('videodislikes');
 	}
 }

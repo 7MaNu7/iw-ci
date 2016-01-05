@@ -17,9 +17,24 @@
 						</div>
         	            <div class="row">
 							<div class="col-sm-12">
-								<span style="margin:5px;color:green"><?=$video->likes?></span> <span class="glyphicon glyphicon-thumbs-up" style="color:green"></span>
-								<span style="margin:5px;color:red"><?=$video->dislikes?></span> <span class="glyphicon glyphicon-thumbs-down" style="color:red"></span>
-							</div>
+									<form id="me-gusta-form" method="post">
+										<input type="hidden" name="video" value="<?=$video->id?>">
+										<input type="hidden" name="user" value="<?=$video->userid?>">
+										<span style="margin:5px;color:green"><?=$video->likes?></span>
+										<button id="submitlike" name="submitlike" class="btn btn-default btn-votos" data-toggle="tooltip" data-title="Me gusta" data-placement="bottom">
+											<i class="glyphicon glyphicon-thumbs-up click-voto" style="color:green"></i>
+										</button>
+									</form>
+
+									<form id="no-me-gusta-form" method="post">
+										<input type="hidden" name="video" value="<?=$video->id?>">
+										<input type="hidden" name="user" value="<?=$video->userid?>">
+										<span style="margin:5px;color:red"><?=$video->dislikes?></span>
+										<button id="submitdislike" name="submitdislike" class="btn btn-default btn-votos" data-toggle="tooltip" data-title="No me gusta" data-placement="bottom">
+											<i class="glyphicon glyphicon-thumbs-down click-voto" style="color:red"></i>
+										</button>
+									</form>
+								</div>
 						</div>
         	        </div>
 				</div>
@@ -45,6 +60,11 @@
 				</div>
     	    </div>
         </section>
+
+		<div id="alertaVoto">
+
+		</div>
+
         <section>
             <div class="col-sm-12">
                 <h4>Comentarios</h4>
@@ -164,21 +184,77 @@
 		}).then(function () {
 			location.reload();
 		});
-	});/*
-	$('#delete-video-form').submit(function(event){
+	});
+	$('#me-gusta-form').submit(function(event){
 		event.preventDefault();
 		var formData = {
-			'video'              : $('input[name=video]').val()
+			'video'              : $('input[name=video]').val(),
+			'user'              : $('input[name=user]').val()
 		};
 		console.log(formData);
-		$.ajax({
-			url: '<?=site_url('/video/borrar_video')?>',
-			type: 'POST',
-			data: formData
-		}).then(function () {
-			location.reload();
-		});
-	});*/
+		<?php
+		if(isset($_SESSION['id']))
+		{
+		?>
+			$.ajax({
+				url: '<?=site_url('/video/dar_like')?>',
+				type: 'POST',
+				data: formData
+			}).success(function () {
+				location.reload();
+			}).error(function () {
+				//document.getElementById("alertaVoto").innerHTML='<div class="alert alert-danger mensajesVotar">No puedes dar like dos veces al mismo video</div>';
+				$.ajax({
+					url: '<?=site_url('/video/quitar_like')?>',
+					type: 'POST',
+					data: formData
+				}).success(function () {
+					location.reload();
+				});
+			});
+		<?php
+		}
+		?>
+	});
+	$('#no-me-gusta-form').submit(function(event){
+		event.preventDefault();
+		var formData = {
+			'video'              : $('input[name=video]').val(),
+			'user'              : $('input[name=user]').val()
+		};
+		console.log(formData);
+		<?php
+		if(isset($_SESSION['id']))
+		{
+		?>
+			$.ajax({
+				url: '<?=site_url('/video/dar_dislike')?>',
+				type: 'POST',
+				data: formData
+			}).success(function () {
+				location.reload();
+			}).error(function () {
+				//document.getElementById("alertaVoto").innerHTML='<div class="alert alert-danger mensajesVotar">No puedes dar dislike dos veces al mismo video</div>';
+				$.ajax({
+					url: '<?=site_url('/video/quitar_dislike')?>',
+					type: 'POST',
+					data: formData
+				}).success(function () {
+					location.reload();
+				});
+			});
+		<?php
+		}
+		?>
+	});
+	var votar = function() {
+		<?php if(!isset($_SESSION["id"])) { ?>
+			document.getElementById("alertaVoto").innerHTML='<div class="alert alert-danger mensajesVotar">Para votar tienes que iniciar sesión</div>';
+		<?php } ?>
+	}
+
+	document.getElementById("submitlike").onclick=votar;
+	document.getElementById("submitdislike").onclick=votar;
 </script>
 
 <?php
