@@ -115,11 +115,6 @@ section {
     margin-right: 5px;
 }
 
-.btn-editar-video-detalles{
-    width:100%;
-    margin-bottom: 25px;
-}
-
 /* Mensajes */
 
 .mensajesEditarVideo {
@@ -127,4 +122,3 @@ section {
   margin-left: 45px;
   margin-top: 20px;
 }
-

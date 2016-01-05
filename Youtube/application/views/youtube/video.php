@@ -36,13 +36,15 @@
 	        	        <?=$video->description?>
 	        	    </div>
 	        	</div>
+				<div class="row margin-top">
+					<div class="col-sm-12">
+						<?php if(isset($_SESSION['id']) && $_SESSION['id'] == $video->userid) { ?>
+							<a href="<?=site_url('/video/editar/' . $video->id)?>" class="btn btn-default btn-block"><i class="glyphicon glyphicon-pencil"></i> Editar video</a>
+						<?php } ?>
+					</div>
+				</div>
     	    </div>
         </section>
-
-		<?php if(isset($_SESSION['id']) && $_SESSION['id'] == $video->userid) { ?>
-		<a href="<?=site_url('/video/editar/' . $video->id)?>" class="btn btn-default btn-editar-video-detalles"><i class="glyphicon glyphicon-pencil"></i> Editar video</a>
-		<?php } ?>
-
         <section>
             <div class="col-sm-12">
                 <h4>Comentarios</h4>
