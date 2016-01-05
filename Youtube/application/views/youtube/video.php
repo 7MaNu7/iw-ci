@@ -19,7 +19,7 @@
 							<div class="col-sm-12">
 									<form id="me-gusta-form" method="post">
 										<input type="hidden" name="video" value="<?=$video->id?>">
-										<input type="hidden" name="user" value="<?=$video->userid?>">
+										<input type="hidden" name="user" value="<?php if( isset($_SESSION['id']) ){ echo $_SESSION['id']; }else {echo '0';} ?>">								
 										<span style="margin:5px;color:green"><?=$video->likes?></span>
 										<button id="submitlike" name="submitlike" class="btn btn-default btn-votos" data-toggle="tooltip" data-title="Me gusta" data-placement="bottom">
 											<i class="glyphicon glyphicon-thumbs-up click-voto" style="color:green"></i>
@@ -28,7 +28,7 @@
 
 									<form id="no-me-gusta-form" method="post">
 										<input type="hidden" name="video" value="<?=$video->id?>">
-										<input type="hidden" name="user" value="<?=$video->userid?>">
+										<input type="hidden" name="user" value="<?php if( isset($_SESSION['id']) ){ echo $_SESSION['id']; }else {echo '0';} ?>">
 										<span style="margin:5px;color:red"><?=$video->dislikes?></span>
 										<button id="submitdislike" name="submitdislike" class="btn btn-default btn-votos" data-toggle="tooltip" data-title="No me gusta" data-placement="bottom">
 											<i class="glyphicon glyphicon-thumbs-down click-voto" style="color:red"></i>

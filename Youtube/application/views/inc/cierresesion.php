@@ -5,9 +5,7 @@
 </div>
 
 <script type="text/javascript">
-	console.log("HOLA1");
 	var funcion = function() {
-		console.log("HOLA2");
 		var mensaje = document.getElementById("mensajelogout");
 		var divmensaje = document.getElementById("divmensajelogout");
 		mensaje.className = "alert alert-success";

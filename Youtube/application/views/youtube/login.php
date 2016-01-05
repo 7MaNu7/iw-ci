@@ -55,11 +55,14 @@
 			echo '<div id="divmensajelogin" style="width:500px; margin-left: 250px; margin-top: 15px;" class="mensajeoculto">'.
 				'<div class="alert alert-success" id="mensajelogin">Inicio de sesión correcto</div></div>';
 			//Le asignamos una transición CSS
-			echo '<script>var mensaje = document.getElementById("mensajelogin");'.
-						'var divmensaje = document.getElementById("divmensajelogin");'.
-						'mensaje.className = "alert alert-success";'.
-						'divmensaje.className = "mensajevisible";</script>';
-			
+			echo '<script>'.
+						'setTimeout(function(){'.
+							'var mensajeLogin = document.getElementById("mensajelogin");'.
+							'var divmensajeLogin = document.getElementById("divmensajelogin");'.
+							'mensajeLogin.className = "alert alert-success";'.
+							'divmensajeLogin.className = "mensajevisible";'.
+						'}, 1);'.
+						'</script>';			
 			$urlredireccion='inicio';
 			//Redireccionamos			
 			if(isset($_GET['redirect']))
