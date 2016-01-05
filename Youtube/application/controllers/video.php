@@ -90,7 +90,25 @@ class Video extends CI_Controller {
 		$this->watch($video);
 	}
 
-	
+
+	public function dar_like()
+	{
+		$video = $_POST['video'];
+
+		$this->Video_m->increment_likes($video);
+		$this->watch($video);
+	}
+
+	public function dar_dislike()
+	{
+		$video = $_POST['video'];
+
+		echo "Me he metido";
+		$this->Video_m->increment_dislikes($video);
+		$this->watch($video);
+	}
+
+
 	public function borrar_video()
 	{
 		$video = $_POST['video'];

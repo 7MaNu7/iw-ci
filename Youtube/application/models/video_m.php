@@ -26,6 +26,20 @@ class Video_m extends CI_Model {
 		$this->db->update('video');
 	}
 
+	function increment_likes($id)
+	{
+		$this->db->where('id', $id);
+		$this->db->set('numLikes', 'numLikes+1', false);
+		$this->db->update('video');
+	}
+
+	function increment_dislikes($id)
+	{
+		$this->db->where('id', $id);
+		$this->db->set('numDislikes', 'numDislikes+1', false);
+		$this->db->update('video');
+	}
+
 	function video_editado($id, $user, $title, $url, $description, $visibility, $license, $category, $language) 
 	{
 		$data = array(
