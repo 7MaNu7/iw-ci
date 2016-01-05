@@ -21,27 +21,22 @@ class Video extends CI_Controller {
 	}
 
     public function watch($id) {
-    	$data['video']=$this->Video_m->get($id);
+			$data['video']=$this->Video_m->get($id);
+			
 			if(!$data['video']) {
 				$data['page'] = 'video';
 				$data['css_files'] = ["assets/css/404.css", "assets/css/cabecera.css", "assets/css/mensajes.css"];
-				$data['js_files'] = ["assets/js/cabecera.js"];
+						$data['js_files'] = ["assets/js/cabecera.js"];
 				$this->load->view('error/404', $data);
 			}
 			else {
 				$this->Video_m->increment_visit($id);
 				$data['comentarios']=$this->Video_m->get_comments($id);
 				$data['related'] = $this->Video_m->get_search_related_videos($this->Video_m->get($id));
-			//$data['likes_video'] = $this->Usuario_m->likes_video($this->session->userdata('id'),$id);
-			//$data['dislikes_video'] = $this->Usuario_m->dislikes_video($this->session->userdata('id'), $id);
-				$data['css_files'] = ["assets/css/video.css", "assets/css/cabecera.css"];
-				$data['js_files'] = ["assets/js/cabecera.js"];
-				$data['related'] = $this->Video_m->get_search_related_videos($this->Video_m->get($id));
 				$data['css_files'] = ["assets/css/video.css", "assets/css/cabecera.css", "assets/css/mensajes.css"];
 				$data['js_files'] = ["assets/js/cabecera.js"];
 				$this->load->view('youtube/video', $data);
 			}
-
     }
 
 
