@@ -62,7 +62,6 @@ $( document ).ready(function() {
 		document.getElementById(id).className = "activecab";
 		document.getElementById(id).parentNode.className = "activecab";
 	} else {
-		console.log("Lo quitamos")
 		id = 'link-backoffice';
 		document.getElementById(id).removeClass = "activecab";
 		document.getElementById(id).parentNode.removeClass = "activecab";

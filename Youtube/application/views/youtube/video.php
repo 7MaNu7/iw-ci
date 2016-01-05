@@ -19,7 +19,7 @@
 							<div class="col-sm-12">
 									<form id="me-gusta-form" method="post">
 										<input type="hidden" name="video" value="<?=$video->id?>">
-										<input type="hidden" name="user" value="<?=$video->userid?>">
+										<input type="hidden" name="user" value="<?php if( isset($_SESSION['id']) ){ echo $_SESSION['id']; }else {echo '0';} ?>">								
 										<span style="margin:5px;color:green"><?=$video->likes?></span>
 										<button id="submitlike" name="submitlike" class="btn btn-default btn-votos" data-toggle="tooltip" data-title="Me gusta" data-placement="bottom">
 											<i class="glyphicon glyphicon-thumbs-up click-voto" style="color:green"></i>
@@ -28,7 +28,7 @@
 
 									<form id="no-me-gusta-form" method="post">
 										<input type="hidden" name="video" value="<?=$video->id?>">
-										<input type="hidden" name="user" value="<?=$video->userid?>">
+										<input type="hidden" name="user" value="<?php if( isset($_SESSION['id']) ){ echo $_SESSION['id']; }else {echo '0';} ?>">
 										<span style="margin:5px;color:red"><?=$video->dislikes?></span>
 										<button id="submitdislike" name="submitdislike" class="btn btn-default btn-votos" data-toggle="tooltip" data-title="No me gusta" data-placement="bottom">
 											<i class="glyphicon glyphicon-thumbs-down click-voto" style="color:red"></i>
@@ -71,9 +71,9 @@
 				<hr>
             </div>
 			<div class="row margin-bottom">
-				<div class="col-md-12">
-					<div id="error"></div>
-				</div>
+				<!-- Mensaje error comentario -->
+				<div id="error" class="col-md-12"></div>
+				
 				<form id="new-comment-form" method="post" accept-charset="utf-8">
 					<input type="hidden" name="video" value="<?=$video->id?>">
 					<input type="hidden" name="user" value="<?php if( isset($_SESSION['id']) ){ echo $_SESSION['id']; }else {echo '0';} ?>">
@@ -158,7 +158,13 @@
 		console.log(formData);
 		if(formData.user == 0)
 		{
-			$('#error').html('<div class="alert alert-danger"><strong>Error!</strong> Debes iniciar sesión</div>')
+			$('#error').html('<div id="divmensajecomentarioerror" style="width:600px; margin-left: 10px;" class="mensajeoculto"><div class="alert alert-danger" id="mensajecomentarioerror">Error: Debes iniciar sesión</div></div>');
+			setTimeout(function(){
+				var mensaje = document.getElementById("mensajecomentarioerror");
+				var divmensaje = document.getElementById("divmensajecomentarioerror");
+				mensaje.className = "alert alert-danger";
+				divmensaje.className = "mensajevisible";
+			}, 1);			
 		}
 		else {
 			$.ajax({

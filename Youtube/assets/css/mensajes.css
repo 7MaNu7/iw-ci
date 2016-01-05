@@ -1,0 +1,20 @@
+/* Mensajes de success o error */
+
+.mensajevisible {
+	transition: opacity 1s ease-out;
+	opacity: 1;
+}
+
+.mensajeoculto {
+	opacity: 0;
+}
+
+.mensajevisible {
+	transition: opacity 1s ease-out;
+	opacity: 1;
+}
+
+.mensajedesaparece {
+	opacity: 0;
+	transition: opacity 1s ease-out;
+}
