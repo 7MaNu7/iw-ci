@@ -68,8 +68,8 @@
 			<?php $_SESSION["videoId"]= $video->id ?>
 			
 			<?php echo form_submit($submit);?>
-		</div>
 
+		</div>
 		<div class="col-md-6">
 			
 			<div class="row formeditarvideodosinputs">
@@ -222,7 +222,15 @@
 			<?php echo form_textarea($etiquetas); echo '<br>';?>
 
 	</form>
-	
+
+
+		<?php if(isset($_SESSION['id']) && $_SESSION['id'] == $video->userid) { ?>
+				<form id="delete-video-form" method="post" action="<?php echo base_url()?>index.php/video/borrar_video">
+					<input type="hidden" name="video" value="<?=$video->id?>">
+					<button class="btn btn-danger btn-borrar" name="submit" id="submit"><i class="glyphicon glyphicon-trash"></i> Borra este video</button>
+				</form>
+		<?php } ?>
+
 	<div class="alert alert-danger mensajesEditarVideo" id="mensajeEditarVideo"><?php echo validation_errors();?></div>
 	
 	<?php 

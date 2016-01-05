@@ -2,6 +2,15 @@
 
 class Video_m extends CI_Model {
 
+	function get_all() {
+		$query = $this->db->query('SELECT v.id, v.title, v.url, v.description, u.username, u.id userid FROM video v, user u WHERE v.user=u.id ORDER BY v.visits DESC LIMIT 21');
+		return $query->result();
+	}
+
+	function count_all() {
+		return $this->db->count_all("video");
+	}
+
 	function get($id) {
 
 		$query = $this->db->query('SELECT v.id, v.title, v.url, v.description, v.visits, v.numLikes likes, v.numDislikes dislikes, v.license, v.category, v.language, v.visibility, u.id userid, u.username FROM video v, user u WHERE v.user=u.id AND v.id='. $id);
@@ -143,6 +152,31 @@ class Video_m extends CI_Model {
 		$this->db->where('id', $comment_id);
 		$this->db->delete('comment');
 	}
+
+		function delete_video($video_id)
+	{
+		$this->db->where('id', $video_id);
+		$this->db->delete('video');
+	}
+
+	function delete_comments_video($video)
+	{
+		$this->db->where('video', $video);
+		$this->db->delete('comment');
+	}
+
+	function delete_tags_video($video)
+	{
+		$this->db->where('video', $video);
+		$this->db->delete('videotag');
+	}
+
+	function delete_qualities_video($video)
+	{
+		$this->db->where('video', $video);
+		$this->db->delete('videoquality');
+	}
+
 
 	//buscamos los videos relacionados a un video concreto
 	function get_search_related_videos($video) {

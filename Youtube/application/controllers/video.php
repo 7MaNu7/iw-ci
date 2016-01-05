@@ -90,6 +90,25 @@ class Video extends CI_Controller {
 		$this->watch($video);
 	}
 
+	
+	public function borrar_video()
+	{
+		$video = $_POST['video'];
+
+		$this->Video_m->delete_comments_video($video);
+		$this->Video_m->delete_tags_video($video);
+		$this->Video_m->delete_qualities_video($video);
+		$this->Video_m->delete_video($video);
+
+		$data['titulo']="Vídeos más populares";
+		$data['cuantos']=$this->Video_m->count_all();
+		$data['videos']=$this->Video_m->get_all();
+        $data['css_files'] = ["assets/css/inicio.css", "assets/css/cabecera.css"];
+        $data['js_files'] = ["assets/js/cabecera.js"];
+		$this->load->view('youtube/index', $data);
+
+	}
+
 	function modificar_video() {
 
     	//si se ha pulsado el botón submit validamos el formulario con codeIgniter

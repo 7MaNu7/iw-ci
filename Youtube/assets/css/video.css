@@ -115,6 +115,10 @@ section {
     margin-right: 5px;
 }
 
+.btn-borrar {
+    width: 100%;
+}
+
 /* Mensajes */
 
 .mensajesEditarVideo {
