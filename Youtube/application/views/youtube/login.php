@@ -51,7 +51,14 @@
 			$_SESSION["id"] = $uid;
 			$_SESSION["admin"] = $uadmin;
 			
-			echo '<div class="alert alert-success errorlogin">Inicio de sesión correcto</div>';
+			//Mostramos el mensaje de correcto inicio de sesión
+			echo '<div id="divmensajelogin" style="width:500px; margin-left: 250px; margin-top: 15px;" class="mensajeoculto">'.
+				'<div class="alert alert-success" id="mensajelogin">Inicio de sesión correcto</div></div>';
+			//Le asignamos una transición CSS
+			echo '<script>var mensaje = document.getElementById("mensajelogin");'.
+						'var divmensaje = document.getElementById("divmensajelogin");'.
+						'mensaje.className = "alert alert-success";'.
+						'divmensaje.className = "mensajevisible";</script>';
 			
 			$urlredireccion='inicio';
 			//Redireccionamos			

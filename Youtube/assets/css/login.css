@@ -20,11 +20,3 @@
 	border-radius: 3px;
 	margin-top: 10px;
 }
-
-/* Mensajes de error */
-
-.errorlogin {
-	width: 500px;
-	margin-left: 250px;
-	margin-top: 15px;
-}
