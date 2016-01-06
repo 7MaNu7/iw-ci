@@ -1,18 +1,18 @@
-<?php 
+<?php
 	$this->load->view('inc/cabecera');
 ?>
 
 <main class="container">
 	<h2><?php echo $titulo; ?></h2>
-	
-	<form method="post" accept-charset="utf-8" 
+
+	<form method="post" accept-charset="utf-8"
 				action="<?php echo base_url()?>index.php/subirvideo/insertar_video" class="row formulariosubirvideo"/>
-		
+
 		<!-- Columna de la izquierda -->
 		<div class="col-md-6">
-			<?php	
+			<?php
 			$this->load->helper('form');
-			/* Atributos del formulario */	
+			/* Atributos del formulario */
 			$title = array(
 				'name'        => 'title',
 				'id'          => 'title',
@@ -44,7 +44,7 @@
 					'class'	=>	'btn btn-primary botonsubirvideo'
 			);
 			?>
-			
+
 			<label class=""><span class="campoobligatorio">(*) </span>Título:</label>
 			<?php echo form_input($title); echo '<br>'; ?>
 
@@ -53,18 +53,18 @@
 
 			<label class="">Descripción del video:</label>
 			<?php echo form_textarea($description); echo '<br>';?>
-			
+
 			<p>(*): El campo es obligatorio.</p>
-			
+
 			<?php echo form_submit($submit);?>
 		</div>
-		
+
 		<!-- Columna de la derecha -->
 		<div class="col-md-6">
 			<!--Visibilidad-->
 			<div class="row formsubirvideodosinputs">
 				<div class="col-md-6 inputpeque">
-					
+
 					<label class="">Visibilidad del video:</label>
 					<select name="visibility" class="form-control">
 					<?php
@@ -74,10 +74,10 @@
 							echo '<option value="' .  $visibilidad->id . '" selected>' . $visibilidad->name . '</option>';
 						} else {
 							echo '<option value="' .  $visibilidad->id . '">' . $visibilidad->name . '</option>';
-						}	
+						}
 					}
 					?>
-					</select><br>	
+					</select><br>
 				</div>
 				<!--Licencias-->
 				<div class="col-md-6 inputpeque">
@@ -89,13 +89,13 @@
 							echo '<option value="' .  $license->id . '" selected>' . $license->name . '</option>';
 						} else {
 							echo '<option value="' .  $license->id . '">' . $license->name . '</option>';
-						}	
+						}
 					}
 					?>
 					</select><br>
 				</div>
 			</div>
-			
+
 			<label class="">Categoria:</label>
 			<select name="category" class="form-control formsubirvideoselect">
 
@@ -106,11 +106,11 @@
 						echo '<option value="' .  $category->id . '" selected>' . $category->name . '</option>';
 					} else {
 						echo '<option value="' .  $category->id . '">' . $category->name . '</option>';
-					}	
+					}
 				}
 			?>
 			</select><br>
-			
+
 			<div class="row formsubirvideodosinputs">
 				<!-- Idiomas -->
 				<div class="col-md-6 inputpeque">
@@ -124,7 +124,7 @@
 							echo '<option value="' .  $language->id . '" selected>' . $language->name . '</option>';
 						} else {
 							echo '<option value="' .  $language->id . '">' . $language->name . '</option>';
-						}	
+						}
 					}
 					?>
 					</select><br>
@@ -135,7 +135,7 @@
 					<select name="qualities[]" class="form-control" multiple>
 					<?php
 					$calidades = $_SESSION['qualities'];
-					foreach($qualities as $quality)		
+					foreach($qualities as $quality)
 					{
 						$encontrado = false;
 						for($i=0; $i<sizeof($calidades); $i++) {
@@ -154,7 +154,7 @@
 					</select><br>
 				</div>
 			</div>
-			
+
 			<!-- Etiquetas -->
 			<?php
 				$etiquetas = array(
@@ -166,19 +166,30 @@
 			);
 			?>
 			<label>Etiquetas:</label>
-			<?php echo form_textarea($etiquetas); echo '<br>';?>
+			<!--<?php echo form_textarea($etiquetas); echo '<br>';?>-->
+			<select name="etiquetas[]" id="tag-select" class="form-control" multiple></select>
 	</form>
-	
+	<script type="text/javascript">
+		<?php
+		$js_array = json_encode($tags);
+		echo "var javascript_array = ". $js_array . ";\n";
+		 ?>
+		$('#tag-select').select2({
+			data: javascript_array,
+			tags: true,
+			tokenSeparators: [',']
+		});
+	</script>
 	<div class="alert alert-danger mensajesSubirVideo" id="mensajeSubirVideo"><?php echo validation_errors();?></div>
-	
-	<?php 
+
+	<?php
 	if(isset($_POST["submit"])){
 		if (session_status() == PHP_SESSION_NONE)
 			session_start();
 		if (!isset($_SESSION['email']) || !isset($_SESSION['password'])) {
 			$response = "Debes iniciar sesión.";
 			echo '<div class="alert alert-danger mensajesSubirVideo">Error: '.$response.'</div>';
-		}		
+		}
 	}
 	?>
 
@@ -193,11 +204,11 @@
 		if(mensajes.indexOf("El campo titulo") > -1)
 			document.getElementById('title').style.borderColor = "rgba(255, 0, 0, 0.51)";
 		if(mensajes.indexOf("El campo url") > -1)
-			document.getElementById('url').style.borderColor = "rgba(255, 0, 0, 0.51)";	
+			document.getElementById('url').style.borderColor = "rgba(255, 0, 0, 0.51)";
 	</script>
 
 </main>
 
-<?php 
+<?php
 	$this->load->view('inc/pie.php');
 ?>
