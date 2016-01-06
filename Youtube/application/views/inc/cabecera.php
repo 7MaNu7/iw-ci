@@ -128,7 +128,6 @@
     </div>
 </nav>
 
-
 <!-- Para el cierre de sesión -->
 <?php
 $this->load->view('inc/cierresesion');
