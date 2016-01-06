@@ -221,9 +221,6 @@
 			<label class="">Etiquetas:</label>
 			<!--<?php echo form_textarea($etiquetas); echo '<br>';?>-->
 			<select name="etiquetas[]" id="tag-select" class="form-control" multiple>
-				<?php foreach ($videotags as $etiqueta) { ?>
-					<option selected="selected"><?=$etiqueta->name?></option>
-				<?php } ?>
 			</select>
 		</div>
 	</form>
@@ -236,6 +233,7 @@
 		ts.select2({
 			data: javascript_array,
 			tags: true,
+			placeholder: 'Etiquetas (p. ej: Albert Einstein, gatitos, comedia)',
 			tokenSeparators: [',']
 		});
 		<?php foreach ($videotags as $etiqueta) { ?>

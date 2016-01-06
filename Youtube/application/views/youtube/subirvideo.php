@@ -156,17 +156,7 @@
 			</div>
 
 			<!-- Etiquetas -->
-			<?php
-				$etiquetas = array(
-				'name'       	 	=> 'etiquetas',
-				'id'          		=> 'etiquetas',
-				'value'       		=> (isset($_SESSION['etiquetas']) ? $_SESSION['etiquetas'] : ''),
-				'class'				=> 'form-control formsubirvideotextareasmall',
-				'placeholder'		=> 'Etiquetas (p. ej: Albert Einstein, gatitos, comedia)'
-			);
-			?>
 			<label>Etiquetas:</label>
-			<!--<?php echo form_textarea($etiquetas); echo '<br>';?>-->
 			<select name="etiquetas[]" id="tag-select" class="form-control" multiple></select>
 	</form>
 	<script type="text/javascript">
@@ -176,6 +166,7 @@
 		 ?>
 		$('#tag-select').select2({
 			data: javascript_array,
+			placeholder: 'Etiquetas (p. ej: Albert Einstein, gatitos, comedia)',
 			tags: true,
 			tokenSeparators: [',']
 		});
