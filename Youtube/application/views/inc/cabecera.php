@@ -11,6 +11,9 @@
 	<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<!-- Select2 -->
+	<link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/css/select2.min.css" rel="stylesheet" />
+	<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/js/select2.min.js"></script>
 	<!-- CSS -->
 	<?php
 	$this->load->helper('url');
@@ -102,7 +105,7 @@
 						<i class="glyphicon glyphicon-upload"></i>
 						<a id="link-subirvideo" href="<?=$urlsubirvideo?>">Subir video</a>
 					</li>
-					
+
 					<!-- Ver Backoffice si es admin -->
 					<?php
 					if (session_status() == PHP_SESSION_NONE)
@@ -114,11 +117,11 @@
 								<i class="glyphicon glyphicon-briefcase"></i>
 								<a id="link-backoffice" href="<?=site_url('backoffice')?>">Back-office</a>
 							</li>
-					<?php 
+					<?php
 						}
-					} 
+					}
 					?>
-					
+
 				</ul>
 			</div>
     </div>

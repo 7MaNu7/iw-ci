@@ -219,10 +219,31 @@
 			?>
 
 			<label class="">Etiquetas:</label>
-			<?php echo form_textarea($etiquetas); echo '<br>';?>
+			<!--<?php echo form_textarea($etiquetas); echo '<br>';?>-->
+			<select name="etiquetas[]" id="tag-select" class="form-control" multiple>
+				<?php foreach ($videotags as $etiqueta) { ?>
+					<option selected="selected"><?=$etiqueta->name?></option>
+				<?php } ?>
+			</select>
 		</div>
 	</form>
+	<script type="text/javascript">
+		<?php
+		$js_array = json_encode($tags);
+		echo "var javascript_array = ". $js_array . ";\n";
+		 ?>
+		 var ts = $('#tag-select');
+		ts.select2({
+			data: javascript_array,
+			tags: true,
+			tokenSeparators: [',']
+		});
+		<?php foreach ($videotags as $etiqueta) { ?>
+			var opt = $('<option value="<?=$etiqueta->name?>" selected="selected"><?=$etiqueta->name?></option>');
+			ts.append(opt).trigger('change');
+		<?php } ?>
 
+	</script>
 		<div class="row">
 			<div class="col-md-6 col-md-offset-6">
 				<button class="btn btn-danger btn-borrar" data-toggle="modal" data-target="#delete-modal" data-user="<?=$video->userid?>" data-video="<?=$video->id?>" data-title="<?=$video->title?>"><i class="glyphicon glyphicon-trash"></i> Borra este video</button>

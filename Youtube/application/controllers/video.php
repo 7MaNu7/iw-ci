@@ -7,6 +7,7 @@ class Video extends CI_Controller {
 		parent::__construct();
 
 		$this->load->model("Video_m", '', TRUE);
+		$this->load->model("subirVideo_m", '', TRUE);
 		//$this->load->model("Usuario_m", '', TRUE);
 		//$this->load->library('session');
 	}
@@ -65,6 +66,7 @@ class Video extends CI_Controller {
 			$data['qualities']=$this->Video_m->get_all_qualities();
 			$data['videoqualities']=$this->Video_m->get_video_qualities($id);
 			$data['videotags']=$this->Video_m->get_video_tags($id);
+			$data['tags'] = $this->subirVideo_m->get_all_tags();
 			$data['comentarios']=$this->Video_m->get_comments($id);
 	        $data['related'] = $this->Video_m->get_search_related_videos($this->Video_m->get($id));
 	        $data['css_files'] = ["assets/css/video.css", "assets/css/cabecera.css"];
@@ -250,8 +252,7 @@ class Video extends CI_Controller {
 				}
 
 				/* Obtenemos array de etiquetas separadas por comas */
-				$etiquetas = $_POST['etiquetas'];
-				$arrayetiquetas = explode(",", $etiquetas);
+				$arrayetiquetas = $_POST['etiquetas'];
 
 				/* Obtenemos el id de los usuarios */
 				$user = $_SESSION["id"];
