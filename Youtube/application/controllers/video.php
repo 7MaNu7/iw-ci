@@ -7,6 +7,7 @@ class Video extends CI_Controller {
 		parent::__construct();
 
 		$this->load->model("Video_m", '', TRUE);
+		$this->load->model("subirVideo_m", '', TRUE);
 		//$this->load->model("Usuario_m", '', TRUE);
 		//$this->load->library('session');
 	}
@@ -22,7 +23,7 @@ class Video extends CI_Controller {
 
     public function watch($id) {
 			$data['video']=$this->Video_m->get($id);
-			
+
 			if(!$data['video']) {
 				$data['page'] = 'video';
 				$data['css_files'] = ["assets/css/404.css", "assets/css/cabecera.css"];
@@ -42,33 +43,33 @@ class Video extends CI_Controller {
 
     public function editar($id)
     {
+		$data['video']=$this->Video_m->get($id);
+		if(!$data['video']) {
+			$data['page'] = 'video';
+			$data['css_files'] = ["assets/css/404.css", "assets/css/cabecera.css"];
+	        $data['js_files'] = ["assets/js/cabecera.js"];
+			$this->load->view('error/404', $data);
+		}
+		else {
 
-			 $data['video']=$this->Video_m->get($id);
-			if(!$data['video']) {
-				$data['page'] = 'video';
-				$data['css_files'] = ["assets/css/404.css", "assets/css/cabecera.css"];
-				$data['js_files'] = ["assets/js/cabecera.js"];
-				$this->load->view('error/404', $data);
-			}
-			else {
+	 		if (session_status() == PHP_SESSION_NONE)
+            	session_start();
 
-				if (session_status() == PHP_SESSION_NONE)
-								session_start();
-
-				$data['titulo'] = "Editar video";
-				$data['videovisibilidades']=$this->Video_m->get_all_videovisibility();
-				$data['licenses']=$this->Video_m->get_all_licenses();
-				$data['categories']=$this->Video_m->get_all_categories();
-				$data['languages']=$this->Video_m->get_all_languages();
-				$data['qualities']=$this->Video_m->get_all_qualities();
-				$data['videoqualities']=$this->Video_m->get_video_qualities($id);
-				$data['videotags']=$this->Video_m->get_video_tags($id);
-				$data['comentarios']=$this->Video_m->get_comments($id);
-				$data['related'] = $this->Video_m->get_search_related_videos($this->Video_m->get($id));
-				$data['css_files'] = ["assets/css/video.css", "assets/css/cabecera.css"];
-				$data['js_files'] = ["assets/js/cabecera.js"];
-				$this->load->view('youtube/editarvideo', $data);
-			}
+			$data['titulo'] = "Editar video";
+			$data['videovisibilidades']=$this->Video_m->get_all_videovisibility();
+			$data['licenses']=$this->Video_m->get_all_licenses();
+			$data['categories']=$this->Video_m->get_all_categories();
+			$data['languages']=$this->Video_m->get_all_languages();
+			$data['qualities']=$this->Video_m->get_all_qualities();
+			$data['videoqualities']=$this->Video_m->get_video_qualities($id);
+			$data['videotags']=$this->Video_m->get_video_tags($id);
+			$data['tags'] = $this->subirVideo_m->get_all_tags();
+			$data['comentarios']=$this->Video_m->get_comments($id);
+	        $data['related'] = $this->Video_m->get_search_related_videos($this->Video_m->get($id));
+	        $data['css_files'] = ["assets/css/video.css", "assets/css/cabecera.css"];
+	        $data['js_files'] = ["assets/js/cabecera.js"];
+			$this->load->view('youtube/editarvideo', $data);
+		}
 
     }
 
@@ -248,8 +249,7 @@ class Video extends CI_Controller {
 				}
 
 				/* Obtenemos array de etiquetas separadas por comas */
-				$etiquetas = $_POST['etiquetas'];
-				$arrayetiquetas = explode(",", $etiquetas);
+				$arrayetiquetas = $_POST['etiquetas'];
 
 				/* Obtenemos el id de los usuarios */
 				$user = $_SESSION["id"];
