@@ -23,14 +23,22 @@
 		<?php } else { ?>
 			<div class="video"></div>
 	        <div class="description">
-	            <div class="row"><h3>Ups... Parece que no has subido ningún video todavía.</h3></div>
+	            <div class="row">
+					<?php if(isset($_SESSION['id']) && $_SESSION['id'] == $user->id) { ?>
+						<h3>Ups... Parece que no has subido ningún video todavía.</h3>
+					<?php } else { ?>
+						<h3>Este usuario no ha subido ningún video todavía.</h3>
+					<?php } ?>
+				</div>
 	            <div class="row video-info">
 	                <div class="col-md-4"></div>
 	                <div class="col-md-4"></div>
 	                <div class="col-md-4"></div>
 	                </div>
 	            <div class="row video-description">
+					<?php if(isset($_SESSION['id']) && $_SESSION['id'] == $user->id) { ?>
 	            	¡Sube tu primer video <a href="<?=site_url('/subirvideo')?>">aquí</a>!
+					<?php } ?>
 	            </div>
 	        </div>
 		<?php } ?>
@@ -64,14 +72,20 @@
 					<?php }
 						}
 						else { ?>
-							<p class="mensaje-sin-videos">Aún no tienes ningún video para mostrar</p>
+							<p class="mensaje-sin-videos">
+								<?php if(isset($_SESSION['id']) && $_SESSION['id'] == $user->id) { ?>
+									Aún no tienes ningún vídeo para mostrar
+								<?php } else { ?>
+									El usuario no tiene ningún vídeo para mostrar
+								<?php } ?>
+							</p>
 					<?php } ?>
             	</div>
 				<div id="comentarios" class="row tab-pane fade">
 					<div class="row margin-bottom">
 						<!-- Mensaje error comentario -->
 						<div id="error" class="col-md-12"></div>
-						
+
 						<form id="new-comment-form" method="post" accept-charset="utf-8">
 							<input type="hidden" name="channel" value="<?=$user->id?>">
 							<input type="hidden" name="user" value="<?php if( isset($_SESSION['id']) ){ echo $_SESSION['id']; }else {echo '0';} ?>">
@@ -224,7 +238,7 @@
 				var divmensaje = document.getElementById("divmensajecomentarioerror");
 				mensaje.className = "alert alert-danger";
 				divmensaje.className = "mensajevisible";
-			}, 1);	
+			}, 1);
 		}
 		else {
 			$.ajax({
