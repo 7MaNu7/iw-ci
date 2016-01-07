@@ -1,4 +1,4 @@
-<?php 
+<?php
     $this->load->view('inc/cabecera');
 ?>
 
@@ -6,12 +6,12 @@
     <h2><?php echo $titulo; ?></h2>
 
 
-	<form method="post" accept-charset="utf-8" 
+	<form method="post" accept-charset="utf-8"
 				action="<?php echo base_url()?>index.php/registro/insertar_usuario" class="row formregistro"/>
 
-			<?php	
+			<?php
 			$this->load->helper('form');
-			/* Atributos del formulario */	
+			/* Atributos del formulario */
 			$userName = array(
 				'name'        => 'userName',
 				'id'          => 'userName',
@@ -69,21 +69,21 @@
 			<p>(*): El campo es obligatorio.</p>
 			<?php echo form_submit($submit); ?>
 	</form>
-
-	<?php 
+    <div class="row formregistro">¿Ya tienes cuenta? <a href="<?=site_url('login')?>">Inicia sesión</a></div>
+	<?php
 
 		$urlredireccion='inicio';
-		//Redireccionamos			
+		//Redireccionamos
 		if(isset($_SESSION["id"]))
-			echo '<script>window.location="'.$urlredireccion.'"</script>'; 
+			echo '<script>window.location="'.$urlredireccion.'"</script>';
 
 	?>
 
 	<div class="alert alert-danger mensajesSubirVideo" id="mensajeRegistro"><?php echo validation_errors();?></div>
-    
+
 </main>
 
-<?php 
+<?php
     $this->load->view('inc/pie.php');
 ?>
 
@@ -99,17 +99,17 @@
 	if(mensajes.indexOf("El campo email") > -1)
 		document.getElementById('email').style.borderColor = "rgba(255, 0, 0, 0.51)";
 	if(mensajes.indexOf("El campo userName") > -1)
-		document.getElementById('userName').style.borderColor = "rgba(255, 0, 0, 0.51)";	
+		document.getElementById('userName').style.borderColor = "rgba(255, 0, 0, 0.51)";
 	if(mensajes.indexOf("El campo password") > -1)
 		document.getElementById('password').style.borderColor = "rgba(255, 0, 0, 0.51)";
 	if(mensajes.indexOf("El campo repetirPassword") > -1)
 		document.getElementById('repetirPassword').style.borderColor = "rgba(255, 0, 0, 0.51)";
-	
+
 	if(mensajes.indexOf("El campo de repetir la password debe coincidir") > -1)
 	{
 		document.getElementById('password').style.borderColor = "rgba(255, 0, 0, 0.51)";
 		document.getElementById('repetirPassword').style.borderColor = "rgba(255, 0, 0, 0.51)";
 	}
 
-	
+
 </script>
