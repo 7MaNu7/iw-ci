@@ -15,6 +15,7 @@ class Inicio extends CI_Controller {
 	public function index()
 	{
 		$data['titulo']="Vídeos más populares";
+		$data['page_title'] = 'Inicio';
 		$data['cuantos']=$this->Inicio_m->count_all();
 		$data['videos']=$this->Inicio_m->get_all();
         $data['css_files'] = [base_url("assets/css/inicio.css"), base_url("assets/css/cabecera.css")];
