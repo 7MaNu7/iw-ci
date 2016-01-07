@@ -5,6 +5,8 @@ class subirVideo extends CI_Controller {
 	//Incluir modelo para controller aquí o en tiempo de construccion si se usa mucho
 	function __construct() {
 		parent::__construct();
+
+		$this->load->helper('url');
 		$this->load->model("subirVideo_m", '', TRUE);
 	}
 
@@ -30,8 +32,8 @@ class subirVideo extends CI_Controller {
 				unset($_SESSION["qualities"]);
 		}
 
-		$data['css_files'] = ["assets/css/cabecera.css", "assets/css/subirvideo.css"];
-		$data['js_files'] = ["assets/js/cabecera.js", "assets/js/validacion-subirvideo.js"];
+		$data['css_files'] = [base_url("assets/css/cabecera.css"), base_url("assets/css/subirvideo.css")];
+		$data['js_files'] = [base_url("assets/js/cabecera.js"), base_url("assets/js/validacion-subirvideo.js")];
 		$data['titulo']="Subir nuevo vídeo";
 		$data['videovisibilidades']=$this->subirVideo_m->get_all_videovisibility();
 		$data['licenses']=$this->subirVideo_m->get_all_licenses();

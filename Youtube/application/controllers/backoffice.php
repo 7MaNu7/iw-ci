@@ -15,9 +15,9 @@ class Backoffice extends CI_Controller {
 	public function _backoffice_output($output = null)
 	{
 		$outputarray = json_decode(json_encode($output), true);
-		array_push($outputarray['css_files'], base_url()."assets/css/cabecera.css");
-		array_push($outputarray['css_files'], base_url()."assets/css/backoffice.css");
-		array_push($outputarray['js_files'], base_url()."assets/js/cabecera.js");
+		array_push($outputarray['css_files'], base_url("assets/css/cabecera.css"));
+		array_push($outputarray['css_files'], base_url("assets/css/backoffice.css"));
+		array_push($outputarray['js_files'], base_url("assets/js/cabecera.js"));
 		$output = json_decode(json_encode($outputarray));
 		$this->load->view('backoffice.php', $output);
 	}
@@ -37,16 +37,16 @@ class Backoffice extends CI_Controller {
 																						'js_files' => $my_js_files ,
 																						'css_files' => $my_css_files));
 	}
-	
+
 	public function index()
-	{	
+	{
 		//$this->obtenerDatos();
 		$this->gestion_licencias();
 	}
-	
-	// Configuramos la tabla licencias	
+
+	// Configuramos la tabla licencias
 	public function gestion_licencias()
-	{		
+	{
 		try{
 			$crud = new grocery_CRUD();
 
@@ -57,14 +57,14 @@ class Backoffice extends CI_Controller {
 			$crud->columns('id','name');
 
 			$output = $crud->render();
-			$this->_backoffice_output($output);			
-			
+			$this->_backoffice_output($output);
+
 		}catch(Exception $e){
 			show_error($e->getMessage().' --- '.$e->getTraceAsString());
 		}
 	}
-	
-	// Configuramos la tabla categorias	
+
+	// Configuramos la tabla categorias
 	public function gestion_categorias()
 	{
 		try{
@@ -78,13 +78,13 @@ class Backoffice extends CI_Controller {
 
 			$output = $crud->render();
 			$this->_backoffice_output($output);
-			
+
 		}catch(Exception $e){
 			show_error($e->getMessage().' --- '.$e->getTraceAsString());
 		}
 	}
-	
-	// Configuramos la tabla visibilidad	
+
+	// Configuramos la tabla visibilidad
 	public function gestion_visibilidad()
 	{
 		try{
@@ -98,13 +98,13 @@ class Backoffice extends CI_Controller {
 
 			$output = $crud->render();
 			$this->_backoffice_output($output);
-			
+
 		}catch(Exception $e){
 			show_error($e->getMessage().' --- '.$e->getTraceAsString());
 		}
 	}
-	
-	// Configuramos la tabla etiquetas	
+
+	// Configuramos la tabla etiquetas
 	public function gestion_etiquetas()
 	{
 		try{
@@ -118,13 +118,13 @@ class Backoffice extends CI_Controller {
 
 			$output = $crud->render();
 			$this->_backoffice_output($output);
-			
+
 		}catch(Exception $e){
 			show_error($e->getMessage().' --- '.$e->getTraceAsString());
 		}
 	}
-	
-	// Configuramos la tabla idiomas	
+
+	// Configuramos la tabla idiomas
 	public function gestion_idiomas()
 	{
 		try{
@@ -138,13 +138,13 @@ class Backoffice extends CI_Controller {
 
 			$output = $crud->render();
 			$this->_backoffice_output($output);
-			
+
 		}catch(Exception $e){
 			show_error($e->getMessage().' --- '.$e->getTraceAsString());
 		}
 	}
-	
-	// Configuramos la tabla calidades	
+
+	// Configuramos la tabla calidades
 	public function gestion_calidades()
 	{
 		try{
@@ -158,7 +158,7 @@ class Backoffice extends CI_Controller {
 
 			$output = $crud->render();
 			$this->_backoffice_output($output);
-			
+
 		}catch(Exception $e){
 			show_error($e->getMessage().' --- '.$e->getTraceAsString());
 		}
