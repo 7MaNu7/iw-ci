@@ -29,6 +29,7 @@
 			</li>
 			<li role="presentation">
 				<a id="5" href='<?php echo site_url('backoffice/gestion_idiomas')?>'>Idiomas</a>
+			</li>
 			<li role="presentation">
 				<a id="6" href='<?php echo site_url('backoffice/gestion_calidades')?>'>Calidades</a>
 			</li>
