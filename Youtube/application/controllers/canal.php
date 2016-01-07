@@ -6,6 +6,7 @@ class Canal extends CI_Controller {
 	function __construct() {
 		parent::__construct();
 
+		$this->load->helper('url');
 		$this->load->model("Usuario_m", '', TRUE);
 	}
 
@@ -21,8 +22,8 @@ class Canal extends CI_Controller {
 		$data['user'] = $this->Usuario_m->get($id);
 		if(!$data['user']) {
 			$data['page'] = "canal";
-			$data['css_files'] = ["assets/css/404.css", "assets/css/cabecera.css"];
-			$data['js_files'] = ["assets/js/cabecera.js"];
+			$data['css_files'] = [base_url("assets/css/404.css"), base_url("assets/css/cabecera.css")];
+			$data['js_files'] = [base_url("assets/js/cabecera.js")];
 			$this->load->view('error/404', $data);
 		}
 		else {
@@ -35,8 +36,8 @@ class Canal extends CI_Controller {
 			}
 			$data['related'] = $this->Usuario_m->get_related($id);
 			$data['comentarios'] = $this->Usuario_m->get_comments($id);
-			$data['css_files'] = ["assets/css/canal.css", "assets/css/cabecera.css"];
-			$data['js_files'] = ["assets/js/cabecera.js"];
+			$data['css_files'] = [base_url("assets/css/canal.css"), base_url("assets/css/cabecera.css")];
+			$data['js_files'] = [base_url("assets/js/cabecera.js")];
 			$this->load->view('youtube/canal', $data);
 		}
 

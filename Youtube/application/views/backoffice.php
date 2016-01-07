@@ -1,18 +1,7 @@
 <?php
 	$this->load->view('inc/cabecera');
-	$this->load->helper('url');
 ?>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	
-	<!-- Archivos CSS JS -->
-	<?php 
-	foreach($css_files as $file): ?>
-		<link type="text/css" rel="stylesheet" href="<?php echo $file; ?>" />
-	<?php endforeach; ?>
-	<?php foreach($js_files as $file): ?>
-		<script src="<?php echo $file; ?>"></script>
-	<?php endforeach; ?>
-	
+
 	<main class="container">
 
 	<?php
@@ -22,9 +11,9 @@
 		if (!isset($_SESSION['id']) || $_SESSION["admin"]!=1) {
 			echo '<script>window.location.href="' . base_url() . 'index.php' . '"</script>';
 		}
-	
+
 	?>
-	
+
 		<ul class="nav nav-tabs enlacesgrocery">
 			<li role="presentation">
 				<a id="1" href='<?php echo site_url('backoffice/gestion_licencias')?>'>Licencias</a>
@@ -40,11 +29,12 @@
 			</li>
 			<li role="presentation">
 				<a id="5" href='<?php echo site_url('backoffice/gestion_idiomas')?>'>Idiomas</a>
+			</li>
 			<li role="presentation">
-				<a id="6" href='<?php echo site_url('backoffice/gestion_calidades')?>'>Calidades</a>		
+				<a id="6" href='<?php echo site_url('backoffice/gestion_calidades')?>'>Calidades</a>
 			</li>
 		</ul>
-		
+
 		<script>
 			$( document ).ready(function() {
 				//Según la URL se activa una pestaña u otra
@@ -61,16 +51,16 @@
 				else if(URLactual.indexOf('calidades')>1)
 					id = '6';
 				else
-					id = '1';				
+					id = '1';
 				document.getElementById(id).className = "active";
 				document.getElementById(id).parentNode.className = "active";
 			});
-		</script>		
-		
+		</script>
+
 		<div class="tablasgrocery">
 			<?php echo $output; ?>
 		</div>
-		
+
 	</main>
 
 <?php

@@ -8,6 +8,7 @@ class Video extends CI_Controller {
 
 		$this->load->model("Video_m", '', TRUE);
 		$this->load->model("subirVideo_m", '', TRUE);
+		$this->load->helper('url');
 		//$this->load->model("Usuario_m", '', TRUE);
 		//$this->load->library('session');
 	}
@@ -26,16 +27,16 @@ class Video extends CI_Controller {
 
 			if(!$data['video']) {
 				$data['page'] = 'video';
-				$data['css_files'] = ["assets/css/404.css", "assets/css/cabecera.css"];
-						$data['js_files'] = ["assets/js/cabecera.js"];
+				$data['css_files'] = [base_url("assets/css/404.css"), base_url("assets/css/cabecera.css")];
+				$data['js_files'] = [base_url("assets/js/cabecera.js")];
 				$this->load->view('error/404', $data);
 			}
 			else {
 				$this->Video_m->increment_visit($id);
 				$data['comentarios']=$this->Video_m->get_comments($id);
 				$data['related'] = $this->Video_m->get_search_related_videos($this->Video_m->get($id));
-				$data['css_files'] = ["assets/css/video.css", "assets/css/cabecera.css"];
-				$data['js_files'] = ["assets/js/cabecera.js"];
+				$data['css_files'] = [base_url("assets/css/video.css"), base_url("assets/css/cabecera.css")];
+				$data['js_files'] = [base_url("assets/js/cabecera.js")];
 				$this->load->view('youtube/video', $data);
 			}
     }
@@ -46,8 +47,8 @@ class Video extends CI_Controller {
 		$data['video']=$this->Video_m->get($id);
 		if(!$data['video']) {
 			$data['page'] = 'video';
-			$data['css_files'] = ["assets/css/404.css", "assets/css/cabecera.css"];
-	        $data['js_files'] = ["assets/js/cabecera.js"];
+			$data['css_files'] = [base_url("assets/css/404.css"), base_url("assets/css/cabecera.css")];
+	        $data['js_files'] = [base_url("assets/js/cabecera.js")];
 			$this->load->view('error/404', $data);
 		}
 		else {
@@ -66,8 +67,8 @@ class Video extends CI_Controller {
 			$data['tags'] = $this->subirVideo_m->get_all_tags();
 			$data['comentarios']=$this->Video_m->get_comments($id);
 	        $data['related'] = $this->Video_m->get_search_related_videos($this->Video_m->get($id));
-	        $data['css_files'] = ["assets/css/video.css", "assets/css/cabecera.css"];
-	        $data['js_files'] = ["assets/js/cabecera.js"];
+	        $data['css_files'] = [base_url("assets/css/video.css"), base_url("assets/css/cabecera.css")];
+	        $data['js_files'] = [base_url("assets/js/cabecera.js")];
 			$this->load->view('youtube/editarvideo', $data);
 		}
 
@@ -200,8 +201,8 @@ class Video extends CI_Controller {
 		$data['titulo']="Vídeos más populares";
 		$data['cuantos']=$this->Video_m->count_all();
 		$data['videos']=$this->Video_m->get_all();
-		$data['css_files'] = ["assets/css/inicio.css", "assets/css/cabecera.css"];
-		$data['js_files'] = ["assets/js/cabecera.js"];
+		$data['css_files'] = [base_url("assets/css/inicio.css"), base_url("assets/css/cabecera.css")];
+		$data['js_files'] = [base_url("assets/js/cabecera.js")];
 		$this->load->view('youtube/index', $data);
 
 	}

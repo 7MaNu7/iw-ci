@@ -18,7 +18,7 @@
 	<?php
 	$this->load->helper('url');
 	foreach($css_files as $file): ?>
-	<link type="text/css" rel="stylesheet" href="<?=base_url($file)?>" />
+	<link type="text/css" rel="stylesheet" href="<?=$file?>" />
 	<?php endforeach; ?>
 	<link rel="stylesheet" href="<?=base_url('assets/css/mensajes.css')?>">
 </head>
