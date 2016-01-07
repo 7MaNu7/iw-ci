@@ -14,6 +14,16 @@
 	<?php endforeach; ?>
 	
 	<main class="container">
+
+	<?php
+
+		if (session_status() == PHP_SESSION_NONE)
+			session_start();
+		if (!isset($_SESSION['id']) || $_SESSION["admin"]!=1) {
+			echo '<script>window.location.href="' . base_url() . 'index.php' . '"</script>';
+		}
+	
+	?>
 	
 		<ul class="nav nav-tabs enlacesgrocery">
 			<li role="presentation">
