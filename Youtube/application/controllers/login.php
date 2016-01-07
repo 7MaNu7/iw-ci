@@ -14,6 +14,7 @@ class Login extends CI_Controller {
 	public function index()
 	{
 		$data['titulo']="Iniciar sesión";
+		$data['page_title'] = 'Log in';
 		$data['usuarios']=$this->Login_m->get_all();
 		$data['cuantos']=$this->Login_m->count_all();
 		$data['css_files'] = [base_url("assets/css/inicio.css"), base_url("assets/css/cabecera.css"), base_url("assets/css/login.css")];

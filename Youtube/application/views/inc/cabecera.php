@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Youtube</title>
+	<title>YouTube - <?=$page_title?></title>
 	<meta charset="utf-8">
 
 	<!-- Bootstrap -->

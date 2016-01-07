@@ -35,6 +35,7 @@ class subirVideo extends CI_Controller {
 		$data['css_files'] = [base_url("assets/css/cabecera.css"), base_url("assets/css/subirvideo.css")];
 		$data['js_files'] = [base_url("assets/js/cabecera.js"), base_url("assets/js/validacion-subirvideo.js")];
 		$data['titulo']="Subir nuevo vídeo";
+		$data['page_title'] = 'Subir vídeo';
 		$data['videovisibilidades']=$this->subirVideo_m->get_all_videovisibility();
 		$data['licenses']=$this->subirVideo_m->get_all_licenses();
 		$data['categories']=$this->subirVideo_m->get_all_categories();

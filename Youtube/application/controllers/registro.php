@@ -33,6 +33,7 @@ class registro extends CI_Controller {
         $data['css_files'] = [base_url("assets/css/cabecera.css"), base_url("assets/css/registro.css")];
         $data['js_files'] = [base_url("assets/js/cabecera.js"), base_url("assets/js/validacion-registro.js")];
         $data['titulo']="Registrarse";
+        $data['page_title'] = 'Registrarse';
         $this->load->view('youtube/registro', $data);
     }
 

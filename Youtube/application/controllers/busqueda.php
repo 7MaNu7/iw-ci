@@ -29,6 +29,7 @@ class Busqueda extends CI_Controller {
 		$data['videosporpagina']=20;
 		$data['cuantosvideospag']=$this->Busqueda_m->count_search_pag(0, 20);
 
+		$data['page_title'] = "Buscar";
 		$data['css_files'] = [base_url("assets/css/busqueda.css"), base_url("assets/css/cabecera.css")];
 		$data['js_files'] = [base_url("assets/js/cabecera.js")];
 		$this->load->view('youtube/busqueda', $data);
