@@ -16,7 +16,7 @@ class Logout extends CI_Controller {
 		$this->session->sess_destroy();
 
 		$this->load->helper('url');
-		redirect("inicio", 'refresh');
+		redirect("inicio?msg=Se+ha+cerrado+sesion+correctamente", 'refresh');
 	}
 
 

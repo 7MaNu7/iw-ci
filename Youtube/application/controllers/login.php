@@ -41,7 +41,7 @@ class Login extends CI_Controller {
 		else
 		{
 			//Go to private area
-			redirect('inicio', 'refresh');
+			redirect('inicio?msg=Se+ha+iniciado+sesion+correctamente', 'refresh');
 		}
 	}
 

@@ -63,6 +63,13 @@
 						<a id="salir" class="btn btn-default" >
 							<i class="glyphicon glyphicon-log-out"></i><span> Cerrar sesión</span>
 						</a>
+						<script type="text/javascript">
+							$('#salir').click(function () {
+								var URLactual = String(window.location);
+								var baseURL = URLactual.split('index.php')[0]+"index.php/";
+								window.location=baseURL+"logout";
+							})
+						</script>
 					<?php } ?>
 				</div>
 			</ul>
