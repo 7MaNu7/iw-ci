@@ -66,7 +66,7 @@
 
 				<p>(*): El campo es obligatorio.</p>
 
-				<?php $_SESSION["videoId"]= $video->id ?>
+				<input type="hidden" value="<?=$video->id?>" name="videoid">
 
 			</div>
 			<div class="col-md-6">

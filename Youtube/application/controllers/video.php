@@ -223,19 +223,16 @@ class Video extends CI_Controller {
 			//validamos que se introduzcan los campos requeridos con la función de ci required
 			$this->form_validation->set_message('required', 'El campo %s es obligatorio');
 
-			if (session_status() == PHP_SESSION_NONE)
-				session_start();
-
-			if (!$this->form_validation->run() || (!isset($_SESSION['email']) || !isset($_SESSION['password'])))
+			if (!$this->form_validation->run())
 			{
 
                 //si no pasamos la validación volvemos al formulario mostrando los errores y sin borrar inputs
-                $this->editar($_SESSION["videoId"]);
+                $this->editar($_POST["videoid"]);
 
 			}
 			//si pasamos la validación correctamente pasamos a hacer la inserción en la base de datos
 			else {
-				$id = $_SESSION["videoId"];
+				$id = $_POST["videoid"];
 				$title = $this->input->post('title');
 				$url = $this->input->post('url');
 				$description = $this->input->post('description');
@@ -258,7 +255,7 @@ class Video extends CI_Controller {
 				$arrayetiquetas = $_POST['etiquetas'];
 
 				/* Obtenemos el id de los usuarios */
-				$user = $_SESSION["id"];
+				$user = $this->session->userdata('logged_in')["id"];
 
 				//ahora procesamos los datos hacía el modelo que debemos crear
 				$video_editado = $this->Video_m->video_editado(
@@ -360,7 +357,7 @@ class Video extends CI_Controller {
 					}
 				}
 				$this->load->helper('url');
-				redirect("video/watch/" . $_SESSION["videoId"], 'refresh');
+				redirect("video/watch/" . $_POST["videoid"], 'refresh');
 			}
 		}
   }

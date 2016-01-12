@@ -8,10 +8,10 @@
         	<iframe class="video" src="https://www.youtube.com/embed/<?=substr($video->url, 32, 30); ?>" allowfullscreen></iframe>
         	<div class="description">
 	            <div class="row">
-					<div class="col-sm-6">
+					<div class="col-sm-9">
 						<h2 class="video-title"><?=$video->title?></h2>
 					</div>
-					<div class="col-sm-6 right margin-top">
+					<div class="col-sm-3 right margin-top">
         	            <div class="row">
 							<div class="col-sm-12"><?=$video->visits?> Visualizaciones</div>
 						</div>
@@ -19,7 +19,7 @@
 							<div class="col-sm-12">
 									<form id="me-gusta-form" method="post">
 										<input type="hidden" name="video" value="<?=$video->id?>">
-										<input type="hidden" name="user" value="<?php if( isset($session['id']) ){ echo $session['id']; }else {echo '0';} ?>">								
+										<input type="hidden" name="user" value="<?php if( isset($session['id']) ){ echo $session['id']; }else {echo '0';} ?>">
 										<span style="margin:5px;color:green"><?=$video->likes?></span>
 										<button id="submitlike" name="submitlike" class="btn btn-default btn-votos" data-toggle="tooltip" data-title="Me gusta" data-placement="bottom">
 											<i class="glyphicon glyphicon-thumbs-up click-voto" style="color:green"></i>
