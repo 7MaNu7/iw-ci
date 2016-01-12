@@ -7,6 +7,7 @@ class Canal extends CI_Controller {
 		parent::__construct();
 
 		$this->load->helper('url');
+		$this->load->library('session');
 		$this->load->model("Usuario_m", '', TRUE);
 	}
 
@@ -20,6 +21,7 @@ class Canal extends CI_Controller {
     {
 
 		$data['user'] = $this->Usuario_m->get($id);
+		$data['session']=$this->session->userdata('logged_in');
 		if(!$data['user']) {
 			$data['page'] = "canal";
 			$data['css_files'] = [base_url("assets/css/404.css"), base_url("assets/css/cabecera.css")];

@@ -8,7 +8,7 @@
 
 		if (session_status() == PHP_SESSION_NONE)
 			session_start();
-		if (!isset($_SESSION['id']) || $_SESSION["admin"]!=1) {
+		if (!isset($session['id']) || $session['admin']!=1) {
 			echo '<script>window.location.href="' . base_url() . 'index.php' . '"</script>';
 		}
 

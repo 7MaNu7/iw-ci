@@ -8,6 +8,7 @@ class Backoffice extends CI_Controller {
 
 		$this->load->database();
 		$this->load->helper('url');
+		$this->load->library('session');
 
 		$this->load->library('grocery_CRUD');
 	}
@@ -18,9 +19,10 @@ class Backoffice extends CI_Controller {
 		array_push($outputarray['css_files'], base_url("assets/css/cabecera.css"));
 		array_push($outputarray['css_files'], base_url("assets/css/backoffice.css"));
 		array_push($outputarray['js_files'], base_url("assets/js/cabecera.js"));
+		$outputarray['session']=$this->session->userdata('logged_in');
 		$outputarray['page_title'] = "Backoffice";
-		$output = json_decode(json_encode($outputarray));
-		$this->load->view('backoffice.php', $output);
+		//$output = json_decode(json_encode($outputarray));
+		$this->load->view('backoffice.php', $outputarray);
 	}
 
 	public function licencias()

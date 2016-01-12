@@ -37,7 +37,7 @@
 				<!-- Nombre web -->
 				<a class="navbar-brand" href="<?=site_url('inicio')?>">
 					<li class="iconocab">
-					You<span style="color:red;font-weight:600">Tube</span>
+					You<span style="color:white;background-color:red;border-radius:7px;padding:1px;">Tube</span>
 					</li>
 				</a>
 				<!-- Search -->
@@ -52,10 +52,7 @@
 
 				<div class="registrarse">
 					<?php
-					if (session_status() == PHP_SESSION_NONE)
-						session_start();
-
-					if (!isset($_SESSION['email']) || !isset($_SESSION['password'])) { ?>
+					if (!$session) { ?>
 						<a class="btn btn-youtube" href="<?=site_url('login')?>">
 							<i class="glyphicon glyphicon-log-in"></i><span> Iniciar sesión</span>
 						</a>
@@ -66,6 +63,13 @@
 						<a id="salir" class="btn btn-default" >
 							<i class="glyphicon glyphicon-log-out"></i><span> Cerrar sesión</span>
 						</a>
+						<script type="text/javascript">
+							$('#salir').click(function () {
+								var URLactual = String(window.location);
+								var baseURL = URLactual.split('index.php')[0]+"index.php/";
+								window.location=baseURL+"logout";
+							})
+						</script>
 					<?php } ?>
 				</div>
 			</ul>
@@ -81,12 +85,12 @@
 					<!-- Ver canal-->
 					<?php
 					$clasecanal = "";
-					if (!isset($_SESSION['email']) || !isset($_SESSION['password']))
+					if (!$session)
 						$urluser = site_url('login?redirect=inicio');
 					else {
-						$urluser = site_url('canal/ver/' . $_SESSION['id']);
+						$urluser = site_url('canal/ver/' . $session['id']);
 						//vemos si está viendo su canal
-						if(strpos($_SERVER['REQUEST_URI'], 'canal/ver/'.$_SESSION['id']))
+						if(strpos($_SERVER['REQUEST_URI'], 'canal/ver/'.$session['id']))
 							 $clasecanal = "activecab";
 					}
 					?>
@@ -97,7 +101,7 @@
 
 					<!-- Subir video si no está logeado va a login -->
 					<?php
-					if (!isset($_SESSION['email']) || !isset($_SESSION['password']))
+					if (!$session)
 						$urlsubirvideo = site_url('login?redirect=subirvideo');
 					else
 						$urlsubirvideo = site_url('subirvideo');
@@ -108,20 +112,12 @@
 					</li>
 
 					<!-- Ver Backoffice si es admin -->
-					<?php
-					if (session_status() == PHP_SESSION_NONE)
-						session_start();
-
-					if (isset($_SESSION['email']) && isset($_SESSION['password'])) {
-						if ($_SESSION['admin']==1) { ?>
+					<?php if ($session['admin']) { ?>
 							<li>
 								<i class="glyphicon glyphicon-briefcase"></i>
 								<a id="link-backoffice" href="<?=site_url('backoffice')?>">Back-office</a>
 							</li>
-					<?php
-						}
-					}
-					?>
+					<?php } ?>
 
 				</ul>
 			</div>

@@ -7,6 +7,7 @@ class Busqueda extends CI_Controller {
 		parent::__construct();
 
 		$this->load->helper('url');
+		$this->load->library('session');
 		$this->load->model("Busqueda_m", '', TRUE);
 	}
 
@@ -30,6 +31,7 @@ class Busqueda extends CI_Controller {
 		$data['cuantosvideospag']=$this->Busqueda_m->count_search_pag(0, 20);
 
 		$data['page_title'] = "Buscar";
+		$data['session']=$this->session->userdata('logged_in');
 		$data['css_files'] = [base_url("assets/css/busqueda.css"), base_url("assets/css/cabecera.css")];
 		$data['js_files'] = [base_url("assets/js/cabecera.js")];
 		$this->load->view('youtube/busqueda', $data);

@@ -24,7 +24,7 @@
 			<div class="video"></div>
 	        <div class="description">
 	            <div class="row">
-					<?php if(isset($_SESSION['id']) && $_SESSION['id'] == $user->id) { ?>
+					<?php if(isset($session['id']) && $session['id'] == $user->id) { ?>
 						<h3>Ups... Parece que no has subido ningún video todavía.</h3>
 					<?php } else { ?>
 						<h3>Este usuario no ha subido ningún video todavía.</h3>
@@ -36,7 +36,7 @@
 	                <div class="col-md-4"></div>
 	                </div>
 	            <div class="row video-description">
-					<?php if(isset($_SESSION['id']) && $_SESSION['id'] == $user->id) { ?>
+					<?php if(isset($session['id']) && $session['id'] == $user->id) { ?>
 	            	¡Sube tu primer video <a href="<?=site_url('/subirvideo')?>">aquí</a>!
 					<?php } ?>
 	            </div>
@@ -64,7 +64,7 @@
             	    <div class="col-md-3 margin-bottom">
             	        <a href="<?=site_url('video/watch/' . $video->id)?>"><h5><?=$video->title?></h5>
             	        <img src="http://img.youtube.com/vi/<?=substr($video->url, 32, 30);?>/0.jpg" alt="" class="videos-image"/></a>
-    	        		<?php if(isset($_SESSION['id']) && $_SESSION['id'] == $user->id) { ?>
+    	        		<?php if(isset($session['id']) && $session['id'] == $user->id) { ?>
 							<a href="<?=site_url('/video/editar/' . $video->id)?>" class="btn btn-default btn-block"><i class="glyphicon glyphicon-pencil"></i> Editar video</a>
 							<button class="btn btn-danger" data-toggle="modal" data-target="#delete-modal" data-user="<?=$user->id?>" data-video="<?=$video->id?>" data-title="<?=$video->title?>"><i class="glyphicon glyphicon-trash"></i> Borra este video</button>
 						<?php } ?>
@@ -73,7 +73,7 @@
 						}
 						else { ?>
 							<p class="mensaje-sin-videos">
-								<?php if(isset($_SESSION['id']) && $_SESSION['id'] == $user->id) { ?>
+								<?php if(isset($session['id']) && $session['id'] == $user->id) { ?>
 									Aún no tienes ningún vídeo para mostrar
 								<?php } else { ?>
 									El usuario no tiene ningún vídeo para mostrar
@@ -88,7 +88,7 @@
 
 						<form id="new-comment-form" method="post" accept-charset="utf-8">
 							<input type="hidden" name="channel" value="<?=$user->id?>">
-							<input type="hidden" name="user" value="<?php if( isset($_SESSION['id']) ){ echo $_SESSION['id']; }else {echo '0';} ?>">
+							<input type="hidden" name="user" value="<?php if( isset($session['id']) ){ echo $session['id']; }else {echo '0';} ?>">
 							<div class="col-md-10">
 								<textarea name="newcomment" rows="4" cols="40" class="form-control comment-box"></textarea>
 							</div>
@@ -105,7 +105,7 @@
 			                            <div class="col-sm-6"><h4><?=$comentario->username?></h4></div>
 			                            <div class="col-sm-6 right">
 											<em class="date"><?=$comentario->date?></em>
-											<?php if(isset($_SESSION['id']) && $_SESSION['id'] == $comentario->user) { ?>
+											<?php if(isset($session['id']) && $session['id'] == $comentario->user) { ?>
 												<form id="delete-comment-form" method="post">
 													<input type="hidden" name="user" value="<?=$user->id?>">
 													<input type="hidden" name="comment" value="<?=$comentario->id?>">
@@ -132,7 +132,7 @@
        <section class="profile center">
             <img src="http://lorempixel.com/100/100" alt="" class="profile-image img-circle">
             <h4><?=$user->username?></h4>
-			<?php if(isset($_SESSION['id']) && $_SESSION['id'] == $user->id) { ?>
+			<?php if(isset($session['id']) && $session['id'] == $user->id) { ?>
             <div class="btn-group">
                 <a href="<?=site_url('/subirvideo')?>" class="btn btn-youtube"><i class="glyphicon glyphicon-upload"></i> Subir video</a>
             </div>
@@ -148,7 +148,7 @@
                     <hr>
                 </div>
             </div>
-			<?php if(isset($_SESSION['id']) && $_SESSION['id'] == $user->id) { ?>
+			<?php if(isset($session['id']) && $session['id'] == $user->id) { ?>
 			<div class="row margin-bottom">
 				<div class="col-sm-12">
 					<form method="post" action="<?=site_url('canal/nuevo_relacionado')?>">

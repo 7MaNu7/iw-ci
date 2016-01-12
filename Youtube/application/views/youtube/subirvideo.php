@@ -16,7 +16,7 @@
 			$title = array(
 				'name'        => 'title',
 				'id'          => 'title',
-				'value'       => (isset($_SESSION['title']) ? $_SESSION['title'] : ''),
+				'value'       => set_value('title'),
 				'maxlength'   => '255',
 				'class'				=> 'form-control',
 				'placeholder'	=> 'Ej: Recopilación de vídeos graciosos'
@@ -24,7 +24,7 @@
 			$url = array(
 				'name'        => 'url',
 				'id'          => 'url',
-				'value'       => (isset($_SESSION['url']) ? $_SESSION['url'] : ''),
+				'value'       => set_value('url'),
 				'maxlength'   => '255',
 				'class'				=> 'form-control',
 				'placeholder'	=> 'Ej: https://www.youtube.com/watch?v=p87gfVHMms'
@@ -32,7 +32,7 @@
 			$description = array(
 				'name'        => 'description',
 				'id'          => 'description',
-				'value'       => (isset($_SESSION['description']) ? $_SESSION['description'] : ''),
+				'value'       => set_value('description'),
 				'class'				=> 'form-control formsubirvideotextarea',
 				'placeholder'	=> 'Ej: El mejor vídeo de risa que puedas ver. Muestra una serie situaciones graciosas con las que vas a disfrutar...'
 			);
@@ -175,9 +175,7 @@
 
 	<?php
 	if(isset($_POST["submit"])){
-		if (session_status() == PHP_SESSION_NONE)
-			session_start();
-		if (!isset($_SESSION['email']) || !isset($_SESSION['password'])) {
+		if (!isset($session['id'])) {
 			$response = "Debes iniciar sesión.";
 			echo '<div class="alert alert-danger mensajesSubirVideo">Error: '.$response.'</div>';
 		}
