@@ -253,7 +253,7 @@
 	$('#delete-comment-form').submit(function(event){
 		event.preventDefault();
 		var formData = {
-			'user'              : $('input[name=user]').val(),
+			'channel'    : $('input[name=user]').val(),
 			'comment'    : $('input[name=comment]').val()
 		};
 		console.log(formData);
