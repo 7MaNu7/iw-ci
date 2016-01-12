@@ -49,6 +49,7 @@ class Video extends CI_Controller {
 		$data['session']=$this->session->userdata('logged_in');
 		if(!$data['video']) {
 			$data['page'] = 'video';
+			$data['page_title'] = 'Vídeo no encontrado';
 			$data['css_files'] = [base_url("assets/css/404.css"), base_url("assets/css/cabecera.css")];
 	        $data['js_files'] = [base_url("assets/js/cabecera.js")];
 			$this->load->view('error/404', $data);
@@ -59,6 +60,7 @@ class Video extends CI_Controller {
             	session_start();
 
 			$data['titulo'] = "Editar video";
+			$data['page_title'] = 'Editar vídeo';
 			$data['videovisibilidades']=$this->Video_m->get_all_videovisibility();
 			$data['licenses']=$this->Video_m->get_all_licenses();
 			$data['categories']=$this->Video_m->get_all_categories();
