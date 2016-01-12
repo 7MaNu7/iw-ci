@@ -4,9 +4,11 @@
 
 <main class="container">
 	<h2><?php echo $titulo; ?></h2>
+	<?php if (validation_errors() != false) { ?>
     <div class="alert alert-danger errorlogin">
         <?php echo validation_errors(); ?>
     </div>
+	<?php } ?>
     <div class="divcamposlogin">
         <?php echo form_open('login/verifylogin'); ?>
             <label>Email:</label>
