@@ -7,6 +7,7 @@ class Inicio extends CI_Controller {
 		parent::__construct();
 
 		$this->load->helper('url');
+		$this->load->library('session');
 		$this->load->model("Inicio_m", '', TRUE);
 	}
 
@@ -18,6 +19,7 @@ class Inicio extends CI_Controller {
 		$data['page_title'] = 'Inicio';
 		$data['cuantos']=$this->Inicio_m->count_all();
 		$data['videos']=$this->Inicio_m->get_all();
+		$data['session']=$this->session->userdata('logged_in');
         $data['css_files'] = [base_url("assets/css/inicio.css"), base_url("assets/css/cabecera.css")];
         $data['js_files'] = [base_url("assets/js/cabecera.js")];
 		$this->load->view('youtube/index', $data);

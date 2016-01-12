@@ -9,7 +9,7 @@
 		<?php
 
 			//Si no es el creador del video no tiene acceso a modificarlo
-			if(!isset($_SESSION["id"]) || $_SESSION["id"]!=$video->userid)
+			if(!isset($session["id"]) || $session["id"]!=$video->userid)
 				echo '<script>window.location.href="' . base_url() . 'index.php/video/watch/' . $video->id . '"</script>';
 
 		?>
@@ -256,9 +256,7 @@
 
 		<?php
 		if(isset($_POST["submit"])){
-			if (session_status() == PHP_SESSION_NONE)
-				session_start();
-			if (!isset($_SESSION['email']) || !isset($_SESSION['password'])) {
+			if (!isset($session['id'])) {
 				$response = "Debes iniciar sesión.";
 				echo '<div class="alert alert-danger mensajesEditarVideo">Error: '.$response.'</div>';
 			}

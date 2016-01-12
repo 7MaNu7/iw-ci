@@ -15,7 +15,7 @@
 			$userName = array(
 				'name'        => 'userName',
 				'id'          => 'userName',
-				'value'       => (isset($_SESSION['nombre']) ? $_SESSION['nombre'] : ''),
+				'value'       => set_value('userName'),
 				'maxlength'   => '255',
 				'class'				=> 'form-control',
 				'placeholder'	=> 'Ej: AuronPlay'
@@ -24,7 +24,7 @@
 				'name'        => 'email',
 				'id'          => 'email',
 				'type'		  => 'email',
-				'value'       => (isset($_SESSION['email']) ? $_SESSION['email'] : ''),
+				'value'       => set_value('email'),
 				'maxlength'   => '255',
 				'class'				=> 'form-control',
 				'placeholder'	=> 'Ej: Usu_ario.prueBa-7@gmail.com'
@@ -74,7 +74,7 @@
 
 		$urlredireccion='inicio';
 		//Redireccionamos
-		if(isset($_SESSION["id"]))
+		if(isset($session["id"]))
 			echo '<script>window.location="'.$urlredireccion.'"</script>';
 
 	?>

@@ -7,29 +7,17 @@ class registro extends CI_Controller {
         parent::__construct();
 
         $this->load->helper('url');
+		$this->load->library('session');
         $this->load->model("registro_m", '', TRUE);
     }
 
-    //Por defecto, si no ay index error
+    //Por defecto, si no hay index error
     public function index()
     {
-        if (session_status() == PHP_SESSION_NONE)
-            session_start();
-
-        //Si estamos logeados nos echaran de esta pagina
-        if(!isset($_SESSION['id']))
-        {
-            //si no se ha llegado a definir la variable que nos indica el borrado de los input
-            //o si queremos que se borren (true) entonces mostramos form vacio
-             if((!isset($_SESSION['clean'])) || $_SESSION["clean"] == true )
-            {
-                unset($_SESSION["nombre"]);
-                unset($_SESSION["email"]);
-            }
-        }
 
         $data['usuarios']=$this->registro_m->get_all();
         $data['cuantos']=$this->registro_m->count_all();
+		$data['session']=$this->session->userdata('logged_in');
         $data['css_files'] = [base_url("assets/css/cabecera.css"), base_url("assets/css/registro.css")];
         $data['js_files'] = [base_url("assets/js/cabecera.js"), base_url("assets/js/validacion-registro.js")];
         $data['titulo']="Registrarse";
@@ -125,21 +113,11 @@ class registro extends CI_Controller {
             $this->form_validation->set_message('is_unique', 'El campo %s introducido ya esta registrado en YouTube');
 
 
-             if (session_status() == PHP_SESSION_NONE)
-                    session_start();
-
             if (!$this->form_validation->run())
             {
-                //Como hay error en el formulario no queremos limpiar los input (SALVO PASSWORD)
-                $_SESSION["nombre"] = $this->input->post('userName');
-                $_SESSION["email"] = $this->input->post('email');
-                $_SESSION["clean"] = false;
 
                 //si no pasamos la validación volvemos al formulario mostrando los errores y sin borrar inputs
                 $this->index();
-
-                //Para futuras navegaciones si que se borran los input
-                $_SESSION["clean"] = true;
 
             }
             //si pasamos la validación correctamente pasamos a hacer la inserción en la base de datos

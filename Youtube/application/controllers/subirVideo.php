@@ -7,6 +7,7 @@ class subirVideo extends CI_Controller {
 		parent::__construct();
 
 		$this->load->helper('url');
+		$this->load->library('session');
 		$this->load->model("subirVideo_m", '', TRUE);
 	}
 
@@ -32,6 +33,7 @@ class subirVideo extends CI_Controller {
 				unset($_SESSION["qualities"]);
 		}
 
+		$data['session']=$this->session->userdata('logged_in');
 		$data['css_files'] = [base_url("assets/css/cabecera.css"), base_url("assets/css/subirvideo.css")];
 		$data['js_files'] = [base_url("assets/js/cabecera.js"), base_url("assets/js/validacion-subirvideo.js")];
 		$data['titulo']="Subir nuevo vídeo";
@@ -52,6 +54,7 @@ class subirVideo extends CI_Controller {
 			//hacemos las comprobaciones que deseemos en nuestro formulario
 			$this->form_validation->set_rules('title','titulo','trim|required|xss_clean');
 			$this->form_validation->set_rules('url','url','trim|required|xss_clean');
+			$this->form_validation->set_rules('description','descripcion','xss_clean');
 
 			//validamos que se introduzcan los campos requeridos con la función de ci required
 			$this->form_validation->set_message('required', 'El campo %s es obligatorio');
@@ -112,7 +115,7 @@ class subirVideo extends CI_Controller {
 				$arrayetiquetas = $_POST['etiquetas'];
 
 				/* Obtenemos el id de los usuarios */
-				$user = $_SESSION["id"];
+				$user = $this->session->userdata('logged_in')["id"];
 
 				//ahora procesamos los datos hacía el modelo que debemos crear
 				$nuevo_video = $this->subirVideo_m->nuevo_video(

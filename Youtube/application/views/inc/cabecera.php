@@ -52,10 +52,7 @@
 
 				<div class="registrarse">
 					<?php
-					if (session_status() == PHP_SESSION_NONE)
-						session_start();
-
-					if (!isset($_SESSION['email']) || !isset($_SESSION['password'])) { ?>
+					if (!$session) { ?>
 						<a class="btn btn-youtube" href="<?=site_url('login')?>">
 							<i class="glyphicon glyphicon-log-in"></i><span> Iniciar sesión</span>
 						</a>
@@ -81,12 +78,12 @@
 					<!-- Ver canal-->
 					<?php
 					$clasecanal = "";
-					if (!isset($_SESSION['email']) || !isset($_SESSION['password']))
+					if (!$session)
 						$urluser = site_url('login?redirect=inicio');
 					else {
-						$urluser = site_url('canal/ver/' . $_SESSION['id']);
+						$urluser = site_url('canal/ver/' . $session['id']);
 						//vemos si está viendo su canal
-						if(strpos($_SERVER['REQUEST_URI'], 'canal/ver/'.$_SESSION['id']))
+						if(strpos($_SERVER['REQUEST_URI'], 'canal/ver/'.$session['id']))
 							 $clasecanal = "activecab";
 					}
 					?>
@@ -97,7 +94,7 @@
 
 					<!-- Subir video si no está logeado va a login -->
 					<?php
-					if (!isset($_SESSION['email']) || !isset($_SESSION['password']))
+					if (!$session)
 						$urlsubirvideo = site_url('login?redirect=subirvideo');
 					else
 						$urlsubirvideo = site_url('subirvideo');
@@ -108,20 +105,12 @@
 					</li>
 
 					<!-- Ver Backoffice si es admin -->
-					<?php
-					if (session_status() == PHP_SESSION_NONE)
-						session_start();
-
-					if (isset($_SESSION['email']) && isset($_SESSION['password'])) {
-						if ($_SESSION['admin']==1) { ?>
+					<?php if ($session['admin']) { ?>
 							<li>
 								<i class="glyphicon glyphicon-briefcase"></i>
 								<a id="link-backoffice" href="<?=site_url('backoffice')?>">Back-office</a>
 							</li>
-					<?php
-						}
-					}
-					?>
+					<?php } ?>
 
 				</ul>
 			</div>

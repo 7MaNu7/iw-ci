@@ -19,7 +19,7 @@
 							<div class="col-sm-12">
 									<form id="me-gusta-form" method="post">
 										<input type="hidden" name="video" value="<?=$video->id?>">
-										<input type="hidden" name="user" value="<?php if( isset($_SESSION['id']) ){ echo $_SESSION['id']; }else {echo '0';} ?>">								
+										<input type="hidden" name="user" value="<?php if( isset($session['id']) ){ echo $session['id']; }else {echo '0';} ?>">								
 										<span style="margin:5px;color:green"><?=$video->likes?></span>
 										<button id="submitlike" name="submitlike" class="btn btn-default btn-votos" data-toggle="tooltip" data-title="Me gusta" data-placement="bottom">
 											<i class="glyphicon glyphicon-thumbs-up click-voto" style="color:green"></i>
@@ -28,7 +28,7 @@
 
 									<form id="no-me-gusta-form" method="post">
 										<input type="hidden" name="video" value="<?=$video->id?>">
-										<input type="hidden" name="user" value="<?php if( isset($_SESSION['id']) ){ echo $_SESSION['id']; }else {echo '0';} ?>">
+										<input type="hidden" name="user" value="<?php if( isset($session['id']) ){ echo $session['id']; }else {echo '0';} ?>">
 										<span style="margin:5px;color:red"><?=$video->dislikes?></span>
 										<button id="submitdislike" name="submitdislike" class="btn btn-default btn-votos" data-toggle="tooltip" data-title="No me gusta" data-placement="bottom">
 											<i class="glyphicon glyphicon-thumbs-down click-voto" style="color:red"></i>
@@ -53,7 +53,7 @@
 	        	</div>
 				<div class="row margin-top">
 					<div class="col-sm-12">
-						<?php if(isset($_SESSION['id']) && $_SESSION['id'] == $video->userid) { ?>
+						<?php if(isset($session['id']) && $session['id'] == $video->userid) { ?>
 							<a href="<?=site_url('/video/editar/' . $video->id)?>" class="btn btn-default btn-block"><i class="glyphicon glyphicon-pencil"></i> Editar video</a>
 						<?php } ?>
 					</div>
@@ -73,10 +73,10 @@
 			<div class="row margin-bottom">
 				<!-- Mensaje error comentario -->
 				<div id="error" class="col-md-12"></div>
-				
+
 				<form id="new-comment-form" method="post" accept-charset="utf-8">
 					<input type="hidden" name="video" value="<?=$video->id?>">
-					<input type="hidden" name="user" value="<?php if( isset($_SESSION['id']) ){ echo $_SESSION['id']; }else {echo '0';} ?>">
+					<input type="hidden" name="user" value="<?php if( isset($session['id']) ){ echo $session['id']; }else {echo '0';} ?>">
 					<div class="col-md-10">
 						<textarea name="newcomment" rows="4" cols="40" class="form-control comment-box"></textarea>
 					</div>
@@ -93,7 +93,7 @@
 	                            <div class="col-sm-6"><h4><?=$comentario->username?></h4></div>
 	                            <div class="col-sm-6 right">
 									<em class="date"><?=$comentario->date?></em>
-									<?php if(isset($_SESSION['id']) && $_SESSION['id'] == $comentario->user) { ?>
+									<?php if(isset($session['id']) && $session['id'] == $comentario->user) { ?>
 										<form id="delete-comment-form" method="post">
 											<input type="hidden" name="video" value="<?=$video->id?>">
 											<input type="hidden" name="comment" value="<?=$comentario->id?>">
@@ -164,7 +164,7 @@
 				var divmensaje = document.getElementById("divmensajecomentarioerror");
 				mensaje.className = "alert alert-danger";
 				divmensaje.className = "mensajevisible";
-			}, 1);			
+			}, 1);
 		}
 		else {
 			$.ajax({
@@ -199,7 +199,7 @@
 		};
 		console.log(formData);
 		<?php
-		if(isset($_SESSION['id']))
+		if(isset($session['id']))
 		{
 		?>
 			$.ajax({
@@ -230,7 +230,7 @@
 		};
 		console.log(formData);
 		<?php
-		if(isset($_SESSION['id']))
+		if(isset($session['id']))
 		{
 		?>
 			$.ajax({
@@ -254,7 +254,7 @@
 		?>
 	});
 	var votar = function() {
-		<?php if(!isset($_SESSION["id"])) { ?>
+		<?php if(!isset($session["id"])) { ?>
 			document.getElementById("alertaVoto").innerHTML='<div class="alert alert-danger mensajesVotar">Para votar tienes que iniciar sesión</div>';
 		<?php } ?>
 	}

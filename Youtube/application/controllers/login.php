@@ -16,6 +16,7 @@ class Login extends CI_Controller {
 	{
 		$data['titulo']="Iniciar sesión";
 		$data['page_title'] = 'Log in';
+		$data['session']=$this->session->userdata('logged_in');
 		$data['css_files'] = [base_url("assets/css/inicio.css"), base_url("assets/css/cabecera.css"), base_url("assets/css/login.css")];
 		$data['js_files'] = [base_url("assets/js/cabecera.js"), base_url("assets/js/validacion-login.js")];
 		return $data;
@@ -55,19 +56,13 @@ class Login extends CI_Controller {
 			$sess_array = array();
 			foreach($result as $row)
 			{
-				// $sess_array = array(
-				// 	'id' => $row->id,
-				// 	'username' => $row->userName,
-				// 	'email' => $row->email
-				// );
-				// $this->session->set_userdata('logged_in', $sess_array);
-				if (session_status() == PHP_SESSION_NONE)
-					session_start([
-							'cookie_lifetime' => 86400,
-					]);
-				$_SESSION["email"] = $row->email;
-				$_SESSION["id"] = $row->id;
-				$_SESSION["admin"] = $row->admin;
+				$sess_array = array(
+					'id' => $row->id,
+					'username' => $row->userName,
+					'email' => $row->email,
+					'admin' => $row->admin
+				);
+				$this->session->set_userdata('logged_in', $sess_array);
 			}
 			return true;
 		} else {
