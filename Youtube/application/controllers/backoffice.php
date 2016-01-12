@@ -21,8 +21,8 @@ class Backoffice extends CI_Controller {
 		array_push($outputarray['js_files'], base_url("assets/js/cabecera.js"));
 		$outputarray['session']=$this->session->userdata('logged_in');
 		$outputarray['page_title'] = "Backoffice";
-		$output = json_decode(json_encode($outputarray));
-		$this->load->view('backoffice.php', $output);
+		//$output = json_decode(json_encode($outputarray));
+		$this->load->view('backoffice.php', $outputarray);
 	}
 
 	public function licencias()

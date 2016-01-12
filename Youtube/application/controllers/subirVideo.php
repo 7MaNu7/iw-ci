@@ -62,7 +62,7 @@ class subirVideo extends CI_Controller {
 			if (session_status() == PHP_SESSION_NONE)
 				session_start();
 
-			if (!$this->form_validation->run() || (!isset($_SESSION['email']) || !isset($_SESSION['password'])))
+			if (!$this->form_validation->run())
 			{
 					//Como hay error en el formulario no queremos limpiar los input (SALVO PASSWORD)
 					$_SESSION["title"] = $this->input->post('title');
