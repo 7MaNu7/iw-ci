@@ -37,7 +37,7 @@
 				<!-- Nombre web -->
 				<a class="navbar-brand" href="<?=site_url('inicio')?>">
 					<li class="iconocab">
-					You<span style="color:red;font-weight:600">Tube</span>
+					You<span style="color:white;background-color:red;border-radius:7px;padding:1px;">Tube</span>
 					</li>
 				</a>
 				<!-- Search -->
