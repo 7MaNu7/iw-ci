@@ -11,7 +11,10 @@
 		mensaje.className = "alert alert-success";
 		mensaje.innerHTML = msg;
 		//divmensaje.className = "mensajevisible";
-		$('#divmensajelogout').toggleClass('visible');
+		//$('#divmensajelogout').toggleClass('visible');
+		$('#divmensajelogout').fadeIn("slow", function () {
+
+		});
 
 		//Vamos a logout para cerrar la sesión
 		setTimeout(function(){
