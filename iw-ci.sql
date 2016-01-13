@@ -1,28 +1,16 @@
-/*
-Nueva base de datos
 
-Nombre: iw-youtube
-
-Como crearla: phpMyAdmin/nueva/crear/SQL/copiar todo el script de abajo
-Como crear usuario: click en nombre tabla/privilegios/Agregar usuario/
-	servidor: Local
-	nombre y password usuario = iw (los demás campos como vienen por defecto)
-	dejar seleccionado: Otorgar todos los privilegios para la base de datos "iw-youtube"
-
-	oooo
-
-	utilizar este script justo debajo:
-*/
-
-/* Crear usuario con derechos para la tabla iw-youtube */
-CREATE USER 'iw'@'localhost' IDENTIFIED BY '***';GRANT USAGE ON *.* TO 'iw'@'localhost' IDENTIFIED BY '***' REQUIRE NONE WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0;GRANT ALL PRIVILEGES ON `iw-youtube`.* TO 'iw'@'localhost';
-
+--
+-- Base de datos: `iw-youtube`
+-- Usuario: iw
+-- Contraseña: iw
+--
 
 CREATE TABLE `iw-youtube`.`user` (
     `id` SERIAL NOT NULL PRIMARY KEY,
     `userName` VARCHAR(255) NOT NULL,
     `password` VARCHAR(255) NOT NULL DEFAULT '',
     `email` VARCHAR(255) NOT NULL DEFAULT '',
+    `admin` BOOLEAN NOT NULL DEFAULT FALSE,
     `verified` BOOLEAN NOT NULL DEFAULT FALSE,
     UNIQUE (`userName`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -66,7 +54,7 @@ CREATE TABLE `iw-youtube`.`playlist` (
 CREATE TABLE `iw-youtube`.`video` (
     `id` SERIAL NOT NULL PRIMARY KEY,
     `title` varchar(255) NOT NULL DEFAULT '',
-	`url` varchar(255) NOT NULL,
+    `url` varchar(255) NOT NULL,
     `description` text,
     `visits` INT NOT NULL DEFAULT 0,
     `numLikes` INT NOT NULL DEFAULT 0,
@@ -188,138 +176,228 @@ CREATE TABLE `iw-youtube`.`history` (
     FOREIGN KEY (`user`) REFERENCES user(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Volcado de datos para la tabla `user`
+--
 
+INSERT INTO `user` (`id`, `userName`, `password`, `email`, `verified`, `admin`) VALUES
+(1, 'pepeIW', 'Pepe', 'pepe@gm.com', 1, 0),
+(2, 'anaLaz', 'Ana', 'ana@gm.com', 1, 0),
+(3, 'bobTomas', 'Bob', 'bob@gm.com', 1, 0),
+(4, 'mariaYotuber', 'Maria', 'maria@gm.com', 1, 0),
+(5, 'sinvideos', 'Prueba123', 'sinvideos@mail.com', 0, 0),
+(100, 'Admin', 'Admin', 'admin@gm.com', 0, 1),
+(101, 'Admin2', 'Admin2', 'admin2@gm.com', 0, 1),
+(102, 'nuevo', 'Nuevo123', 'nuevo@gm.com', 0, 0);
 
-/*
-Insertar datos:
-quality,seelater, tags (ponen lo que quieren)
-*/
-
-INSERT INTO `iw-youtube`.`category` (`id`, `name`) VALUES ('1', 'Musica');
-INSERT INTO `iw-youtube`.`category` (`id`, `name`) VALUES ('2', 'Trailer');
-INSERT INTO `iw-youtube`.`category` (`id`, `name`) VALUES ('3', 'Tutorial');
-INSERT INTO `iw-youtube`.`category` (`id`, `name`) VALUES ('4', 'Pelicula');
-
-INSERT INTO `iw-youtube`.`language` (`id`, `name`) VALUES ('1', 'Español');
-INSERT INTO `iw-youtube`.`language` (`id`, `name`) VALUES ('2', 'Ingles');
-INSERT INTO `iw-youtube`.`language` (`id`, `name`) VALUES ('3', 'Frances');
-INSERT INTO `iw-youtube`.`language` (`id`, `name`) VALUES ('4', 'Portugues');
-INSERT INTO `iw-youtube`.`language` (`id`, `name`) VALUES ('5', 'Ruso');
-INSERT INTO `iw-youtube`.`language` (`id`, `name`) VALUES ('6', 'Chino');
-
-INSERT INTO `iw-youtube`.`license` (`id`, `name`) VALUES ('1', 'CC');
-INSERT INTO `iw-youtube`.`license` (`id`, `name`) VALUES ('2', 'GPL');
-INSERT INTO `iw-youtube`.`license` (`id`, `name`) VALUES ('3', 'CC-BY');
-INSERT INTO `iw-youtube`.`license` (`id`, `name`) VALUES ('4', 'Licencia de YouTube estandar');
-
-INSERT INTO `iw-youtube`.`quality` (`id`, `name`) VALUES ('1', '144');
-INSERT INTO `iw-youtube`.`quality` (`id`, `name`) VALUES ('2', '240');
-INSERT INTO `iw-youtube`.`quality` (`id`, `name`) VALUES ('3', '360');
-INSERT INTO `iw-youtube`.`quality` (`id`, `name`) VALUES ('4', '480');
-INSERT INTO `iw-youtube`.`quality` (`id`, `name`) VALUES ('5', '1080');
-
-INSERT INTO `iw-youtube`.`user` (`id`, `email`, `password`, `userName`, `verified`) VALUES ('1', 'pepe@gm.com', 'Pepe', 'pepeIW', TRUE);
-INSERT INTO `iw-youtube`.`user` (`id`, `email`, `password`, `userName`, `verified`) VALUES ('2', 'ana@gm.com', 'Ana', 'anaLaz', TRUE);
-INSERT INTO `iw-youtube`.`user` (`id`, `email`, `password`, `userName`, `verified`) VALUES ('3', 'bob@gm.com', 'Bob', 'bobTomas', TRUE);
-INSERT INTO `iw-youtube`.`user` (`id`, `email`, `password`, `userName`, `verified`) VALUES ('4', 'maria@gm.com', 'Maria', 'mariaYotuber', TRUE);
-
-/* USER ADMIN */
-ALTER TABLE `user` ADD `admin` BOOLEAN NOT NULL DEFAULT FALSE AFTER `verified`;
-INSERT INTO `iw-youtube`.`user` (`id`, `userName`, `password`, `email`, `admin`) VALUES ('100', 'Admin', 'Admin', 'admin@gm.com', TRUE);
-INSERT INTO `iw-youtube`.`user` (`id`, `userName`, `password`, `email`, `admin`) VALUES ('101', 'Admin2', 'Admin2', 'admin2@gm.com', TRUE);
-
-INSERT INTO `iw-youtube`.`videovisibility` (`id`, `name`) VALUES ('1', 'Public');
-INSERT INTO `iw-youtube`.`videovisibility` (`id`, `name`) VALUES ('2', 'Private');
-
-
-/* INSERT VIDEOS */
-
-INSERT INTO `iw-youtube`.`video` (`id`, `url`, `title`, `description`, `visits`, `numLikes`, `numDislikes`, `numComments`, `video3D`, `insertionAllowed`, `ageRestrictions`, `notifications`, `duration`, `direct`, `user`, `license`, `category`, `visibility`, `language`) VALUES ('1', 'https://www.youtube.com/watch?v=XNSSdC_a85U', 'Videos graciosos', 'Las mejores recopilaciones de cámara oculta y caídas graciosas.Si estás buscando vídeos graciosos este es tu canal.', '0', '0', '0', '0', '0', '1', '0', '1', '60', '1', '1', '4', '3', '1', '1');
-
-INSERT INTO `iw-youtube`.`video` (`id`, `url`, `title`, `description`, `visits`, `numLikes`, `numDislikes`, `numComments`, `video3D`, `insertionAllowed`, `ageRestrictions`, `notifications`, `duration`, `direct`, `user`, `license`, `category`, `visibility`, `language`) VALUES ('2', 'https://www.youtube.com/watch?v=MG-bJITxL1I', 'Video 2', 'Para más videos miren mi canal! Denle Like!!!', '0', '0', '0', '0', '0', '1', '0', '1', '60', '1', '1', '4', '2', '1', '1');
-
-
-INSERT INTO `iw-youtube`.`video` (`id`, `url`, `title`, `description`, `visits`, `numLikes`, `numDislikes`, `numComments`, `video3D`, `insertionAllowed`, `ageRestrictions`, `notifications`, `duration`, `direct`, `user`, `license`, `category`, `visibility`, `language`) VALUES ('3', 'https://www.youtube.com/watch?v=kxVUee4WsoA', 'Video 3', 'Para más videos miren mi canal! Denle Like!!!', '0', '0', '0', '0', '0', '1', '0', '1', '60', '1', '2', '4', '2', '1', '1');
-
-INSERT INTO `iw-youtube`.`video` (`id`, `url`, `title`, `description`, `visits`, `numLikes`, `numDislikes`, `numComments`, `video3D`, `insertionAllowed`, `ageRestrictions`, `notifications`, `duration`, `direct`, `user`, `license`, `category`, `visibility`, `language`) VALUES ('4', 'https://www.youtube.com/watch?v=O57wbvAC6fY', 'AuronPlay Record', 'Para más videos miren mi canal! Denle Like!!!', '0', '0', '0', '0', '0', '1', '0', '1', '60', '1', '3', '4', '2', '1', '1');
-
-INSERT INTO `iw-youtube`.`video` (`id`, `url`, `title`, `description`, `visits`, `numLikes`, `numDislikes`, `numComments`, `video3D`, `insertionAllowed`, `ageRestrictions`, `notifications`, `duration`, `direct`, `user`, `license`, `category`, `visibility`, `language`) VALUES ('5', 'https://www.youtube.com/watch?v=JFSs7rwmTEs', 'AuronPlay Record', 'Para más videos miren mi canal! Denle Like!!!', '0', '0', '0', '0', '0', '1', '0', '1', '60', '1', '4', '4', '2', '1', '1');
-
-INSERT INTO `iw-youtube`.`video` (`id`, `url`, `title`, `description`, `visits`, `numLikes`, `numDislikes`, `numComments`, `video3D`, `insertionAllowed`, `ageRestrictions`, `notifications`, `duration`, `direct`, `user`, `license`, `category`, `visibility`, `language`) VALUES ('6', 'https://www.youtube.com/watch?v=JFSs7rwmTEs', 'AuronPlay Record', 'Para más videos miren mi canal! Denle Like!!!', '0', '0', '0', '0', '0', '1', '0', '1', '60', '1', '1', '4', '2', '1', '1');
-
-INSERT INTO `iw-youtube`.`video` (`id`, `url`, `title`, `description`, `visits`, `numLikes`, `numDislikes`, `numComments`, `video3D`, `insertionAllowed`, `ageRestrictions`, `notifications`, `duration`, `direct`, `user`, `license`, `category`, `visibility`, `language`) VALUES ('7', 'https://www.youtube.com/watch?v=JFSs7rwmTEs', 'AuronPlay Record', 'Para más videos miren mi canal! Denle Like!!!', '0', '0', '0', '0', '0', '1', '0', '1', '60', '1', '2', '4', '2', '1', '1');
-
-INSERT INTO `iw-youtube`.`video` (`id`, `url`, `title`, `description`, `visits`, `numLikes`, `numDislikes`, `numComments`, `video3D`, `insertionAllowed`, `ageRestrictions`, `notifications`, `duration`, `direct`, `user`, `license`, `category`, `visibility`, `language`) VALUES ('8', 'https://www.youtube.com/watch?v=JFSs7rwmTEs', 'AuronPlay Record', 'Para más videos miren mi canal! Denle Like!!!', '0', '0', '0', '0', '0', '1', '0', '1', '60', '1', '3', '4', '2', '1', '1');
-
-INSERT INTO `iw-youtube`.`video` (`id`, `url`, `title`, `description`, `visits`, `numLikes`, `numDislikes`, `numComments`, `video3D`, `insertionAllowed`, `ageRestrictions`, `notifications`, `duration`, `direct`, `user`, `license`, `category`, `visibility`, `language`) VALUES ('9', 'https://www.youtube.com/watch?v=JFSs7rwmTEs', 'AuronPlay Record', 'Para más videos miren mi canal! Denle Like!!!', '0', '0', '0', '0', '0', '1', '0', '1', '60', '1', '4', '4', '2', '1', '1');
-
-INSERT INTO `iw-youtube`.`video` (`id`, `url`, `title`, `description`, `visits`, `numLikes`, `numDislikes`, `numComments`, `video3D`, `insertionAllowed`, `ageRestrictions`, `notifications`, `duration`, `direct`, `user`, `license`, `category`, `visibility`, `language`) VALUES ('10', 'https://www.youtube.com/watch?v=JFSs7rwmTEs', 'AuronPlay Record', 'Para más videos miren mi canal! Denle Like!!!', '0', '0', '0', '0', '0', '1', '0', '1', '60', '1', '1', '4', '2', '1', '1');
-
-INSERT INTO `iw-youtube`.`video` (`id`, `url`, `title`, `description`, `visits`, `numLikes`, `numDislikes`, `numComments`, `video3D`, `insertionAllowed`, `ageRestrictions`, `notifications`, `duration`, `direct`, `user`, `license`, `category`, `visibility`, `language`) VALUES ('11', 'https://www.youtube.com/watch?v=JFSs7rwmTEs', 'AuronPlay Record', 'Para más videos miren mi canal! Denle Like!!!', '0', '0', '0', '0', '0', '1', '0', '1', '60', '1', '2', '4', '2', '1', '1');
-
-INSERT INTO `iw-youtube`.`video` (`id`, `url`, `title`, `description`, `visits`, `numLikes`, `numDislikes`, `numComments`, `video3D`, `insertionAllowed`, `ageRestrictions`, `notifications`, `duration`, `direct`, `user`, `license`, `category`, `visibility`, `language`) VALUES ('12', 'https://www.youtube.com/watch?v=JFSs7rwmTEs', 'AuronPlay Record', 'Para más videos miren mi canal! Denle Like!!!', '0', '0', '0', '0', '0', '1', '0', '1', '60', '1', '3', '4', '2', '1', '1');
-
-INSERT INTO `iw-youtube`.`video` (`id`, `url`, `title`, `description`, `visits`, `numLikes`, `numDislikes`, `numComments`, `video3D`, `insertionAllowed`, `ageRestrictions`, `notifications`, `duration`, `direct`, `user`, `license`, `category`, `visibility`, `language`) VALUES ('13', 'https://www.youtube.com/watch?v=JFSs7rwmTEs', 'AuronPlay Record', 'Para más videos miren mi canal! Denle Like!!!', '0', '0', '0', '0', '0', '1', '0', '1', '60', '1', '4', '4', '2', '1', '1');
-
-INSERT INTO `iw-youtube`.`video` (`id`, `url`, `title`, `description`, `visits`, `numLikes`, `numDislikes`, `numComments`, `video3D`, `insertionAllowed`, `ageRestrictions`, `notifications`, `duration`, `direct`, `user`, `license`, `category`, `visibility`, `language`) VALUES ('14', 'https://www.youtube.com/watch?v=JFSs7rwmTEs', 'AuronPlay Record', 'Para más videos miren mi canal! Denle Like!!!', '0', '0', '0', '0', '0', '1', '0', '1', '60', '1', '1', '4', '2', '1', '1');
-
-INSERT INTO `iw-youtube`.`video` (`id`, `url`, `title`, `description`, `visits`, `numLikes`, `numDislikes`, `numComments`, `video3D`, `insertionAllowed`, `ageRestrictions`, `notifications`, `duration`, `direct`, `user`, `license`, `category`, `visibility`, `language`) VALUES ('15', 'https://www.youtube.com/watch?v=JFSs7rwmTEs', 'AuronPlay Record', 'Para más videos miren mi canal! Denle Like!!!', '0', '0', '0', '0', '0', '1', '0', '1', '60', '1', '2', '4', '2', '1', '1');
-
-INSERT INTO `iw-youtube`.`video` (`id`, `url`, `title`, `description`, `visits`, `numLikes`, `numDislikes`, `numComments`, `video3D`, `insertionAllowed`, `ageRestrictions`, `notifications`, `duration`, `direct`, `user`, `license`, `category`, `visibility`, `language`) VALUES ('16', 'https://www.youtube.com/watch?v=JFSs7rwmTEs', 'AuronPlay Record', 'Para más videos miren mi canal! Denle Like!!!', '0', '0', '0', '0', '0', '1', '0', '1', '60', '1', '3', '4', '2', '1', '1');
-
-INSERT INTO `iw-youtube`.`video` (`id`, `url`, `title`, `description`, `visits`, `numLikes`, `numDislikes`, `numComments`, `video3D`, `insertionAllowed`, `ageRestrictions`, `notifications`, `duration`, `direct`, `user`, `license`, `category`, `visibility`, `language`) VALUES ('17', 'https://www.youtube.com/watch?v=JFSs7rwmTEs', 'AuronPlay Record', 'Para más videos miren mi canal! Denle Like!!!', '0', '0', '0', '0', '0', '1', '0', '1', '60', '1', '4', '4', '2', '1', '1');
-
-INSERT INTO `comment` (`id`, `comment`, `numLikes`, `numDislikes`, `likesBalance`, `date`, `user`, `video`) VALUES
-(NULL, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto nemo impedit, architecto sequi dignissimos laudantium, temporibus ad quidem ipsam! Aspernatur, tempora. Quam ad asperiores maxime voluptas culpa quod velit dolores.', '0', '0', '0', CURRENT_TIMESTAMP, '2', '1'),
-(NULL, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto nemo impedit, architecto sequi dignissimos laudantium, temporibus ad quidem ipsam! Aspernatur, tempora. Quam ad asperiores maxime voluptas culpa quod velit dolores.', '0', '0', '0', CURRENT_TIMESTAMP, '3', '1'),
-(NULL, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto nemo impedit, architecto sequi dignissimos laudantium, temporibus ad quidem ipsam! Aspernatur, tempora. Quam ad asperiores maxime voluptas culpa quod velit dolores.', '0', '0', '0', CURRENT_TIMESTAMP, '4', '2'),
-(NULL, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto nemo impedit, architecto sequi dignissimos laudantium, temporibus ad quidem ipsam! Aspernatur, tempora. Quam ad asperiores maxime voluptas culpa quod velit dolores.', '0', '0', '0', CURRENT_TIMESTAMP, '2', '3'),
-(NULL, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto nemo impedit, architecto sequi dignissimos laudantium, temporibus ad quidem ipsam! Aspernatur, tempora. Quam ad asperiores maxime voluptas culpa quod velit dolores.', '0', '0', '0', CURRENT_TIMESTAMP, '4', '4'),
-(NULL, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto nemo impedit, architecto sequi dignissimos laudantium, temporibus ad quidem ipsam! Aspernatur, tempora. Quam ad asperiores maxime voluptas culpa quod velit dolores.', '0', '0', '0', CURRENT_TIMESTAMP, '1', '5'),
-(NULL, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto nemo impedit, architecto sequi dignissimos laudantium, temporibus ad quidem ipsam! Aspernatur, tempora. Quam ad asperiores maxime voluptas culpa quod velit dolores.', '0', '0', '0', CURRENT_TIMESTAMP, '1', '6'),
-(NULL, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto nemo impedit, architecto sequi dignissimos laudantium, temporibus ad quidem ipsam! Aspernatur, tempora. Quam ad asperiores maxime voluptas culpa quod velit dolores.', '0', '0', '0', CURRENT_TIMESTAMP, '2', '8'),
-(NULL, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto nemo impedit, architecto sequi dignissimos laudantium, temporibus ad quidem ipsam! Aspernatur, tempora. Quam ad asperiores maxime voluptas culpa quod velit dolores.', '0', '0', '0', CURRENT_TIMESTAMP, '2', '9'),
-(NULL, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto nemo impedit, architecto sequi dignissimos laudantium, temporibus ad quidem ipsam! Aspernatur, tempora. Quam ad asperiores maxime voluptas culpa quod velit dolores.', '0', '0', '0', CURRENT_TIMESTAMP, '3', '3');
+--
+-- Volcado de datos para la tabla `channelcomment`
+--
 
 INSERT INTO `channelcomment` (`id`, `comment`, `numLikes`, `numDislikes`, `likesBalance`, `date`, `user`, `channel`) VALUES
-(NULL, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto nemo impedit, architecto sequi dignissimos laudantium, temporibus ad quidem ipsam! Aspernatur, tempora. Quam ad asperiores maxime voluptas culpa quod velit dolores.', '0', '0', '0', CURRENT_TIMESTAMP, '2', '1'),
-(NULL, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto nemo impedit, architecto sequi dignissimos laudantium, temporibus ad quidem ipsam! Aspernatur, tempora. Quam ad asperiores maxime voluptas culpa quod velit dolores.', '0', '0', '0', CURRENT_TIMESTAMP, '3', '1'),
-(NULL, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto nemo impedit, architecto sequi dignissimos laudantium, temporibus ad quidem ipsam! Aspernatur, tempora. Quam ad asperiores maxime voluptas culpa quod velit dolores.', '0', '0', '0', CURRENT_TIMESTAMP, '4', '2'),
-(NULL, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto nemo impedit, architecto sequi dignissimos laudantium, temporibus ad quidem ipsam! Aspernatur, tempora. Quam ad asperiores maxime voluptas culpa quod velit dolores.', '0', '0', '0', CURRENT_TIMESTAMP, '2', '2'),
-(NULL, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto nemo impedit, architecto sequi dignissimos laudantium, temporibus ad quidem ipsam! Aspernatur, tempora. Quam ad asperiores maxime voluptas culpa quod velit dolores.', '0', '0', '0', CURRENT_TIMESTAMP, '4', '3'),
-(NULL, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto nemo impedit, architecto sequi dignissimos laudantium, temporibus ad quidem ipsam! Aspernatur, tempora. Quam ad asperiores maxime voluptas culpa quod velit dolores.', '0', '0', '0', CURRENT_TIMESTAMP, '1', '3'),
-(NULL, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto nemo impedit, architecto sequi dignissimos laudantium, temporibus ad quidem ipsam! Aspernatur, tempora. Quam ad asperiores maxime voluptas culpa quod velit dolores.', '0', '0', '0', CURRENT_TIMESTAMP, '1', '4'),
-(NULL, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto nemo impedit, architecto sequi dignissimos laudantium, temporibus ad quidem ipsam! Aspernatur, tempora. Quam ad asperiores maxime voluptas culpa quod velit dolores.', '0', '0', '0', CURRENT_TIMESTAMP, '2', '4'),
-(NULL, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto nemo impedit, architecto sequi dignissimos laudantium, temporibus ad quidem ipsam! Aspernatur, tempora. Quam ad asperiores maxime voluptas culpa quod velit dolores.', '0', '0', '0', CURRENT_TIMESTAMP, '2', '2'),
-(NULL, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto nemo impedit, architecto sequi dignissimos laudantium, temporibus ad quidem ipsam! Aspernatur, tempora. Quam ad asperiores maxime voluptas culpa quod velit dolores.', '0', '0', '0', CURRENT_TIMESTAMP, '3', '1');
+(1, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto nemo impedit, architecto sequi dignissimos laudantium, temporibus ad quidem ipsam! Aspernatur, tempora. Quam ad asperiores maxime voluptas culpa quod velit dolores.', 0, 0, 0, '2016-01-02 13:10:47', 2, 1),
+(2, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto nemo impedit, architecto sequi dignissimos laudantium, temporibus ad quidem ipsam! Aspernatur, tempora. Quam ad asperiores maxime voluptas culpa quod velit dolores.', 0, 0, 0, '2016-01-02 13:10:47', 3, 1),
+(3, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto nemo impedit, architecto sequi dignissimos laudantium, temporibus ad quidem ipsam! Aspernatur, tempora. Quam ad asperiores maxime voluptas culpa quod velit dolores.', 0, 0, 0, '2016-01-02 13:10:47', 4, 2),
+(4, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto nemo impedit, architecto sequi dignissimos laudantium, temporibus ad quidem ipsam! Aspernatur, tempora. Quam ad asperiores maxime voluptas culpa quod velit dolores.', 0, 0, 0, '2016-01-02 13:10:47', 2, 2),
+(5, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto nemo impedit, architecto sequi dignissimos laudantium, temporibus ad quidem ipsam! Aspernatur, tempora. Quam ad asperiores maxime voluptas culpa quod velit dolores.', 0, 0, 0, '2016-01-02 13:10:47', 4, 3),
+(8, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto nemo impedit, architecto sequi dignissimos laudantium, temporibus ad quidem ipsam! Aspernatur, tempora. Quam ad asperiores maxime voluptas culpa quod velit dolores.', 0, 0, 0, '2016-01-02 13:10:47', 2, 4),
+(9, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto nemo impedit, architecto sequi dignissimos laudantium, temporibus ad quidem ipsam! Aspernatur, tempora. Quam ad asperiores maxime voluptas culpa quod velit dolores.', 0, 0, 0, '2016-01-02 13:10:47', 2, 2),
+(10, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto nemo impedit, architecto sequi dignissimos laudantium, temporibus ad quidem ipsam! Aspernatur, tempora. Quam ad asperiores maxime voluptas culpa quod velit dolores.', 0, 0, 0, '2016-01-02 13:10:47', 3, 1);
+
+--
+-- Volcado de datos para la tabla `channelrelated`
+--
+
+INSERT INTO `channelrelated` (`channel`, `user`) VALUES
+(1, 'anaLaz'),
+(1, 'mariaYotuber'),
+(2, 'pepeIW'),
+(100, 'pepeIW'),
+(1, 'sinvideos'),
+(3, 'sinvideos');
+
+--
+-- Volcado de datos para la tabla `language`
+--
+
+INSERT INTO `language` (`id`, `name`) VALUES
+(1, 'Español'),
+(2, 'Ingles'),
+(3, 'Frances'),
+(4, 'Portugues'),
+(5, 'Ruso'),
+(6, 'Chino'),
+(7, 'Catalan');
+
+--
+-- Volcado de datos para la tabla `category`
+--
+
+INSERT INTO `category` (`id`, `name`) VALUES
+(1, 'Musica'),
+(2, 'Trailer'),
+(3, 'Tutorial'),
+(4, 'Pelicula'),
+(5, 'Humor');
+
+
+--
+-- Volcado de datos para la tabla `videovisibility`
+--
+
+INSERT INTO `videovisibility` (`id`, `name`) VALUES
+(1, 'Public'),
+(2, 'Private');
+
+--
+-- Volcado de datos para la tabla `license`
+--
+
+INSERT INTO `license` (`id`, `name`) VALUES
+(1, 'CC'),
+(2, 'GPL'),
+(3, 'CC-BY'),
+(4, 'Licencia de YouTube estandar');
+
+--
+-- Volcado de datos para la tabla `quality`
+--
+
+INSERT INTO `quality` (`id`, `name`) VALUES
+(1, '144'),
+(2, '240'),
+(3, '360'),
+(4, '480'),
+(5, '1080');
+
+--
+-- Volcado de datos para la tabla `tag`
+--
+
+INSERT INTO `tag` (`id`, `name`) VALUES
+(1, 'musica'),
+(2, 'star wars'),
+(3, ' humor'),
+(4, ' parodia'),
+(6, 'news'),
+(7, 'del bueno'),
+(10, 'nuevo tag'),
+(11, 'movil'),
+(12, 'review'),
+(13, 'comico'),
+(14, 'design');
 
 
 
+--
+-- Volcado de datos para la tabla `video`
+--
 
-/* MAS VIDEOS */
+INSERT INTO `video` (`id`, `title`, `url`, `description`, `visits`, `numLikes`, `numDislikes`, `numComments`, `video3D`, `insertionAllowed`, `ageRestrictions`, `notifications`, `duration`, `direct`, `user`, `license`, `category`, `visibility`, `language`) VALUES
+(1, 'Videos graciosos', 'https://www.youtube.com/watch?v=XNSSdC_a85U', 'Las mejores recopilaciones de cámara oculta y caídas graciosas.Si estás buscando vídeos graciosos este es tu canal.', 8, 0, 0, 0, 0, 1, 0, 1, 60, 1, 1, 4, 3, 1, 1),
+(3, 'Video 3', 'https://www.youtube.com/watch?v=kxVUee4WsoA', 'Para más videos miren mi canal! Denle Like!!!', 0, 0, 0, 0, 0, 1, 0, 1, 60, 1, 2, 4, 2, 1, 1),
+(4, 'AuronPlay Record', 'https://www.youtube.com/watch?v=O57wbvAC6fY', 'Para más videos miren mi canal! Denle Like!!!', 0, 0, 0, 0, 0, 1, 0, 1, 60, 1, 3, 4, 2, 1, 1),
+(5, 'AuronPlay Record', 'https://www.youtube.com/watch?v=JFSs7rwmTEs', 'Para más videos miren mi canal! Denle Like!!!', 0, 0, 0, 0, 0, 1, 0, 1, 60, 1, 4, 4, 2, 1, 1),
+(7, 'AuronPlay Record', 'https://www.youtube.com/watch?v=JFSs7rwmTEs', 'Para más videos miren mi canal! Denle Like!!!', 1, 0, 0, 0, 0, 1, 0, 1, 60, 1, 2, 4, 2, 1, 1),
+(8, 'AuronPlay Record', 'https://www.youtube.com/watch?v=JFSs7rwmTEs', 'Para más videos miren mi canal! Denle Like!!!', 0, 0, 0, 0, 0, 1, 0, 1, 60, 1, 3, 4, 2, 1, 1),
+(9, 'AuronPlay Record', 'https://www.youtube.com/watch?v=JFSs7rwmTEs', 'Para más videos miren mi canal! Denle Like!!!', 0, 0, 0, 0, 0, 1, 0, 1, 60, 1, 4, 4, 2, 1, 1),
+(11, 'AuronPlay Record', 'https://www.youtube.com/watch?v=JFSs7rwmTEs', 'Para más videos miren mi canal! Denle Like!!!', 0, 0, 0, 0, 0, 1, 0, 1, 60, 1, 2, 4, 2, 1, 1),
+(12, 'AuronPlay Record', 'https://www.youtube.com/watch?v=JFSs7rwmTEs', 'Para más videos miren mi canal! Denle Like!!!', 0, 0, 0, 0, 0, 1, 0, 1, 60, 1, 3, 4, 2, 1, 1),
+(13, 'AuronPlay Record', 'https://www.youtube.com/watch?v=JFSs7rwmTEs', 'Para más videos miren mi canal! Denle Like!!!', 0, 0, 0, 0, 0, 1, 0, 1, 60, 1, 4, 4, 2, 1, 1),
+(15, 'AuronPlay Record', 'https://www.youtube.com/watch?v=JFSs7rwmTEs', 'Para más videos miren mi canal! Denle Like!!!', 0, 0, 0, 0, 0, 1, 0, 1, 60, 1, 2, 4, 2, 1, 1),
+(16, 'AuronPlay Record', 'https://www.youtube.com/watch?v=JFSs7rwmTEs', 'Para más videos miren mi canal! Denle Like!!!', 0, 0, 0, 0, 0, 1, 0, 1, 60, 1, 3, 4, 2, 1, 1),
+(17, 'AuronPlay Record', 'https://www.youtube.com/watch?v=JFSs7rwmTEs', 'Para más videos miren mi canal! Denle Like!!!', 0, 0, 0, 0, 0, 1, 0, 1, 60, 1, 4, 4, 2, 1, 1),
+(18, 'Video 3', 'https://www.youtube.com/watch?v=8uJd4ENv5kA', 'Un video de la mejor banda del momento. Se enfocan cada vez más en lo técnico, lo que les está dando una calidad cada vez mayor. Para más videos miren mi canal! Denle Like!!!', 9, 0, 0, 0, 0, 1, 0, 1, 60, 1, 1, 4, 2, 1, 1),
+(19, 'Video 4', 'https://www.youtube.com/watch?v=Y9C7qmEu4gY', 'Un video de la mejor banda del momento. Se enfocan cada vez más en lo técnico, lo que les está dando una calidad cada vez mayor. Para más videos miren mi canal! Denle Like!!!', 0, 0, 0, 0, 0, 1, 0, 1, 60, 1, 2, 4, 2, 1, 1),
+(20, 'Video 5', 'https://www.youtube.com/watch?v=BeYxZJwFsUg', 'Un video de la mejor banda del momento. Se enfocan cada vez más en lo técnico, lo que les está dando una calidad cada vez mayor. Para más videos miren mi canal! Denle Like!!!', 0, 0, 0, 0, 0, 1, 0, 1, 60, 1, 3, 4, 2, 1, 1),
+(21, 'Video 6', 'https://www.youtube.com/watch?v=WvPlLofJkX0', 'Un video de la mejor banda del momento. Se enfocan cada vez más en lo técnico, lo que les está dando una calidad cada vez mayor. Para más videos miren mi canal! Denle Like!!!', 0, 0, 0, 0, 0, 1, 0, 1, 60, 1, 4, 4, 2, 1, 1),
+(22, 'Si cumplir los propósitos de Año Nuevo fuera fácil', 'https://www.youtube.com/watch?v=PAK-g8YHywQ', 'Video de Mr Jagger', 75, 1, 0, 0, 0, 1, 0, 1, 60, 1, 1, 1, 5, 1, 1),
+(23, 'Video 8', 'https://www.youtube.com/watch?v=PgNinclNUOo', 'Un video de la mejor banda del momento. Se enfocan cada vez más en lo técnico, lo que les está dando una calidad cada vez mayor. Para más videos miren mi canal! Denle Like!!!', 3, 0, 0, 0, 0, 1, 0, 1, 60, 1, 2, 4, 2, 1, 1),
+(24, 'Video 9', 'https://www.youtube.com/watch?v=f15R_sXGtA4', 'Un video de la mejor banda del momento. Se enfocan cada vez más en lo técnico, lo que les está dando una calidad cada vez mayor. Para más videos miren mi canal! Denle Like!!!', 0, 0, 0, 0, 0, 1, 0, 1, 60, 1, 3, 4, 2, 1, 1),
+(25, 'Video 10', 'https://www.youtube.com/watch?v=cbZ4gTIxcc8', 'Un video de la mejor banda del momento. Se enfocan cada vez más en lo técnico, lo que les está dando una calidad cada vez mayor. Para más videos miren mi canal! Denle Like!!!', 0, 0, 0, 0, 0, 1, 0, 1, 60, 1, 4, 4, 2, 1, 1),
+(26, 'Video 11', 'https://www.youtube.com/watch?v=mAIGMSmNLdo', 'Un video de la mejor banda del momento. Se enfocan cada vez más en lo técnico, lo que les está dando una calidad cada vez mayor. Para más videos miren mi canal! Denle Like!!!', 1, 0, 0, 0, 0, 1, 0, 1, 60, 1, 1, 4, 2, 1, 1),
+(27, 'Video 12', 'https://www.youtube.com/watch?v=mmO22gs5F3E', 'Un video de la mejor banda del momento. Se enfocan cada vez más en lo técnico, lo que les está dando una calidad cada vez mayor. Para más videos miren mi canal! Denle Like!!!', 0, 0, 0, 0, 0, 1, 0, 1, 60, 1, 2, 4, 2, 1, 1),
+(28, 'Video 13', 'https://www.youtube.com/watch?v=TWC7OL6ob_Q', 'Un video de la mejor banda del momento. Se enfocan cada vez más en lo técnico, lo que les está dando una calidad cada vez mayor. Para más videos miren mi canal! Denle Like!!!', 0, 0, 0, 0, 0, 1, 0, 1, 60, 1, 3, 4, 2, 1, 1),
+(29, 'Video 14', 'https://www.youtube.com/watch?v=tsqOIKE96MQ', 'Un video de la mejor banda del momento. Se enfocan cada vez más en lo técnico, lo que les está dando una calidad cada vez mayor. Para más videos miren mi canal! Denle Like!!!', 0, 0, 0, 0, 0, 1, 0, 1, 60, 1, 4, 4, 2, 1, 1),
+(30, 'Video 15', 'https://www.youtube.com/watch?v=NfS0UstrJXQ', 'Un video de la mejor banda del momento. Se enfocan cada vez más en lo técnico, lo que les está dando una calidad cada vez mayor. Para más videos miren mi canal! Denle Like!!!', 5, 0, 0, 0, 0, 1, 0, 1, 60, 1, 1, 4, 2, 1, 1),
+(31, 'Video 16', 'https://www.youtube.com/watch?v=flFV8NqZ9Zs', 'Un video de la mejor banda del momento. Se enfocan cada vez más en lo técnico, lo que les está dando una calidad cada vez mayor. Para más videos miren mi canal! Denle Like!!!', 0, 0, 0, 0, 0, 1, 0, 1, 60, 1, 2, 4, 2, 1, 1),
+(32, 'Video 17', 'https://www.youtube.com/watch?v=_juoGOW8rlk', 'Un video de la mejor banda del momento. Se enfocan cada vez más en lo técnico, lo que les está dando una calidad cada vez mayor. Para más videos miren mi canal! Denle Like!!!', 0, 0, 0, 0, 0, 1, 0, 1, 60, 1, 3, 4, 2, 1, 1),
+(33, 'Video 18', 'https://www.youtube.com/watch?v=fwvXWzgNOII', 'Un video de la mejor banda del momento. Se enfocan cada vez más en lo técnico, lo que les está dando una calidad cada vez mayor. Para más videos miren mi canal! Denle Like!!!', 0, 0, 0, 0, 0, 1, 0, 1, 60, 1, 4, 4, 2, 1, 1),
+(34, 'Video 19', 'https://www.youtube.com/watch?v=rDeXSVJy0qU', 'Un video de la mejor banda del momento. Se enfocan cada vez más en lo técnico, lo que les está dando una calidad cada vez mayor. Para más videos miren mi canal! Denle Like!!!', 1, 0, 0, 0, 0, 1, 0, 1, 60, 1, 1, 4, 2, 1, 1),
+(35, 'Video 20', 'https://www.youtube.com/watch?v=K7i2ZleKZkI', 'Un video de la mejor banda del momento. Se enfocan cada vez más en lo técnico, lo que les está dando una calidad cada vez mayor. Para más videos miren mi canal! Denle Like!!!', 0, 0, 0, 0, 0, 1, 0, 1, 60, 1, 2, 4, 2, 1, 1),
+(36, 'Video 21', 'https://www.youtube.com/watch?v=ESKg1cQw0oo', 'Un video de la mejor banda del momento. Se enfocan cada vez más en lo técnico, lo que les está dando una calidad cada vez mayor. Para más videos miren mi canal! Denle Like!!!', 0, 0, 0, 0, 0, 1, 0, 1, 60, 1, 3, 4, 2, 1, 1),
+(37, 'Video 22', 'https://www.youtube.com/watch?v=g7JpQkWEw8w', 'Un video de la mejor banda del momento. Se enfocan cada vez más en lo técnico, lo que les está dando una calidad cada vez mayor. Para más videos miren mi canal! Denle Like!!!', 12, 0, 0, 0, 0, 1, 0, 1, 60, 1, 4, 4, 2, 1, 1),
+(38, 'Star Wars - Todo sobre mi padre', 'https://www.youtube.com/watch?v=wOCexctOdaw', 'Parodia de Star Wars.', 24, 0, 1, 0, 0, 1, 0, 1, 60, 1, 1, 3, 5, 1, 1),
+(39, 'Video 24', 'https://www.youtube.com/watch?v=4PF5ef_QWM0', 'Un video de la mejor banda del momento. Se enfocan cada vez más en lo técnico, lo que les está dando una calidad cada vez mayor. Para más videos miren mi canal! Denle Like!!!', 0, 0, 0, 0, 0, 1, 0, 1, 60, 1, 2, 4, 2, 1, 1),
+(40, 'Video 25', 'https://www.youtube.com/watch?v=oYBn6dnzX60', 'Un video de la mejor banda del momento. Se enfocan cada vez más en lo técnico, lo que les está dando una calidad cada vez mayor. Para más videos miren mi canal! Denle Like!!!', 0, 0, 0, 0, 0, 1, 0, 1, 60, 1, 3, 4, 2, 1, 1),
+(41, 'Video 26', 'https://www.youtube.com/watch?v=dWtoOzh_kDQ', 'Un video de la mejor banda del momento. Se enfocan cada vez más en lo técnico, lo que les está dando una calidad cada vez mayor. Para más videos miren mi canal! Denle Like!!!', 0, 0, 0, 0, 0, 1, 0, 1, 60, 1, 4, 4, 2, 1, 1),
+(43, 'Star Wars News', 'https://www.youtube.com/watch?v=auCXanyDruU', '', 1, 0, 0, 0, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1),
+(48, 'Somos cualquiera', 'https://www.youtube.com/watch?v=j_khs18R34Q', '', 1, 0, 0, 0, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1),
+(49, 'Huawei Mate 8', 'https://www.youtube.com/watch?v=vwtXs2-bEkQ', '', 10, 0, 0, 0, 0, 1, 0, 1, 0, 1, 1, 1, 3, 1, 1),
+(50, 'Star Wars BB8 CSS Speed Drawing', 'https://www.youtube.com/watch?v=QZdj42liTtU', 'Star Wars BB-8 animated with CSS', 4, 0, 0, 0, 0, 1, 0, 1, 0, 1, 1, 1, 3, 1, 1),
+(52, 'El robot que quiere ser samurai', 'https://www.youtube.com/watch?v=l8xg9njJTaU', '', 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1),
+(53, 'Marvel - Daredevil - Temporada 2 - Avance - Netflix [HD]', 'https://www.youtube.com/watch?v=iUjxmLH2kzI', '', 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 1, 1, 2, 1, 1),
+(54, 'Five Finger Death Punch - Wash it all away', 'https://www.youtube.com/watch?v=l9VFg44H2z8', '', 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1),
+(55, 'Five Finger Death Punch - Wash it all away', 'https://www.youtube.com/watch?v=l9VFg44H2z8', '', 1, 0, 0, 0, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1);
 
-INSERT INTO `video` (`title`, `url`, `description`, `visits`, `numLikes`, `numDislikes`, `numComments`, `video3D`, `insertionAllowed`, `ageRestrictions`, `notifications`, `duration`, `direct`, `user`, `license`, `category`, `visibility`, `language`) VALUES
-('Video 3', 'https://www.youtube.com/watch?v=8uJd4ENv5kA', 'Un video de la mejor banda del momento. Se enfocan cada vez más en lo técnico, lo que les está dando una calidad cada vez mayor. Para más videos miren mi canal! Denle Like!!!', 0, 0, 0, 0, 0, 1, 0, 1, 60, 1, 1, 4, 2, 1, 1),
-('Video 4', 'https://www.youtube.com/watch?v=Y9C7qmEu4gY', 'Un video de la mejor banda del momento. Se enfocan cada vez más en lo técnico, lo que les está dando una calidad cada vez mayor. Para más videos miren mi canal! Denle Like!!!', 0, 0, 0, 0, 0, 1, 0, 1, 60, 1, 2, 4, 2, 1, 1),
-('Video 5', 'https://www.youtube.com/watch?v=BeYxZJwFsUg', 'Un video de la mejor banda del momento. Se enfocan cada vez más en lo técnico, lo que les está dando una calidad cada vez mayor. Para más videos miren mi canal! Denle Like!!!', 0, 0, 0, 0, 0, 1, 0, 1, 60, 1, 3, 4, 2, 1, 1),
-('Video 6', 'https://www.youtube.com/watch?v=WvPlLofJkX0', 'Un video de la mejor banda del momento. Se enfocan cada vez más en lo técnico, lo que les está dando una calidad cada vez mayor. Para más videos miren mi canal! Denle Like!!!', 0, 0, 0, 0, 0, 1, 0, 1, 60, 1, 4, 4, 2, 1, 1),
-('Video 7', 'https://www.youtube.com/watch?v=PAK-g8YHywQ', 'Un video de la mejor banda del momento. Se enfocan cada vez más en lo técnico, lo que les está dando una calidad cada vez mayor. Para más videos miren mi canal! Denle Like!!!', 0, 0, 0, 0, 0, 1, 0, 1, 60, 1, 1, 4, 2, 1, 1),
-('Video 8', 'https://www.youtube.com/watch?v=PgNinclNUOo', 'Un video de la mejor banda del momento. Se enfocan cada vez más en lo técnico, lo que les está dando una calidad cada vez mayor. Para más videos miren mi canal! Denle Like!!!', 0, 0, 0, 0, 0, 1, 0, 1, 60, 1, 2, 4, 2, 1, 1),
-('Video 9', 'https://www.youtube.com/watch?v=f15R_sXGtA4', 'Un video de la mejor banda del momento. Se enfocan cada vez más en lo técnico, lo que les está dando una calidad cada vez mayor. Para más videos miren mi canal! Denle Like!!!', 0, 0, 0, 0, 0, 1, 0, 1, 60, 1, 3, 4, 2, 1, 1),
-('Video 10', 'https://www.youtube.com/watch?v=cbZ4gTIxcc8', 'Un video de la mejor banda del momento. Se enfocan cada vez más en lo técnico, lo que les está dando una calidad cada vez mayor. Para más videos miren mi canal! Denle Like!!!', 0, 0, 0, 0, 0, 1, 0, 1, 60, 1, 4, 4, 2, 1, 1),
-('Video 11', 'https://www.youtube.com/watch?v=mAIGMSmNLdo', 'Un video de la mejor banda del momento. Se enfocan cada vez más en lo técnico, lo que les está dando una calidad cada vez mayor. Para más videos miren mi canal! Denle Like!!!', 0, 0, 0, 0, 0, 1, 0, 1, 60, 1, 1, 4, 2, 1, 1),
-('Video 12', 'https://www.youtube.com/watch?v=mmO22gs5F3E', 'Un video de la mejor banda del momento. Se enfocan cada vez más en lo técnico, lo que les está dando una calidad cada vez mayor. Para más videos miren mi canal! Denle Like!!!', 0, 0, 0, 0, 0, 1, 0, 1, 60, 1, 2, 4, 2, 1, 1),
-('Video 13', 'https://www.youtube.com/watch?v=TWC7OL6ob_Q', 'Un video de la mejor banda del momento. Se enfocan cada vez más en lo técnico, lo que les está dando una calidad cada vez mayor. Para más videos miren mi canal! Denle Like!!!', 0, 0, 0, 0, 0, 1, 0, 1, 60, 1, 3, 4, 2, 1, 1),
-('Video 14', 'https://www.youtube.com/watch?v=tsqOIKE96MQ', 'Un video de la mejor banda del momento. Se enfocan cada vez más en lo técnico, lo que les está dando una calidad cada vez mayor. Para más videos miren mi canal! Denle Like!!!', 0, 0, 0, 0, 0, 1, 0, 1, 60, 1, 4, 4, 2, 1, 1),
-('Video 15', 'https://www.youtube.com/watch?v=NfS0UstrJXQ', 'Un video de la mejor banda del momento. Se enfocan cada vez más en lo técnico, lo que les está dando una calidad cada vez mayor. Para más videos miren mi canal! Denle Like!!!', 0, 0, 0, 0, 0, 1, 0, 1, 60, 1, 1, 4, 2, 1, 1),
-('Video 16', 'https://www.youtube.com/watch?v=flFV8NqZ9Zs', 'Un video de la mejor banda del momento. Se enfocan cada vez más en lo técnico, lo que les está dando una calidad cada vez mayor. Para más videos miren mi canal! Denle Like!!!', 0, 0, 0, 0, 0, 1, 0, 1, 60, 1, 2, 4, 2, 1, 1),
-('Video 17', 'https://www.youtube.com/watch?v=_juoGOW8rlk', 'Un video de la mejor banda del momento. Se enfocan cada vez más en lo técnico, lo que les está dando una calidad cada vez mayor. Para más videos miren mi canal! Denle Like!!!', 0, 0, 0, 0, 0, 1, 0, 1, 60, 1, 3, 4, 2, 1, 1),
-('Video 18', 'https://www.youtube.com/watch?v=fwvXWzgNOII', 'Un video de la mejor banda del momento. Se enfocan cada vez más en lo técnico, lo que les está dando una calidad cada vez mayor. Para más videos miren mi canal! Denle Like!!!', 0, 0, 0, 0, 0, 1, 0, 1, 60, 1, 4, 4, 2, 1, 1),
-('Video 19', 'https://www.youtube.com/watch?v=rDeXSVJy0qU', 'Un video de la mejor banda del momento. Se enfocan cada vez más en lo técnico, lo que les está dando una calidad cada vez mayor. Para más videos miren mi canal! Denle Like!!!', 0, 0, 0, 0, 0, 1, 0, 1, 60, 1, 1, 4, 2, 1, 1),
-('Video 20', 'https://www.youtube.com/watch?v=K7i2ZleKZkI', 'Un video de la mejor banda del momento. Se enfocan cada vez más en lo técnico, lo que les está dando una calidad cada vez mayor. Para más videos miren mi canal! Denle Like!!!', 0, 0, 0, 0, 0, 1, 0, 1, 60, 1, 2, 4, 2, 1, 1),
-('Video 21', 'https://www.youtube.com/watch?v=ESKg1cQw0oo', 'Un video de la mejor banda del momento. Se enfocan cada vez más en lo técnico, lo que les está dando una calidad cada vez mayor. Para más videos miren mi canal! Denle Like!!!', 0, 0, 0, 0, 0, 1, 0, 1, 60, 1, 3, 4, 2, 1, 1),
-('Video 22', 'https://www.youtube.com/watch?v=g7JpQkWEw8w', 'Un video de la mejor banda del momento. Se enfocan cada vez más en lo técnico, lo que les está dando una calidad cada vez mayor. Para más videos miren mi canal! Denle Like!!!', 0, 0, 0, 0, 0, 1, 0, 1, 60, 1, 4, 4, 2, 1, 1),
-('Video 23', 'https://www.youtube.com/watch?v=wOCexctOdaw', 'Un video de la mejor banda del momento. Se enfocan cada vez más en lo técnico, lo que les está dando una calidad cada vez mayor. Para más videos miren mi canal! Denle Like!!!', 0, 0, 0, 0, 0, 1, 0, 1, 60, 1, 1, 4, 2, 1, 1),
-('Video 24', 'https://www.youtube.com/watch?v=4PF5ef_QWM0', 'Un video de la mejor banda del momento. Se enfocan cada vez más en lo técnico, lo que les está dando una calidad cada vez mayor. Para más videos miren mi canal! Denle Like!!!', 0, 0, 0, 0, 0, 1, 0, 1, 60, 1, 2, 4, 2, 1, 1),
-('Video 25', 'https://www.youtube.com/watch?v=oYBn6dnzX60', 'Un video de la mejor banda del momento. Se enfocan cada vez más en lo técnico, lo que les está dando una calidad cada vez mayor. Para más videos miren mi canal! Denle Like!!!', 0, 0, 0, 0, 0, 1, 0, 1, 60, 1, 3, 4, 2, 1, 1),
-('Video 26', 'https://www.youtube.com/watch?v=dWtoOzh_kDQ', 'Un video de la mejor banda del momento. Se enfocan cada vez más en lo técnico, lo que les está dando una calidad cada vez mayor. Para más videos miren mi canal! Denle Like!!!', 0, 0, 0, 0, 0, 1, 0, 1, 60, 1, 4, 4, 2, 1, 1);
+--
+-- Volcado de datos para la tabla `comment`
+--
+
+INSERT INTO `comment` (`id`, `comment`, `numLikes`, `numDislikes`, `likesBalance`, `date`, `user`, `video`) VALUES
+(1, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto nemo impedit, architecto sequi dignissimos laudantium, temporibus ad quidem ipsam! Aspernatur, tempora. Quam ad asperiores maxime voluptas culpa quod velit dolores.', 0, 0, 0, '2016-01-02 13:10:47', 2, 1),
+(2, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto nemo impedit, architecto sequi dignissimos laudantium, temporibus ad quidem ipsam! Aspernatur, tempora. Quam ad asperiores maxime voluptas culpa quod velit dolores.', 0, 0, 0, '2016-01-02 13:10:47', 3, 1),
+(4, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto nemo impedit, architecto sequi dignissimos laudantium, temporibus ad quidem ipsam! Aspernatur, tempora. Quam ad asperiores maxime voluptas culpa quod velit dolores.', 0, 0, 0, '2016-01-02 13:10:47', 2, 3),
+(5, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto nemo impedit, architecto sequi dignissimos laudantium, temporibus ad quidem ipsam! Aspernatur, tempora. Quam ad asperiores maxime voluptas culpa quod velit dolores.', 0, 0, 0, '2016-01-02 13:10:47', 4, 4),
+(6, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto nemo impedit, architecto sequi dignissimos laudantium, temporibus ad quidem ipsam! Aspernatur, tempora. Quam ad asperiores maxime voluptas culpa quod velit dolores.', 0, 0, 0, '2016-01-02 13:10:47', 1, 5),
+(8, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto nemo impedit, architecto sequi dignissimos laudantium, temporibus ad quidem ipsam! Aspernatur, tempora. Quam ad asperiores maxime voluptas culpa quod velit dolores.', 0, 0, 0, '2016-01-02 13:10:47', 2, 8),
+(9, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto nemo impedit, architecto sequi dignissimos laudantium, temporibus ad quidem ipsam! Aspernatur, tempora. Quam ad asperiores maxime voluptas culpa quod velit dolores.', 0, 0, 0, '2016-01-02 13:10:47', 2, 9),
+(10, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto nemo impedit, architecto sequi dignissimos laudantium, temporibus ad quidem ipsam! Aspernatur, tempora. Quam ad asperiores maxime voluptas culpa quod velit dolores.', 0, 0, 0, '2016-01-02 13:10:47', 3, 3),
+(11, 'Buen video!!', 0, 0, 0, '2016-01-03 23:38:10', 1, 39),
+(12, 'Grande!!', 0, 0, 0, '2016-01-03 23:38:30', 1, 39),
+(13, 'Otro comentario!!', 0, 0, 0, '2016-01-03 23:40:04', 1, 39),
+(21, 'hello world!', 0, 0, 0, '2016-01-04 13:04:18', 1, 26),
+(27, 'comentar', 0, 0, 0, '2016-01-05 19:39:06', 1, 38),
+(28, 'prueba', 0, 0, 0, '2016-01-05 19:39:58', 1, 38),
+(29, 'nuevo comentario', 0, 0, 0, '2016-01-05 19:43:58', 1, 38);
+
+--
+-- Volcado de datos para la tabla `videodislikes`
+--
+
+INSERT INTO `videodislikes` (`video`, `user`) VALUES
+(38, 1);
+
+--
+-- Volcado de datos para la tabla `videolikes`
+--
+
+INSERT INTO `videolikes` (`video`, `user`) VALUES
+(22, 1);
+
+--
+-- Volcado de datos para la tabla `videoquality`
+--
+
+INSERT INTO `videoquality` (`video`, `quality`) VALUES
+(22, 3),
+(38, 3);
+
+--
+-- Volcado de datos para la tabla `videotag`
+--
+
+INSERT INTO `videotag` (`video`, `tag`) VALUES
+(38, 1),
+(38, 2),
+(50, 2),
+(22, 3),
+(34, 3),
+(38, 3),
+(38, 4),
+(43, 6),
+(52, 6),
+(48, 10),
+(49, 11),
+(49, 12),
+(50, 14);
