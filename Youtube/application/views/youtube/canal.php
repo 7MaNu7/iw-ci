@@ -61,12 +61,12 @@
     						foreach ($videos as $video) {
 
 					 ?>
-            	    <div class="col-md-3 margin-bottom">
+            	    <div class="col-md-3 margin-bottom" style="min-height:<?=(isset($session['id']) && $session['id'] == $user->id) ? '265px' : '180px'?>">
             	        <a href="<?=site_url('video/watch/' . $video->id)?>"><h5><?=$video->title?></h5>
             	        <img src="http://img.youtube.com/vi/<?=substr($video->url, 32, 30);?>/0.jpg" alt="" class="videos-image"/></a>
     	        		<?php if(isset($session['id']) && $session['id'] == $user->id) { ?>
 							<a href="<?=site_url('/video/editar/' . $video->id)?>" class="btn btn-default btn-block"><i class="glyphicon glyphicon-pencil"></i> Editar video</a>
-							<button class="btn btn-danger" data-toggle="modal" data-target="#delete-modal" data-user="<?=$user->id?>" data-video="<?=$video->id?>" data-title="<?=$video->title?>"><i class="glyphicon glyphicon-trash"></i> Borra este video</button>
+							<button class="btn btn-danger btn-block" data-toggle="modal" data-target="#delete-modal" data-user="<?=$user->id?>" data-video="<?=$video->id?>" data-title="<?=$video->title?>"><i class="glyphicon glyphicon-trash"></i> Borra este video</button>
 						<?php } ?>
             	    </div>
 					<?php }
