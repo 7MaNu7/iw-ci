@@ -111,9 +111,14 @@ class subirVideo extends CI_Controller {
 					}
 				}
 
-				/* Obtenemos array de etiquetas */
-				$arrayetiquetas = $_POST['etiquetas'];
-
+				/* Obtenemos array de etiquetas separadas por comas */
+				$arrayetiquetas = array();
+				if(!empty($this->input->post('etiquetas'))) {
+					if($this->input->post('etiquetas')) {
+						$arrayetiquetas = $_POST['etiquetas'];
+					}
+				}
+				
 				/* Obtenemos el id de los usuarios */
 				$user = $this->session->userdata('logged_in')["id"];
 
