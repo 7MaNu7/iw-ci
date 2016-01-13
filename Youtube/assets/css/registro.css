@@ -20,3 +20,7 @@
 .botonregistro {
 	margin-top: 20px;
 }
+
+.campoobligatorio {
+	color: red;
+}
