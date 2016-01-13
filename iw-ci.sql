@@ -20,10 +20,11 @@ CREATE USER 'iw'@'localhost' IDENTIFIED BY '***';GRANT USAGE ON *.* TO 'iw'@'loc
 
 CREATE TABLE `iw-youtube`.`user` (
     `id` SERIAL NOT NULL PRIMARY KEY,
-    `userName` VARCHAR(255) NOT NULL DEFAULT '',
+    `userName` VARCHAR(255) NOT NULL,
     `password` VARCHAR(255) NOT NULL DEFAULT '',
     `email` VARCHAR(255) NOT NULL DEFAULT '',
-    `verified` BOOLEAN NOT NULL DEFAULT FALSE
+    `verified` BOOLEAN NOT NULL DEFAULT FALSE,
+    UNIQUE (`userName`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `iw-youtube`.`license` (
@@ -149,10 +150,10 @@ CREATE TABLE `iw-youtube`.`videocomment` (
 
 CREATE TABLE `iw-youtube`.`channelrelated` (
     `channel` BIGINT UNSIGNED NOT NULL,
-    `user` BIGINT UNSIGNED NOT NULL,
+    `user` VARCHAR(255) NOT NULL,
     PRIMARY KEY (`channel`, `user`),
     FOREIGN KEY (`channel`) REFERENCES user(id),
-    FOREIGN KEY (`user`) REFERENCES user(id)
+    FOREIGN KEY (`user`) REFERENCES user(userName)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `iw-youtube`.`videolikes` (
