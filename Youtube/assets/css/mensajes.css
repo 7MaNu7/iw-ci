@@ -10,12 +10,12 @@
 	visibility: hidden;
 }
 
-.mensajevisible {
-	transition: opacity 1s ease-out;
-	opacity: 1;
+.mensaje {
+	opacity: 0;
+	display: none;
 }
 
-.mensajedesaparece {
-	opacity: 0;
-	transition: opacity 1s ease-out;
+.mensaje.visible {
+	display: block;
+	opacity: 1;
 }
