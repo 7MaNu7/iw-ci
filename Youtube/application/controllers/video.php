@@ -252,7 +252,12 @@ class Video extends CI_Controller {
 				}
 
 				/* Obtenemos array de etiquetas separadas por comas */
-				$arrayetiquetas = $_POST['etiquetas'];
+				$arrayetiquetas = array();
+				if(!empty($this->input->post('etiquetas'))) {
+					if($this->input->post('etiquetas')) {
+						$arrayetiquetas = $_POST['etiquetas'];
+					}
+				}
 
 				/* Obtenemos el id de los usuarios */
 				$user = $this->session->userdata('logged_in')["id"];
