@@ -5,7 +5,7 @@
 <main class="container">
 	<div class="col-md-8">
         <section>
-        	<iframe class="video" src="https://www.youtube.com/embed/<?=substr($video->url, 32, 30); ?>" allowfullscreen></iframe>
+        	<iframe class="video" src="https://www.youtube.com/embed/<?=substr($video->url, 32, 30); ?>?autoplay=1" allowfullscreen></iframe>
         	<div class="description">
 	            <div class="row">
 					<div class="col-sm-9">
