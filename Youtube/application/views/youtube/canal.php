@@ -166,10 +166,10 @@
             <div class="row margin-bottom">
                 <div class="col-sm-12">
                     <div class="col-sm-4">
-                        <img src="http://lorempixel.com/100/100" alt="" class="image img-circle">
+                        <a href="<?=site_url('canal/ver/' . $rel->id)?>"><img src="http://lorempixel.com/100/100" alt="" class="image img-circle"></a>
                     </div>
                     <div class="col-sm-8 relacionados-channel">
-                        <div class="row"><span class="relacionados-user"><?=$rel->username?></span></div>
+                        <div class="row"><a href="<?=site_url('canal/ver/' . $rel->id)?>"><span class="relacionados-user"><?=$rel->username?></span></a></div>
                         <div class="row"><span class="relacionados-thumb">124.324 Suscriptores</span></div>
                     </div>
                 </div>
