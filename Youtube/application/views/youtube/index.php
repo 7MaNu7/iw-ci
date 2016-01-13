@@ -14,15 +14,15 @@
 				foreach($videos as $video) {
 		?>
 				<div class="bloquevideoinicio">
+					<a href="<?=site_url('/video/watch/' . $video->id)?>">
+						<img src="http://img.youtube.com/vi/<?php echo substr($video->url, 32, 30); ?>/0.jpg" alt="" class="videoinicio"/>
+					</a>
 					<div style="height:40px">
 						<a href="<?=site_url('/video/watch/' . $video->id)?>">
 							<h5> <?=$video->title?></h5>
 						</a>
 					</div>
 					<div class="user">By <a href="<?=site_url('canal/ver/' . $video->userid)?>"><?=$video->username?></a></div>
-					<a href="<?=site_url('/video/watch/' . $video->id)?>">
-						<img src="http://img.youtube.com/vi/<?php echo substr($video->url, 32, 30); ?>/0.jpg" alt="" class="videoinicio"/>
-					</a>
 				</div>
 		<?php
 				}
