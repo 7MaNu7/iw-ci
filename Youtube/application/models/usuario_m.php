@@ -18,7 +18,7 @@ class Usuario_m extends CI_Model {
     }
 
 	function get_related($id) {
-        $query = $this->db->query('SELECT u.id, u.username FROM channelrelated c, user u WHERE u.id=c.user AND c.channel=' . $id);
+        $query = $this->db->query('SELECT u.id, u.username FROM channelrelated c, user u WHERE u.userName=c.user AND c.channel=' . $id);
         return $query->result();
     }
 
