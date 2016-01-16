@@ -93,7 +93,7 @@ class Video_m extends CI_Model {
 		$this->db->delete('videodislikes');
 	}
 
-	function video_editado($id, $user, $title, $url, $description, $visibility, $license, $category, $language) 
+	function video_editado($id, $user, $title, $url, $description, $visibility, $license, $category, $language)
 	{
 		$data = array(
 			'user'	=> $user,
@@ -105,34 +105,34 @@ class Video_m extends CI_Model {
 			'category' => $category,
 			'language' => $language
 		);
-		
+
 		$this->db->where('id', $id);
-		$this->db->update('video', $data); 
+		$this->db->update('video', $data);
 
 		return $id;
-		
+
 	}
 
 	function get_all_videovisibility() {
 		$this->db->select('id, name');
 		return $this->db->get("videovisibility")->result();
-	}	
-	
+	}
+
 	function get_all_licenses() {
 		$this->db->select('id, name');
 		return $this->db->get("license")->result();
-	}	
-	
+	}
+
 	function get_all_categories() {
 		$this->db->select('id, name');
 		return $this->db->get("category")->result();
-	}	
-	
+	}
+
 	function get_all_languages() {
 		$this->db->select('id, name');
 		return $this->db->get("language")->result();
 	}
-	
+
 	function get_all_qualities() {
 		$this->db->select('id, name');
 		return $this->db->get("quality")->result();
@@ -143,7 +143,7 @@ class Video_m extends CI_Model {
 		$this->db->from('videoquality');
 		$this->db->join('quality', 'videoquality.quality = quality.id');
 		$this->db->where('videoquality.video', $id);
-		
+
 		return $this->db->get()->result();
 	}
 
@@ -152,7 +152,7 @@ class Video_m extends CI_Model {
 		$this->db->from('videotag');
 		$this->db->join('tag', 'videotag.tag = tag.id');
 		$this->db->where('videotag.video', $id);
-		
+
 		return $this->db->get()->result();
 	}
 
@@ -161,14 +161,14 @@ class Video_m extends CI_Model {
 		$this->db->where('name', $name);
 		return $this->db->get("tag")->result();
 	}
-	
+
 	function insert_tag($name) {
 		$data = array(
 			'name'	=> $name
 		);
 		$this->db->insert('tag',$data);
 	}
-	
+
 	function insert_videotag($idvideo, $idtag) {
 		$data = array(
 			'video'	=> $idvideo,
@@ -181,14 +181,14 @@ class Video_m extends CI_Model {
 	{
 		$this->db->where('tag', $id);
 		$this->db->where('video', $video_editado);
-		$this->db->delete('videotag'); 
+		$this->db->delete('videotag');
 	}
 
 	function delete_videoquality($id, $video_editado)
 	{
 		$this->db->where('quality', $id);
 		$this->db->where('video', $video_editado);
-		$this->db->delete('videoquality'); 
+		$this->db->delete('videoquality');
 	}
 
 	function insert_videoquality($idvideo, $idquality) {
@@ -200,7 +200,7 @@ class Video_m extends CI_Model {
 	}
 
     function get_comments($id) {
-        $query = $this->db->query('SELECT c.id, c.comment, u.username, c.user, c.date FROM comment c, user u WHERE u.id=c.user AND c.video=' . $id);
+        $query = $this->db->query('SELECT c.id, u.id userid, c.comment, u.username, c.user, c.date FROM comment c, user u WHERE u.id=c.user AND c.video=' . $id);
         return $query->result();
     }
 

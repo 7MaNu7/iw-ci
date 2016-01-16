@@ -61,12 +61,12 @@
     						foreach ($videos as $video) {
 
 					 ?>
-            	    <div class="col-md-3 margin-bottom">
+            	    <div class="col-md-3 margin-bottom" style="min-height:<?=(isset($session['id']) && $session['id'] == $user->id) ? '265px' : '180px'?>">
             	        <a href="<?=site_url('video/watch/' . $video->id)?>"><h5><?=$video->title?></h5>
             	        <img src="http://img.youtube.com/vi/<?=substr($video->url, 32, 30);?>/0.jpg" alt="" class="videos-image"/></a>
     	        		<?php if(isset($session['id']) && $session['id'] == $user->id) { ?>
 							<a href="<?=site_url('/video/editar/' . $video->id)?>" class="btn btn-default btn-block"><i class="glyphicon glyphicon-pencil"></i> Editar video</a>
-							<button class="btn btn-danger" data-toggle="modal" data-target="#delete-modal" data-user="<?=$user->id?>" data-video="<?=$video->id?>" data-title="<?=$video->title?>"><i class="glyphicon glyphicon-trash"></i> Borra este video</button>
+							<button class="btn btn-danger btn-block" data-toggle="modal" data-target="#delete-modal" data-user="<?=$user->id?>" data-video="<?=$video->id?>" data-title="<?=$video->title?>"><i class="glyphicon glyphicon-trash"></i> Borra este video</button>
 						<?php } ?>
             	    </div>
 					<?php }
@@ -99,10 +99,10 @@
 					<?php foreach($comentarios as $i => $comentario) { ?>
 			            <div class="row margin-bottom">
 			                <div class="col-sm-12">
-			                    <div class="col-md-2"><img src="http://lorempixel.com/100/100/people/<?=$i?>" alt="" class="image img-circle"></div>
+			                    <div class="col-md-2"><a href="<?=site_url('canal/ver/' . $comentario->userid)?>"><img src="http://lorempixel.com/100/100/people/<?=$i?>" alt="" class="image img-circle"></a></div>
 			                    <div class="col-md-10">
 			                        <div class="row">
-			                            <div class="col-sm-6"><h4><?=$comentario->username?></h4></div>
+			                            <div class="col-sm-6"><a href="<?=site_url('canal/ver/' . $comentario->userid)?>"><h4><?=$comentario->username?></h4></a></div>
 			                            <div class="col-sm-6 right">
 											<em class="date"><?=$comentario->date?></em>
 											<?php if(isset($session['id']) && $session['id'] == $comentario->user) { ?>
@@ -166,10 +166,10 @@
             <div class="row margin-bottom">
                 <div class="col-sm-12">
                     <div class="col-sm-4">
-                        <img src="http://lorempixel.com/100/100" alt="" class="image img-circle">
+                        <a href="<?=site_url('canal/ver/' . $rel->id)?>"><img src="http://lorempixel.com/100/100" alt="" class="image img-circle"></a>
                     </div>
                     <div class="col-sm-8 relacionados-channel">
-                        <div class="row"><span class="relacionados-user"><?=$rel->username?></span></div>
+                        <div class="row"><a href="<?=site_url('canal/ver/' . $rel->id)?>"><span class="relacionados-user"><?=$rel->username?></span></a></div>
                         <div class="row"><span class="relacionados-thumb">124.324 Suscriptores</span></div>
                     </div>
                 </div>

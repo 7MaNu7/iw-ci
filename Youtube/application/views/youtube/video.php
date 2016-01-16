@@ -5,7 +5,7 @@
 <main class="container">
 	<div class="col-md-8">
         <section>
-        	<iframe class="video" src="https://www.youtube.com/embed/<?=substr($video->url, 32, 30); ?>" allowfullscreen></iframe>
+        	<iframe class="video" src="https://www.youtube.com/embed/<?=substr($video->url, 32, 30); ?>?autoplay=1" allowfullscreen></iframe>
         	<div class="description">
 	            <div class="row">
 					<div class="col-sm-9">
@@ -87,10 +87,10 @@
 			<?php foreach($comentarios as $i => $comentario) { ?>
 	            <div class="row margin-bottom">
 	                <div class="col-sm-12">
-	                    <div class="col-md-2"><img src="http://lorempixel.com/100/100/people/<?=$i?>" alt="" class="imagen img-circle"></div>
+	                    <div class="col-md-2"><a href="<?=site_url('canal/ver/' . $comentario->userid)?>"><img src="http://lorempixel.com/100/100/people/<?=$i?>" alt="" class="imagen img-circle"></a></div>
 	                    <div class="col-md-10">
 	                        <div class="row">
-	                            <div class="col-sm-6"><h4><?=$comentario->username?></h4></div>
+	                            <div class="col-sm-6"><a href="<?=site_url('canal/ver/' . $comentario->userid)?>"><h4><?=$comentario->username?></h4></a></div>
 	                            <div class="col-sm-6 right">
 									<em class="date"><?=$comentario->date?></em>
 									<?php if(isset($session['id']) && $session['id'] == $comentario->user) { ?>
